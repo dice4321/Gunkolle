@@ -75,7 +75,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, AHKCSortie
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
