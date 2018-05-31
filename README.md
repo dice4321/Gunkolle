@@ -1,5 +1,5 @@
 ﻿
-This script was originally ment to execute kancolle expeditions but was repurpose for girls frontline 
+This script was originally meant to execute kancolle expeditions but was repurpose for girls frontline 
 (by Ryuuhou https://github.com/Ryuuhou/AHKanColle)
 
 Gunkolle - Automated expedition checker 
@@ -33,9 +33,11 @@ THIS SCRIPT IS ONLY TESTED AND MAINTAINED ON WIN8.1 AND WIN10. I may be unable t
 * All clicks have randomness to avoid click tracking
 
 ## How to use: Gunkolle
+When starting Gunkolle make sure to click your android emulator when starting.
+
 Click expedition only and leave window open in background.
 
-If you are not playing with KanColleViewer, add/create an entry in the config.ini file in the script directory. Use AU3_Spy Window Spy that is included with your AHK installation to determine the window properties.  As shown below (Three valid options are show, **PICK ONE**)-
+If you are not playing with Nox, add/create an entry in the config.ini file in the script directory. Use AU3_Spy Window Spy that is included with your AHK installation to determine the window properties.  As shown below (Three valid options are show, **PICK ONE**)-
 
 ```
 [Variables]
