@@ -47,7 +47,7 @@ WINID=ahk_exe Nox.exe
 
 ## How to use: Pause Utility
 
-Simple pause script that runs alongside AHKanColle.
+Simple pause script that runs alongside Gunkolle.
 
 Enter in config.ini under [Variables], PauseHr=22 , and PauseMn=22 to pause at 22:22.  Use 24 Hour format only. You may use PCSleep=1 to sleep the computer at that time as well.
 
