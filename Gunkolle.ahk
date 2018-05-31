@@ -17,7 +17,7 @@ IniRead, Class, config.ini, Variables, Class, 0
 
 Initialize()
 
-IniRead, WINID, config.ini, Variables, WINID, KanColleViewer!
+IniRead, WINID, config.ini, Variables, WINID, Nox
 
 MiscDelay := 1000
 
