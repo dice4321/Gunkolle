@@ -1,8 +1,4 @@
-﻿
-This script was originally meant to execute kancolle expeditions but was repurpose for girls frontline 
-(by Ryuuhou https://github.com/Ryuuhou/AHKanColle)
-
-Gunkolle - Automated expedition checker 
+﻿Gunkolle - Automated expedition checker 
 --
 
 
