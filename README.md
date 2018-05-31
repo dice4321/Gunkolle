@@ -33,7 +33,7 @@ THIS SCRIPT IS ONLY TESTED AND MAINTAINED ON WIN8.1 AND WIN10. I may be unable t
 * All clicks have randomness to avoid click tracking
 
 ## How to use: Gunkolle
-When starting Gunkolle make sure to click your android emulator when starting.
+When starting Gunkolle make sure your android emulator is the active window when starting the script. (else you'll get an invald screen reading)
 
 Click expedition only and leave window open in background.
 
