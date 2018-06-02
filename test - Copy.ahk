@@ -17,7 +17,7 @@ IniRead, Class, config.ini, Variables, Class, 0
 
 Initialize()
 
-IniRead, WINID, config.ini, Variables, WINID, Nox
+IniRead, WINID, config.ini, Variables, WINID, KanColleViewer!
 
 MiscDelay := 1000
 
@@ -51,15 +51,17 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
+; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
+Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, 4
 GuiControl, Move, WorldV, x37 h17 w15
 Gui, Add, Text, x55 ym, -
-Gui, Add, Edit, gMapF r2 limit3 w10 vMapV -VScroll ym, %Map%
+; Gui, Add, Edit, gMapF r2 limit3 w10 vMapV -VScroll ym, %Map%
+Gui, Add, Edit, gMapF r2 limit3 w10 vMapV -VScroll ym, 3e
 GuiControl, Move, MapV, x62 h17 w20
 Gui, Add, Text, ym, Interval(ms):
 Gui, Add, Edit, gIntervalF r2 w15 vIntervalV -VScroll ym, %SortieInterval%
 GuiControl, Move, IntervalV, h17 w70
-Gui, Add, Checkbox, vExpeditionV , Expedition only
+Gui, Add, Checkbox, vExpeditionV, Expedition only
 GuiControl, Move, ExpeditionV, x150 y33
 ; Gui, Add, Text, vText, #Nodes
 ; GuiControl, Move, Text, x150 y35
@@ -75,7 +77,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle
+Gui, Show, X%TWinX% Y%TWinY% Autosize, AHKCSortie
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -94,7 +96,7 @@ node(image,loops,delay)
 		while(Found == 0)
 		{
 			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\"image, "rNoxPlayer mc o5 Count1 n0")
+			Found := FindClick(A_ScriptDir "\pics\"image , "rNoxPlayer mc o5 Count1 n0")
 			if Found >= 1
 			{
 				
@@ -107,18 +109,16 @@ node(image,loops,delay)
 			GuiControl,, NB, %found%
 		}
 	}
-	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
 	return
 }
 
 RFindClick(x,y)
 {
-	local RandX, RandY
+	local RandX, Randy
 	Random, RandX, -10, 10
-	Random, RandY, -10, 10
+	Random, RandY, -5, 5
 	GuiControl,, NB, %x%
-	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
-	return
+	FindClick(x,y "Center x"RandX " y"RandY)
 }
 
 Repair()
@@ -176,8 +176,7 @@ Repair()
 
 Delay:
 {
-	IniRead, Busy, config.ini, Do Not Modify, Busy, 0
-	
+	IniRead, Busy, config.ini, Do Not Modify, Busy, 1
 	if DT = 0
 	{
 		DT := 1
@@ -215,72 +214,46 @@ Sortie2:
 	BusyS := 1
 	DT := 0
 	TR := 0
+	Random, RandX, -10, 10
+	Random, RandY, -5, 5
 	GuiControl, Hide, SSB
 	CheckWindow()
 	Notify("AHKCSortie", "Preparing to send sortie",1)
-	; Notify("AHKCSortie", "Sortie started",1)
-	; if SortieInterval != -1
-	; {
-	; 	SetTimer, Delay, %SortieInterval%
-	; 	TR := 1
-	; 	TCS := A_TickCount
-	; }
-	; NC := 1
-	;expedition might return here
-	if SortieInterval != -1
-	{
-		SetTimer, Delay, %SortieInterval%
-		TR := 1
-		TCS := A_TickCount
-	}
 
-	GuiControlGet, ExpeditionV
-	GuiControl,, NB, %ExpeditionV%
+	RetirementCounter := Mod(Sortiecount, 6) 
+	ti := RetirementCounter+1
+	Try, Menu, Main, Rename, %RetirementCounter%, %ti%
+	RetirementCounter += 1
+	SortieCount++
+
 	While (ExpeditionV == 1)
 	{
-		GuiControlGet, ExpeditionV
+
 		; pc := []
 		; pc := [HPC]
 		; WaitForPixelColor(Gx,Gy,pc)
-		sleep 5000
-		tpc := 0
 		pc := []
-		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+		pc := [HPC]
+		tpc := WaitForPixelColor(Homex,Homey,pc,,,30)
 		if tpc = 1
 		{
-			GuiControl,, NB,At home [Expedition only] 
+			sleep 5000
 		}
-		else if or tpc = 2 or tpc = 3
+		else
 		{
-			GuiControl,, NB, Expedition Found
 			ClickS(Expeditionx,Expeditiony)
-			sleep 2000
-		}
-		else if tpc = 4 or tpc = 5
-		{
-			GuiControl,, NB, Android popup Found
-			ClickS(AndroidpopupExitx,AndroidpopupExity)
-		}
-		else if tpc = 6
-		{
-			GuiControl,, NB, Login Collect Found
-			ClickS(LoginCollectExitx,LoginCollectExity)
-		}
-		else if tpc = 7
-		{	
-			GuiControl,, NB, Login Collec tNotice
-			ClickS(LoginCollectNoticey,LoginCollectNoticey)
-		}
-		Else
-		{	
-			GuiControl,, NB, Initial Event notice Found
-			ClickS(Dailypopx,Dailypopy)
 		}
 	}
 
-	; Check expedition
-	loopcount := 2
+	; 	ClickS(Hx,Hy)
+	; 	pc := []
+	; 	pc := [HPC]
+	; 	WaitForPixelColor(Gx,Gy,pc)
+
+	; tpc := PixelGetColorS(Gx,Gy,3)
+	; if (tpc2 != HPC)
+
+
 	loop, %loopcount%
 	{
 		Found := 0
@@ -306,194 +279,11 @@ Sortie2:
 		}
 	}
 
-	modder := Mod(Sortiecount, 2)
-	modder2 := Mod(Sortiecount + 1, 2)
-	Dollcount1 := 1 + modder
-	Dollcount2 := 1 + modder2
-	Doll1 := "G36"
-	Doll2 := "9A91"
-	Doll[] := [%Doll1%,%Doll2%]
-	Found := 0
-	RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
-	RFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc o15 w30000,50") ; select Doll1
-	RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
-	RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
+
+	; FindClick(A_ScriptDir "\pics\DollProfile0", "rNoxPlayer mc o5 w30000,50 n2")
+	; node("EndTurn",4,10000)
+
 	sleep 2000
-	RFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc o15 w30000,50")
-	sleep 1000
-	RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
-	sleep 1000
-	ClickS(Role1x,Role1y)
-	RFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc o15 w30000,50")  ; select Dollportrait1
-	sleep 1000
-	RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
-	;expedition might return here
-	loopcount := 2
-	loop, %loopcount%
-	{
-		sleep 1000
-		Found := 0
-		Found2 := 0
-		while(Found == 0)
-		{
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0")
-			if Found >= 1
-			{
-				
-			}
-			else 
-			{
-				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
-				if Found2 >= 1
-				{
-					loopcount++ 
-				}
-				ClickS(Expeditionx,Expeditiony)
-				sleep 200
-			}
-			GuiControl,, NB, %found%
-		}
-	}
-	RFindClick("Combat", "rNoxPlayer mc w30000,50")
-	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
-	Sleep 3000
-	Found := FindClick(A_ScriptDir "\pics\Heliport", "rNoxPlayer mc o5 Count1 n0 w5000,50")
-	if Found >= 1
-	{
-
-	}
-	Else
-	{
-		GuiControl,, NB, Paused
-		Pause
-	}
-	RFindClick("Heliport", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("CommandPost", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("StartCombat", "rNoxPlayer mc o5 w30000,50")
-	Sleep 4000
-	RFindClick("4_3eCommandPostResupply", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
-	RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
-	sleep 1000
-	RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
-	sleep 1000
-	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("4_3eEnemy1", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("4_3eEnemy2", "rNoxPlayer mc o15 w30000,50")
-	sleep 500
-	ControlSend, , a, Nox
-	sleep 1000
-	RFindClick("4_3eEnemy3", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("4_3eEnemy4", "rNoxPlayer mc o25 w30000,50")
-	sleep 1000
-	RFindClick("execute", "rNoxPlayer mc o5 w30000,50")
-
-	loop, 4
-	{
-		Found := 0
-		sleep 10000
-		while(Found == 0)
-		{
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\EndTurn", "rNoxPlayer mc o15 Count1 n0")
-			if Found >= 1
-			{
-				
-			}
-			else 
-			{
-				ClickS(Safex,Safey)
-				sleep 200
-			}
-			GuiControl,, NB, %found%
-		}
-	}
-	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
-
-	; Check expedition
-	loopcount := 2
-	loop, %loopcount%
-	{
-		Found := 0
-		Found2 := 0
-		sleep 5000
-		while(Found == 0)
-		{
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
-			if Found >= 1
-			{
-				
-			}
-			else 
-			{
-				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
-				if Found2 >= 1
-				{
-					loopcount++ 
-				}
-				ClickS(Expeditionx,Expeditiony)
-				sleep 200
-			}
-			GuiControl,, NB, %found%
-		}
-	}
-
-	; Repair
-	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o5 Count1 n0")
-	if Found >= 1
-	{
-		RFindClick("Repair", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("RepairSlot", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("Damage", "rNoxPlayer mc o30 w30000,50")
-		RFindClick("OK", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("RepairQuick", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("RepairOK", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("RepairReturnFaded", "rNoxPlayer mc o5 w30000,50 ")
-		RFindClick("RepairReturn", "rNoxPlayer mc o5 w30000,50")
-	}
-
-	; Dismantle
-	RetirementCounter := Mod(Sortiecount, 6)
-	if(RetirementCounter == 5)
-	{
-		RFindClick("Factory", "rNoxPlayer mc o40 w30000,50")
-		RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
-		loop, 2
-		{
-			sleep 500
-			RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-			sleep 500
-			rti := 0
-			rti2 := 5
-			Loop
-			{
-				ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
-				ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
-				rti := rti+1
-				Sleep 10
-
-			}Until (rti > rti2) 
-			RFindClick("TdollRetirementOK", "rNoxPlayer mc o5 w30000,50")
-		}
-		RFindClick("TdollRetirementDismantle", "rNoxPlayer mc o5 w30000,50")
-		Found := 0
-		Found := FindClick(A_ScriptDir "\pics\TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 Count1 n0 w2000,50")
-		if Found >= 1
-		{
-			RFindClick("TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 w30000,50")
-		}
-		sleep 2000
-		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
-	}
-	Sortiecount++
-
 	GuiControl,, NB, Idle
 	BusyS := 0
 	GuiControl, Show, SSB
@@ -1054,7 +844,7 @@ NBUpdate:
 	else
 	{
 		tSS := MS2HMS(GetRemainingTime(QTS,QTL))
-		; GuiControl,, NB, Delay - %tSS%
+		GuiControl,, NB, Delay - %tSS%
 	}
 	return
 }
@@ -1080,11 +870,10 @@ Initialize()
     global
 	SPGx := Array(item)
 	MAPx := Array(item)
-	MAPy := Array(item) 
+	MAPy := Array(item)
 	ShipHealthy := Array(item)
 	pc := Array(item)
     Q := Array()
-   	Doll := [] 
 	NC := 0
 	ClickDelay := 50
 	coffset := 10
