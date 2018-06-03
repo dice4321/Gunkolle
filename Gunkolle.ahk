@@ -111,6 +111,7 @@ node(image,loops,delay)
 	return
 }
 
+; Random
 RFindClick(x,y)
 {
 	local RandX, RandY
@@ -119,6 +120,24 @@ RFindClick(x,y)
 	GuiControl,, NB, %x%
 	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
 	return
+}
+
+; Wait
+WFindClick(x,y)
+{
+	Random, RandX, -10, 10
+	Random, RandY, -10, 10
+	GuiControl,, NB, %x%
+	Found := 0
+	SearchNumber := 10
+	while (found == 0) 
+	{
+		Found := FindClick(A_ScriptDir "\pics\" x,"rNoxPlayer mc o"SearchNumber "Count1 n0")
+		SearchNumber++
+	}
+	sleep 1000
+	GuiControl,, NB, pixel shade offset [%SearchNumber%]
+	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
 }
 
 Repair()
@@ -315,17 +334,17 @@ Sortie2:
 	Doll[] := [%Doll1%,%Doll2%]
 	Found := 0
 	RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
-	RFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc o15 w30000,50") ; select Doll1
+	WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
 	RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
 	RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
 	sleep 2000
-	RFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc o15 w30000,50")
+	WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
 	sleep 1000
 	RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
 	sleep 1000
 	ClickS(Role1x,Role1y)
-	RFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc o15 w30000,50")  ; select Dollportrait1
+	WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
 	sleep 1000
 	RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
 	;expedition might return here
