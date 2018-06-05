@@ -134,8 +134,9 @@ WFindClick(x,y)
 	{
 		Found := FindClick(A_ScriptDir "\pics\" x,"rNoxPlayer mc o"SearchNumber "Count1 n0")
 		SearchNumber++
+		sleep 15
 	}
-	sleep 1000
+	sleep 500
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
 	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
 }
@@ -334,6 +335,7 @@ Sortie2:
 	Doll[] := [%Doll1%,%Doll2%]
 	Found := 0
 	RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
+	sleep 4000
 	WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
 	RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
 	RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
@@ -347,34 +349,56 @@ Sortie2:
 	WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
 	sleep 1000
 	RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
-	;expedition might return here
-	loopcount := 2
-	loop, %loopcount%
+
+	; Check expedition
+	loopcount := 1
+	while (loopcount != 0)
 	{
 		sleep 1000
-		Found := 0
-		Found2 := 0
-		while(Found == 0)
+		tpc := 0
+		pc := []
+		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
+		tpc := WaitForPixelColor(Homex,Homey,pc,,,4)
+		if tpc = 1
 		{
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0")
-			if Found >= 1
-			{
-				
-			}
-			else 
-			{
-				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
-				if Found2 >= 1
-				{
-					loopcount++ 
-				}
-				ClickS(Expeditionx,Expeditiony)
-				sleep 200
-			}
-			GuiControl,, NB, %found%
+			GuiControl,, NB,At home
 		}
+		else if or tpc = 2 or tpc = 3
+		{
+			GuiControl,, NB, Expedition Found
+			ClickS(Expeditionx,Expeditiony)
+			sleep 2000
+			ClickS(Expeditionx,Expeditiony)
+			loopcount++
+		}
+		else if tpc = 4 or tpc = 5
+		{
+			GuiControl,, NB, Android popup Found
+			ClickS(AndroidpopupExitx,AndroidpopupExity)
+			loopcount++
+		}
+		else if tpc = 6
+		{
+			GuiControl,, NB, Login Collect Found
+			ClickS(LoginCollectExitx,LoginCollectExity)
+			loopcount++
+		}
+		else if tpc = 7
+		{	
+			GuiControl,, NB, Login Collec tNotice
+			ClickS(LoginCollectNoticey,LoginCollectNoticey)
+			loopcount++
+		}
+		Else
+		{	
+			GuiControl,, NB, Initial Event notice Found
+			ClickS(Dailypopx,Dailypopy)
+			loopcount++
+		}
+	loopcount--
+
 	}
+
 	RFindClick("Combat", "rNoxPlayer mc w30000,50")
 	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
@@ -434,8 +458,9 @@ Sortie2:
 	}
 	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
 
-	; Check expedition
-	loopcount := 2
+	; go home
+	;needs fixing, find image before home screen to stop
+	loopcount := 1
 	loop, %loopcount%
 	{
 		Found := 0
@@ -451,6 +476,7 @@ Sortie2:
 			}
 			else 
 			{
+				Found2 :=0
 				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
 				if Found2 >= 1
 				{
@@ -461,6 +487,57 @@ Sortie2:
 			}
 			GuiControl,, NB, %found%
 		}
+	}
+
+	GuiControl,, NB, At home
+
+	; Check expedition
+	loopcount := 1
+	while (loopcount != 0)
+	{
+		sleep 5000
+		tpc := 0
+		pc := []
+		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
+		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+		if tpc = 1
+		{
+			GuiControl,, NB,At home
+		}
+		else if or tpc = 2 or tpc = 3
+		{
+			GuiControl,, NB, Expedition Found
+			ClickS(Expeditionx,Expeditiony)
+			sleep 2000
+			ClickS(Expeditionx,Expeditiony)
+			loopcount++
+		}
+		else if tpc = 4 or tpc = 5
+		{
+			GuiControl,, NB, Android popup Found
+			ClickS(AndroidpopupExitx,AndroidpopupExity)
+			loopcount++
+		}
+		else if tpc = 6
+		{
+			GuiControl,, NB, Login Collect Found
+			ClickS(LoginCollectExitx,LoginCollectExity)
+			loopcount++
+		}
+		else if tpc = 7
+		{	
+			GuiControl,, NB, Login Collec tNotice
+			ClickS(LoginCollectNoticey,LoginCollectNoticey)
+			loopcount++
+		}
+		Else
+		{	
+			GuiControl,, NB, Initial Event notice Found
+			ClickS(Dailypopx,Dailypopy)
+			loopcount++
+		}
+	loopcount--
+
 	}
 
 	; Repair
