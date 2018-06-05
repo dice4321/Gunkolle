@@ -264,7 +264,7 @@ Sortie2:
 		; pc := []
 		; pc := [HPC]
 		; WaitForPixelColor(Gx,Gy,pc)
-		sleep 5000
+		sleep 3000
 		tpc := 0
 		pc := []
 		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
@@ -355,56 +355,56 @@ Sortie2:
 		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
 		sleep 1000
 		RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
+
+		; Check expedition
+		loopcount := 1
+		while (loopcount != 0)
+		{
+			sleep 3000
+			tpc := 0
+			pc := []
+			pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
+			tpc := WaitForPixelColor(Homex,Homey,pc,,,4)
+			if tpc = 1
+			{
+				GuiControl,, NB,At home
+			}
+			else if or tpc = 2 or tpc = 3
+			{
+				GuiControl,, NB, Expedition Found
+				ClickS(Expeditionx,Expeditiony)
+				sleep 2000
+				ClickS(Expeditionx,Expeditiony)
+				loopcount++
+			}
+			else if tpc = 4 or tpc = 5
+			{
+				GuiControl,, NB, Android popup Found
+				ClickS(AndroidpopupExitx,AndroidpopupExity)
+				loopcount++
+			}
+			else if tpc = 6
+			{
+				GuiControl,, NB, Login Collect Found
+				ClickS(LoginCollectExitx,LoginCollectExity)
+				loopcount++
+			}
+			else if tpc = 7
+			{	
+				GuiControl,, NB, Login Collec tNotice
+				ClickS(LoginCollectNoticey,LoginCollectNoticey)
+				loopcount++
+			}
+			Else
+			{	
+				GuiControl,, NB, Initial Event notice Found
+				ClickS(Dailypopx,Dailypopy)
+				loopcount++
+			}
+			loopcount--
+
+		}
 	}	
-
-	; Check expedition
-	loopcount := 1
-	while (loopcount != 0)
-	{
-		sleep 1000
-		tpc := 0
-		pc := []
-		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,4)
-		if tpc = 1
-		{
-			GuiControl,, NB,At home
-		}
-		else if or tpc = 2 or tpc = 3
-		{
-			GuiControl,, NB, Expedition Found
-			ClickS(Expeditionx,Expeditiony)
-			sleep 2000
-			ClickS(Expeditionx,Expeditiony)
-			loopcount++
-		}
-		else if tpc = 4 or tpc = 5
-		{
-			GuiControl,, NB, Android popup Found
-			ClickS(AndroidpopupExitx,AndroidpopupExity)
-			loopcount++
-		}
-		else if tpc = 6
-		{
-			GuiControl,, NB, Login Collect Found
-			ClickS(LoginCollectExitx,LoginCollectExity)
-			loopcount++
-		}
-		else if tpc = 7
-		{	
-			GuiControl,, NB, Login Collec tNotice
-			ClickS(LoginCollectNoticey,LoginCollectNoticey)
-			loopcount++
-		}
-		Else
-		{	
-			GuiControl,, NB, Initial Event notice Found
-			ClickS(Dailypopx,Dailypopy)
-			loopcount++
-		}
-	loopcount--
-
-	}
 
 	RFindClick("Combat", "rNoxPlayer mc w30000,50")
 	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
@@ -427,10 +427,19 @@ Sortie2:
 	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("StartCombat", "rNoxPlayer mc o5 w30000,50")
 	Sleep 4000
-	RFindClick("4_3eCommandPostResupply", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
-	RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
-	sleep 1000
+	if (corpsedragoffV != 1)
+	{
+		RFindClick("4_3eCommandPostResupply", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
+		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
+		sleep 1000
+	}
 	RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
+	if (corpsedragoffV == 1)
+	{
+		RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
+
+	}
 	sleep 1000
 	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("4_3eEnemy1", "rNoxPlayer mc o30 w30000,50")
