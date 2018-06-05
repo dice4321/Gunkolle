@@ -61,6 +61,8 @@ Gui, Add, Edit, gIntervalF r2 w15 vIntervalV -VScroll ym, %SortieInterval%
 GuiControl, Move, IntervalV, h17 w70
 Gui, Add, Checkbox, vExpeditionV , Expedition only
 GuiControl, Move, ExpeditionV, x150 y33
+Gui, Add, Checkbox, vcorpsedragoffV , Corpse dragging off?
+GuiControl, Move, corpsedragoffV, x150 y58
 ; Gui, Add, Text, vText, #Nodes
 ; GuiControl, Move, Text, x150 y35
 ; Gui, Add, Edit, gNodeCount r2 limit3 w10 vNodeCount -VScroll ym, %Nodes%
@@ -326,29 +328,34 @@ Sortie2:
 		}
 	}
 
-	modder := Mod(Sortiecount, 2)
-	modder2 := Mod(Sortiecount + 1, 2)
-	Dollcount1 := 1 + modder
-	Dollcount2 := 1 + modder2
-	Doll1 := "G36"
-	Doll2 := "9A91"
-	Doll[] := [%Doll1%,%Doll2%]
-	Found := 0
-	RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
-	sleep 4000
-	WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
-	RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
-	RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
-	sleep 2000
-	WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
-	sleep 1000
-	RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
-	sleep 1000
-	ClickS(Role1x,Role1y)
-	WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
-	sleep 1000
-	RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
+	GuiControlGet, corpsedragoffV
+	if (corpsedragoffV != 1)
+	{
+
+		modder := Mod(Sortiecount, 2)
+		modder2 := Mod(Sortiecount + 1, 2)
+		Dollcount1 := 1 + modder
+		Dollcount2 := 1 + modder2
+		Doll1 := "G36"
+		Doll2 := "9A91"
+		Doll[] := [%Doll1%,%Doll2%]
+		Found := 0
+		RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
+		sleep 4000
+		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
+		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
+		RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
+		sleep 2000
+		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
+		sleep 1000
+		RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
+		sleep 1000
+		ClickS(Role1x,Role1y)
+		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
+		sleep 1000
+		RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
+	}	
 
 	; Check expedition
 	loopcount := 1
