@@ -44,6 +44,9 @@ IniRead, DisableResupply, config.ini, Variables, DisableResupply, 0
 IniRead, SortieInterval, config.ini, Variables, SortieInterval, -1 ;900000 for full morale
 IniRead, MinRandomWait, config.ini, Variables, MinRandomWaitS, 0
 IniRead, MaxRandomWait, config.ini, Variables, MaxRandomWaitS, 300000
+IniRead, Doll1, config.ini, Variables, Doll1, AR15
+IniRead, Doll2, config.ini, Variables, Doll2, M4A1
+IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -138,8 +141,8 @@ WFindClick(x,y)
 		SearchNumber++
 		sleep 15
 	}
-	sleep 500
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
+	sleep 500
 	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
 }
 
@@ -335,15 +338,13 @@ Sortie2:
 		modder2 := Mod(Sortiecount + 1, 2)
 		Dollcount1 := 1 + modder
 		Dollcount2 := 1 + modder2
-		Doll1 := "G36"
-		Doll2 := "9A91"
 		Doll[] := [%Doll1%,%Doll2%]
 		Found := 0
 		RFindClick("Formation", "rNoxPlayer mc o5 w30000,50") ;go to formation 
 		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
 		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
-		RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("Filter"WeaponType, "rNoxPlayer mc o5 w30000,50")
 		RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
 		sleep 2000
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
