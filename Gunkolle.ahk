@@ -44,6 +44,9 @@ IniRead, DisableResupply, config.ini, Variables, DisableResupply, 0
 IniRead, SortieInterval, config.ini, Variables, SortieInterval, -1 ;900000 for full morale
 IniRead, MinRandomWait, config.ini, Variables, MinRandomWaitS, 0
 IniRead, MaxRandomWait, config.ini, Variables, MaxRandomWaitS, 300000
+IniRead, Doll1, config.ini, Variables, Doll1, AR15
+IniRead, Doll2, config.ini, Variables, Doll2, M4A1
+IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -61,6 +64,8 @@ Gui, Add, Edit, gIntervalF r2 w15 vIntervalV -VScroll ym, %SortieInterval%
 GuiControl, Move, IntervalV, h17 w70
 Gui, Add, Checkbox, vExpeditionV , Expedition only
 GuiControl, Move, ExpeditionV, x150 y33
+Gui, Add, Checkbox, vcorpsedragoffV , Corpse dragging off?
+GuiControl, Move, corpsedragoffV, x150 y58
 ; Gui, Add, Text, vText, #Nodes
 ; GuiControl, Move, Text, x150 y35
 ; Gui, Add, Edit, gNodeCount r2 limit3 w10 vNodeCount -VScroll ym, %Nodes%
@@ -111,6 +116,7 @@ node(image,loops,delay)
 	return
 }
 
+; Random
 RFindClick(x,y)
 {
 	local RandX, RandY
@@ -119,6 +125,25 @@ RFindClick(x,y)
 	GuiControl,, NB, %x%
 	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
 	return
+}
+
+; Wait
+WFindClick(x,y)
+{
+	Random, RandX, -10, 10
+	Random, RandY, -10, 10
+	GuiControl,, NB, %x%
+	Found := 0
+	SearchNumber := 10
+	while (found == 0) 
+	{
+		Found := FindClick(A_ScriptDir "\pics\" x,"rNoxPlayer mc o"SearchNumber "Count1 n0")
+		SearchNumber++
+		sleep 15
+	}
+	GuiControl,, NB, pixel shade offset [%SearchNumber%]
+	sleep 500
+	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
 }
 
 Repair()
@@ -242,7 +267,7 @@ Sortie2:
 		; pc := []
 		; pc := [HPC]
 		; WaitForPixelColor(Gx,Gy,pc)
-		sleep 5000
+		sleep 3000
 		tpc := 0
 		pc := []
 		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
@@ -305,6 +330,11 @@ Sortie2:
 			GuiControl,, NB, %found%
 		}
 	}
+<<<<<<< HEAD
+
+	GuiControlGet, corpsedragoffV
+	if (corpsedragoffV != 1)
+=======
 	modder := Mod(Sortiecount, 2)
 	modder2 := Mod(Sortiecount + 1, 2)
 	Dollcount0 := 0 + modder
@@ -327,31 +357,80 @@ Sortie2:
 	;expedition might return here
 	loopcount := 2
 	loop, %loopcount%
+>>>>>>> refs/remotes/origin/master
 	{
-		sleep 1000
+		modder := Mod(Sortiecount, 2)
+		modder2 := Mod(Sortiecount + 1, 2)
+		Dollcount1 := 1 + modder
+		Dollcount2 := 1 + modder2
+		Doll[] := [%Doll1%,%Doll2%]
 		Found := 0
-		Found2 := 0
-		while(Found == 0)
+		RFindClick("Formation", "rNoxPlayer mc o5 w30000,50") ;go to formation 
+		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
+		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
+		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
+		RFindClick("Filter"WeaponType, "rNoxPlayer mc o5 w30000,50")
+		RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
+		sleep 2000
+		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
+		sleep 1000
+		RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
+		sleep 1000
+		ClickS(Role1x,Role1y)
+		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
+		sleep 1000
+		RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
+
+		; Check expedition
+		loopcount := 1
+		while (loopcount != 0)
 		{
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0")
-			if Found >= 1
+			sleep 3000
+			tpc := 0
+			pc := []
+			pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
+			tpc := WaitForPixelColor(Homex,Homey,pc,,,4)
+			if tpc = 1
 			{
-				
+				GuiControl,, NB,At home
 			}
-			else 
+			else if or tpc = 2 or tpc = 3
 			{
-				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
-				if Found2 >= 1
-				{
-					loopcount++ 
-				}
+				GuiControl,, NB, Expedition Found
 				ClickS(Expeditionx,Expeditiony)
-				sleep 200
+				sleep 2000
+				ClickS(Expeditionx,Expeditiony)
+				loopcount++
 			}
-			GuiControl,, NB, %found%
+			else if tpc = 4 or tpc = 5
+			{
+				GuiControl,, NB, Android popup Found
+				ClickS(AndroidpopupExitx,AndroidpopupExity)
+				loopcount++
+			}
+			else if tpc = 6
+			{
+				GuiControl,, NB, Login Collect Found
+				ClickS(LoginCollectExitx,LoginCollectExity)
+				loopcount++
+			}
+			else if tpc = 7
+			{	
+				GuiControl,, NB, Login Collec tNotice
+				ClickS(LoginCollectNoticey,LoginCollectNoticey)
+				loopcount++
+			}
+			Else
+			{	
+				GuiControl,, NB, Initial Event notice Found
+				ClickS(Dailypopx,Dailypopy)
+				loopcount++
+			}
+			loopcount--
+
 		}
-	}
+	}	
+
 	RFindClick("Combat", "rNoxPlayer mc w30000,50")
 	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
@@ -373,10 +452,19 @@ Sortie2:
 	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("StartCombat", "rNoxPlayer mc o5 w30000,50")
 	Sleep 4000
-	RFindClick("4_3eCommandPostResupply", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
-	RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
-	sleep 1000
+	if (corpsedragoffV != 1)
+	{
+		RFindClick("4_3eCommandPostResupply", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
+		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
+		sleep 1000
+	}
 	RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
+	if (corpsedragoffV == 1)
+	{
+		RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
+
+	}
 	sleep 1000
 	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("4_3eEnemy1", "rNoxPlayer mc o30 w30000,50")
@@ -411,8 +499,9 @@ Sortie2:
 	}
 	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
 
-	; Check expedition
-	loopcount := 2
+	; go home
+	;needs fixing, find image before home screen to stop
+	loopcount := 1
 	loop, %loopcount%
 	{
 		Found := 0
@@ -428,6 +517,7 @@ Sortie2:
 			}
 			else 
 			{
+				Found2 :=0
 				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
 				if Found2 >= 1
 				{
@@ -438,6 +528,57 @@ Sortie2:
 			}
 			GuiControl,, NB, %found%
 		}
+	}
+
+	GuiControl,, NB, At home
+
+	; Check expedition
+	loopcount := 1
+	while (loopcount != 0)
+	{
+		sleep 5000
+		tpc := 0
+		pc := []
+		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
+		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+		if tpc = 1
+		{
+			GuiControl,, NB,At home
+		}
+		else if or tpc = 2 or tpc = 3
+		{
+			GuiControl,, NB, Expedition Found
+			ClickS(Expeditionx,Expeditiony)
+			sleep 2000
+			ClickS(Expeditionx,Expeditiony)
+			loopcount++
+		}
+		else if tpc = 4 or tpc = 5
+		{
+			GuiControl,, NB, Android popup Found
+			ClickS(AndroidpopupExitx,AndroidpopupExity)
+			loopcount++
+		}
+		else if tpc = 6
+		{
+			GuiControl,, NB, Login Collect Found
+			ClickS(LoginCollectExitx,LoginCollectExity)
+			loopcount++
+		}
+		else if tpc = 7
+		{	
+			GuiControl,, NB, Login Collec tNotice
+			ClickS(LoginCollectNoticey,LoginCollectNoticey)
+			loopcount++
+		}
+		Else
+		{	
+			GuiControl,, NB, Initial Event notice Found
+			ClickS(Dailypopx,Dailypopy)
+			loopcount++
+		}
+	loopcount--
+
 	}
 
 	; Repair
@@ -456,6 +597,10 @@ Sortie2:
 	}
 
 	; Dismantle
+<<<<<<< HEAD
+	RetirementCounter := Mod(Sortiecount, 5)
+	if(RetirementCounter == 4)
+=======
 	RetirementCounter := Mod(Sortiecount, 6)
 
 	ti := RetirementCounter
@@ -463,6 +608,7 @@ Sortie2:
 	RetirementCounter += 1
 	
 	if(RetirementCounter == 5)
+>>>>>>> refs/remotes/origin/master
 	{
 		RFindClick("Factory", "rNoxPlayer mc o40 w30000,50")
 		RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
