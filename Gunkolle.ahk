@@ -331,7 +331,6 @@ Sortie2:
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
 	{
-
 		modder := Mod(Sortiecount, 2)
 		modder2 := Mod(Sortiecount + 1, 2)
 		Dollcount1 := 1 + modder
@@ -340,8 +339,8 @@ Sortie2:
 		Doll2 := "9A91"
 		Doll[] := [%Doll1%,%Doll2%]
 		Found := 0
-		RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
-		sleep 4000
+		RFindClick("Formation", "rNoxPlayer mc o5 w30000,50") ;go to formation 
+		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc") ; select Doll1
 		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
 		RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
@@ -572,8 +571,8 @@ Sortie2:
 	}
 
 	; Dismantle
-	RetirementCounter := Mod(Sortiecount, 6)
-	if(RetirementCounter == 5)
+	RetirementCounter := Mod(Sortiecount, 5)
+	if(RetirementCounter == 4)
 	{
 		RFindClick("Factory", "rNoxPlayer mc o40 w30000,50")
 		RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
