@@ -330,9 +330,34 @@ Sortie2:
 			GuiControl,, NB, %found%
 		}
 	}
+<<<<<<< HEAD
 
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
+=======
+	modder := Mod(Sortiecount, 2)
+	modder2 := Mod(Sortiecount + 1, 2)
+	Dollcount0 := 0 + modder
+	Dollcount1 := 0 + modder2
+	Found := 0
+	RFindClick("Formation.png", "rNoxPlayer mc o5 w30000,50") ;go to formation 
+	RFindClick("Doll"Dollcount0, "rNoxPlayer mc o15 w30000,50") ; select Doll1
+	RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
+	RFindClick("FilterAssaultRifle", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
+	sleep 2000
+	RFindClick("DollProfile"Dollcount1, "rNoxPlayer mc o15 w30000,50")
+	sleep 1000
+	RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
+	sleep 1000
+	ClickS(Role1x,Role1y)
+	RFindClick("DollProfile"Dollcount0, "rNoxPlayer mc o15 w30000,50")  ; select Dollportrait1
+	sleep 1000
+	RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
+	;expedition might return here
+	loopcount := 2
+	loop, %loopcount%
+>>>>>>> refs/remotes/origin/master
 	{
 		modder := Mod(Sortiecount, 2)
 		modder2 := Mod(Sortiecount + 1, 2)
@@ -563,7 +588,7 @@ Sortie2:
 	{
 		RFindClick("Repair", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairSlot", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("Damage", "rNoxPlayer mc o30 w30000,50")
+		RFindClick("Damage", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("OK", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairQuick", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairOK", "rNoxPlayer mc o5 w30000,50")
@@ -572,8 +597,18 @@ Sortie2:
 	}
 
 	; Dismantle
+<<<<<<< HEAD
 	RetirementCounter := Mod(Sortiecount, 5)
 	if(RetirementCounter == 4)
+=======
+	RetirementCounter := Mod(Sortiecount, 6)
+
+	ti := RetirementCounter
+	Menu, Main, Rename, %RetirementCounter%, %ti%
+	RetirementCounter += 1
+	
+	if(RetirementCounter == 5)
+>>>>>>> refs/remotes/origin/master
 	{
 		RFindClick("Factory", "rNoxPlayer mc o40 w30000,50")
 		RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
@@ -1192,11 +1227,10 @@ Initialize()
     global
 	SPGx := Array(item)
 	MAPx := Array(item)
-	MAPy := Array(item) 
+	MAPy := Array(item)
 	ShipHealthy := Array(item)
 	pc := Array(item)
     Q := Array()
-   	Doll := [] 
 	NC := 0
 	ClickDelay := 50
 	coffset := 10
