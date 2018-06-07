@@ -385,8 +385,8 @@ Sortie2:
 		{
 			Found := 0
 			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
-			Found := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o5 Count1 n0")
-			if Found >= 1
+			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o5 Count1 n0")
+			if (Found >= 1 || FoundAlt >= 1)
 			{
 
 			}
