@@ -234,7 +234,7 @@ Delay:
 	return
 }
 
-RSleep(time:=600
+RSleep(time:=600)
 {
 	Random, rtime, time-150, time+150
 	Sleep, %rtime%
