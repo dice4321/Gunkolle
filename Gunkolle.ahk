@@ -84,7 +84,7 @@ Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
-if DisableCriticalCheck = 1 
+if DisableCriticalCheck = 1
 {
 	GuiControl,, NB, Ready - WARNING: CRITICAL CHECK IS OFF
 }
@@ -102,9 +102,9 @@ node(image,loops,delay)
 			Found := FindClick(A_ScriptDir "\pics\"image, "rNoxPlayer mc o5 Count1 n0")
 			if Found >= 1
 			{
-				
+
 			}
-			else 
+			else
 			{
 				ClickS(Safex,Safey)
 				sleep 200
@@ -124,6 +124,7 @@ RFindClick(x,y)
 	Random, RandY, -10, 10
 	GuiControl,, NB, %x%
 	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+	RSleep()
 	return
 }
 
@@ -157,7 +158,7 @@ Repair()
 		GuiControl,, NB, Waiting for home screen
 		pc := []
 		pc := [HPC,HEPC]
-		WaitForPixelColor(Gx,Gy,pc)	
+		WaitForPixelColor(Gx,Gy,pc)
 	}
 	ClickS(REx,REy)
 	GuiControl,, NB, Waiting for repair screen
@@ -184,11 +185,11 @@ Repair()
 			Sleep 500
 			ClickS(ESx,ESy)
 			Sleep 500
-			ClickS(BCx,BCy)	
+			ClickS(BCx,BCy)
 			pc := []
 			pc := [REPC]
 			WaitForPixelColor(Gx,Gy,pc)
-			Sleep 9000			
+			Sleep 9000
 		}
 		else
 		{
@@ -196,13 +197,13 @@ Repair()
 			GuiControl,, NB, HP check completed
 			return
 		}
-	}	
+	}
 }
 
 Delay:
 {
 	IniRead, Busy, config.ini, Do Not Modify, Busy, 0
-	
+
 	if DT = 0
 	{
 		DT := 1
@@ -216,7 +217,7 @@ Delay:
 		goto Delay
 	}
 	else if (Busy = 0 and BusyS = 0)
-	{	
+	{
 		{
 			goto Sortie2
 		}
@@ -230,6 +231,13 @@ Delay:
 		}
 		SetTimer, Delay, 10000
 	}
+	return
+}
+
+RSleep(time:=600
+{
+	Random, rtime, time-150, time+150
+	Sleep, %rtime%
 	return
 }
 
@@ -274,7 +282,7 @@ Sortie2:
 		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
 		if tpc = 1
 		{
-			GuiControl,, NB,At home [Expedition only] 
+			GuiControl,, NB,At home [Expedition only]
 		}
 		else if or tpc = 2 or tpc = 3
 		{
@@ -293,12 +301,12 @@ Sortie2:
 			ClickS(LoginCollectExitx,LoginCollectExity)
 		}
 		else if tpc = 7
-		{	
+		{
 			GuiControl,, NB, Login Collec tNotice
 			ClickS(LoginCollectNoticey,LoginCollectNoticey)
 		}
 		Else
-		{	
+		{
 			GuiControl,, NB, Initial Event notice Found
 			ClickS(Dailypopx,Dailypopy)
 		}
@@ -315,14 +323,14 @@ Sortie2:
 			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 			if Found >= 1
 			{
-				
+
 			}
-			else 
+			else
 			{
 				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
 				if Found2 >= 1
 				{
-					loopcount++ 
+					loopcount++
 				}
 				ClickS(Expeditionx,Expeditiony)
 				sleep 200
@@ -461,9 +469,9 @@ Sortie2:
 			Found := FindClick(A_ScriptDir "\pics\EndTurn", "rNoxPlayer mc o15 Count1 n0")
 			if Found >= 1
 			{
-				
+
 			}
-			else 
+			else
 			{
 				ClickS(Safex,Safey)
 				sleep 200
@@ -487,15 +495,15 @@ Sortie2:
 			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 			if Found >= 1
 			{
-				
+
 			}
-			else 
+			else
 			{
 				Found2 :=0
 				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
 				if Found2 >= 1
 				{
-					loopcount++ 
+					loopcount++
 				}
 				ClickS(Expeditionx,Expeditiony)
 				sleep 200
@@ -590,7 +598,7 @@ Sortie2:
 				rti := rti+1
 				Sleep 10
 
-			}Until (rti > rti2) 
+			}Until (rti > rti2)
 			RFindClick("TdollRetirementOK", "rNoxPlayer mc o5 w30000,50")
 		}
 		RFindClick("TdollRetirementDismantle", "rNoxPlayer mc o5 w30000,50")
@@ -736,7 +744,7 @@ Sortie:
 				{
 					ClickS(L_doublex,L_doubley)
 				}
-				else 
+				else
 				{
 					ClickS(LAx,LAy)
 				}
@@ -775,7 +783,7 @@ Sortie:
 					break
 				}
 
-			} 
+			}
 			else if tpc2 = 3
 			{
 				pc := []
@@ -784,7 +792,7 @@ Sortie:
 				break
 			}
 		}
-		else if tpc = 2 
+		else if tpc = 2
 		{
 			if(World = 1 and Map = 5)
 			{
@@ -822,7 +830,7 @@ Sortie:
 					sleep 1000
 					if(world = 1 and map = 1)
 					{
-						
+
 					}
 					Else
 					{
@@ -835,7 +843,7 @@ Sortie:
 		{
 			Break
 		}
-		else if (tpc != 2 or tpc != 3 or tpc != 4) 
+		else if (tpc != 2 or tpc != 3 or tpc != 4)
 		{
 			GuiControl,, NB, Waiting for score2
 			pc := []
@@ -854,7 +862,7 @@ Sortie:
 					sleep 1000
 					if(world = 1 and map = 1)
 					{
-						
+
 					}
 					Else
 					{
@@ -971,7 +979,7 @@ Resupply(r)
 		break
 		}
 	}
-	else if (tpc != RPC) 
+	else if (tpc != RPC)
     {
         ClickS(Hx,Hy)
 		pc := []
@@ -1101,7 +1109,7 @@ IntervalF:
 				GuiControl,, NB, Interval set
 			}
 			IniWrite,%SortieInterval%,config.ini,Variables,SortieInterval
-			
+
 		}
 		else
 		{
@@ -1185,7 +1193,7 @@ DN:
 #Include %A_ScriptDir%/Functions/Notify.ahk
 #Include %A_ScriptDir%/Functions/FindClick.ahk
 
-	
+
 Initialize()
 {
     global
@@ -1205,5 +1213,5 @@ GuiClose:
 	WinGetPos,TWinX,TWinY
 	IniWrite,%TWinX%,config.ini,Variables,LastXS
 	IniWrite,%TWinY%,config.ini,Variables,LastYS
-	ExitApp 
+	ExitApp
 }
