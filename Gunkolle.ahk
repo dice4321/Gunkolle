@@ -54,11 +54,12 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
-GuiControl, Move, WorldV, x37 h17 w15
-Gui, Add, Text, x55 ym, -
-Gui, Add, Edit, gMapF r2 limit3 w10 vMapV -VScroll ym, %Map%
-GuiControl, Move, MapV, x62 h17 w20
+Gui, Add, DDL, r2 x40 w60 vWorldV -VScroll ym-3, 4-3E|| ; upcoming map changer
+; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
+; GuiControl, Move, WorldV, x37 h17 w15
+; Gui, Add, Text, x55 ym, -
+; Gui, Add, Edit, gMapF r2 limit3 w10 vMapV -VScroll ym, %Map%
+; GuiControl, Move, MapV, x62 h17 w20
 Gui, Add, Text, ym, Interval(ms):
 Gui, Add, Edit, gIntervalF r2 w15 vIntervalV -VScroll ym, %SortieInterval%
 GuiControl, Move, IntervalV, h17 w70
