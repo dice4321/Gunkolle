@@ -424,6 +424,7 @@ Sortie2:
 		RFindClick("RepairOK", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairReturnFaded", "rNoxPlayer mc o5 w30000,50 ")
 		RFindClick("RepairReturn", "rNoxPlayer mc o5 w30000,50")
+		ExpeditionCheck()
 	}
 
 	; Dismantle
@@ -458,6 +459,7 @@ Sortie2:
 		}
 		sleep 2000
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
+		ExpeditionCheck()
 	}
 	Sortiecount++
 
