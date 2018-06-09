@@ -295,7 +295,7 @@ Sortie2:
 		sleep 2000
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
 		sleep 1000
-		RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("Echelon2", "rNoxPlayer mc o20 w30000,50")
 		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		ClickS(Role1x,Role1y)
 		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
@@ -386,7 +386,7 @@ Sortie2:
 		{
 			Found := 0
 			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
-			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o5 Count1 n0")
+			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
 			if (Found >= 1 || FoundAlt >= 1)
 			{
 
