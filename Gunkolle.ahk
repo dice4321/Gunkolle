@@ -140,7 +140,7 @@ WFindClick(x,y)
 	SearchNumber := 10
 	while (found == 0) 
 	{
-		Found := FindClick(A_ScriptDir "\pics\" x,"rNoxPlayer mc o"SearchNumber "Count1 n0")
+		Found := FindClick(A_ScriptDir "\pics\" x,"rNoxPlayer mc o"SearchNumber " dtop n0")
 		SearchNumber++
 		sleep 15
 	}
@@ -296,7 +296,7 @@ Sortie2:
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
 		sleep 1000
 		RFindClick("Echelon2", "rNoxPlayer mc o5 w30000,50")
-		sleep 1000
+		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		ClickS(Role1x,Role1y)
 		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
 		sleep 1000
@@ -355,7 +355,7 @@ Sortie2:
 	loop, 4
 	{
 		Found := 0
-		sleep 10000
+		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o5 Count1 n0 w30000,50")
 		while(Found == 0)
 		{
 			Found := 0
