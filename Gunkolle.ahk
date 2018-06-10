@@ -272,6 +272,7 @@ Sortie2:
 	GuiControl,, NB, %ExpeditionV%
 	While (ExpeditionV == 1)
 	{
+		GuiControl,, NB, At home [Expedition only]
 		ExpeditionCheck()
 	}
 
@@ -418,7 +419,8 @@ Sortie2:
 	{
 		RFindClick("Repair", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairSlot", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("Damage", "rNoxPlayer mc o5 w30000,50")
+		sleep 1000
+		WFindClick("Damage", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("OK", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairQuick", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("RepairOK", "rNoxPlayer mc o5 w30000,50")
