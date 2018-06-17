@@ -90,14 +90,13 @@ RunMap(x)
 	loop, %loopcount%
 	{
 		Found := 0
-		Found2 := 0
+		FoundAlt := 0
 		sleep 5000
 		while(Found == 0 && FoundAlt == 0)
 		{
-			Found := 0
 			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
-			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
-			if (Found >= 1 || FoundAlt >= 1)
+			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o5 Count1 n0")
+			if (Found >= 1 or FoundAlt >= 1)
 			{
 
 			}
@@ -112,7 +111,7 @@ RunMap(x)
 				ClickS(Expeditionx,Expeditiony)
 				sleep 200
 			}
-			GuiControl,, NB, %found%
+			GuiControl,, NB, %found% %FoundAlt%
 		}
 	}
 }
@@ -206,11 +205,10 @@ RunMap(x)
 	loop, %loopcount%
 	{
 		Found := 0
-		Found2 := 0
+		FoundAlt := 0
 		sleep 5000
 		while(Found == 0 && FoundAlt == 0)
 		{
-			Found := 0
 			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
 			if (Found >= 1 or FoundAlt >= 1)
