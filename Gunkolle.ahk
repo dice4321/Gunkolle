@@ -126,8 +126,9 @@ RFindClick(x,y)
 	Random, RandX, -10, 10
 	Random, RandY, -10, 10
 	GuiControl,, NB, %x%
-	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " n0")
 	RSleep(800)
+	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
 	return
 }
 
