@@ -1,4 +1,4 @@
-;AHKCSortie v1.61121
+;Gunkolle v0.3.0
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.3.0
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -126,8 +126,9 @@ RFindClick(x,y)
 	Random, RandX, -10, 10
 	Random, RandY, -10, 10
 	GuiControl,, NB, %x%
+	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " n0")
+	RSleep(800)
 	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
-	RSleep(0)
 	return
 }
 
@@ -144,6 +145,7 @@ WFindClick(x,y)
 	{
 		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 		SearchNumber++
+		GuiControl,, NB, pixel shade offset [%SearchNumber%]
 		sleep 15
 	}
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
@@ -274,6 +276,7 @@ Sortie2:
 	GuiControl,, NB, %ExpeditionV%
 	While (ExpeditionV == 1)
 	{
+		GuiControl,, NB, %ExpeditionV%
 		GuiControl,, NB, At home [Expedition only]
 		ExpeditionCheck()
 	}
