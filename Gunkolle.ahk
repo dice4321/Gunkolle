@@ -311,7 +311,14 @@ Sortie2:
 		; Check expedition
 		ExpeditionCheck()
 	}	
-
+	
+	Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	while( Found == 0 )
+	{
+			ExpeditionCheck()
+			Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	}
+	RFindClick("Combat", "rNoxPlayer mc w30000,50")
 	GuiControlGet, WorldV
 	RunMap(WorldV)
 

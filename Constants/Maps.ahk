@@ -15,7 +15,6 @@ RunMap(x)
 4_3E( )
 {
 	Global
-	RFindClick("Combat", "rNoxPlayer mc w30000,50")
 	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
@@ -119,7 +118,6 @@ RunMap(x)
 3_2N( )
 {
 	Global
-	RFindClick("Combat", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\3_2N\NightBattle", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\3_2N\WaitFor3_2N", "rNoxPlayer mc o5 w30000,50 n0")
 	sleep 1000
