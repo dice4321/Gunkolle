@@ -177,7 +177,7 @@ RunMap(x)
 		}
 	}
 	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o20 w30000,50")
-	RFindClick("\Maps\3_2N\Echelon3", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\3_2N\Echelon3", "rNoxPlayer mc o60 w30000,50")
 	RFindClick("\Maps\3_2N\HeliPortOK", "rNoxPlayer mc o5 w30000,50")
 	Sleep 3000
 	RFindClick("\Maps\3_2N\HeliPort2Stage3", "rNoxPlayer mc o20 w2000,50 a270,550,-920,-100 ")
@@ -185,7 +185,7 @@ RunMap(x)
 	sleep 500
 	RFindClick("\Maps\3_2N\Switch", "rNoxPlayer mc o30 w2000,50")
 	Sleep 1000
-	RFindClick("\Maps\3_2N\WaitForSwitch", "rNoxPlayer mc o30 w30000,50 ")
+	RFindClick("\Maps\3_2N\WaitForSwitch", "rNoxPlayer mc o30 w30000,50 n0")
 	sleep 2000
 	RFindClick("\Maps\3_2N\HeliPort2Stage3", "rNoxPlayer mc o20 w30000,50 a270,550,-920,-100 ")
 	RFindClick("\Maps\3_2N\Select", "rNoxPlayer mc o20 w30000,50 ")
