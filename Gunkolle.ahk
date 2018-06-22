@@ -393,9 +393,9 @@ Sortie2:
 
 	Sortiecount++
 	RetirementCounter++
-	ti := SC+1
-	Menu, Main, Rename, %SC%, %ti%
-	SC += 1
+	ti := BC+1
+	Menu, Main, Rename, %BC%, %ti%
+	BC += 1
 
 	GuiControl,, NB, Idle
 	BusyS := 0
