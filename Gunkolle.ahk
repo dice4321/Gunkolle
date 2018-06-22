@@ -1,4 +1,4 @@
-;Gunkolle v0.3.2
+;Gunkolle v0.3.3
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.3.2
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.3.3
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -315,12 +315,13 @@ Sortie2:
 		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
 		RFindClick("Filter"WeaponType, "rNoxPlayer mc o5 w30000,50")
 		RFindClick("Confirm", "rNoxPlayer mc o5 w30000,50")
-		sleep 2000
+		RFindClick("WaitForProfile", "rNoxPlayer mc o5 w30000,50 n0")
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
 		sleep 1000
 		RFindClick("Echelon2", "rNoxPlayer mc o20 w30000,50")
 		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		ClickS(Role1x,Role1y)
+		RFindClick("WaitForProfile", "rNoxPlayer mc o5 w30000,50 n0")
 		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
 		sleep 1000
 		RFindClick("FormationReturn", "rNoxPlayer mc o5 w30000,50") ; go home
