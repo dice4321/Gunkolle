@@ -1,4 +1,4 @@
-;Gunkolle v0.3.1
+;Gunkolle v0.3.2
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.3.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.3.2
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -126,9 +126,20 @@ RFindClick(x,y)
 	Random, RandX, -10, 10
 	Random, RandY, -10, 10
 	GuiControl,, NB, %x%
-	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " n0")
-	RSleep(800)
-	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+	Found := 0
+	while (Found == 0)
+	{
+		Found := FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " n0 count1")
+		if(Found == 0)
+		{
+			 FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
+		}
+		else
+		{
+			RSleep(800)
+			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+		}
+	}
 	return
 }
 
@@ -159,6 +170,7 @@ ExpeditionCheck()
 	loopcount := 1
 	while (loopcount != 0)
 	{
+		FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w10000,50")
 		sleep 3000
 		tpc := 0
 		pc := []
@@ -202,6 +214,12 @@ ExpeditionCheck()
 		}
 		loopcount--
 
+	}
+	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	while( Found == 0 )
+	{
+			ExpeditionCheck()
+			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w5000,50")
 	}
 }
 
@@ -282,7 +300,6 @@ Sortie2:
 	}
 
 	; Check expedition
-	ExpeditionCheck()
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
 	{
@@ -312,12 +329,6 @@ Sortie2:
 		ExpeditionCheck()
 	}	
 	
-	Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0 w5000,50")
-	while( Found == 0 )
-	{
-			ExpeditionCheck()
-			Found := FindClick(A_ScriptDir "\pics\Combat", "rNoxPlayer mc o5 Count1 n0 w5000,50")
-	}
 	RFindClick("Combat", "rNoxPlayer mc w30000,50")
 	GuiControlGet, WorldV
 	RunMap(WorldV)
@@ -326,6 +337,7 @@ Sortie2:
 
 	; Check expedition
 	ExpeditionCheck()
+	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w5000,50")
 
 	; Repair
 	Found := 0
@@ -378,8 +390,12 @@ Sortie2:
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
 		ExpeditionCheck()
 	}
+
 	Sortiecount++
 	RetirementCounter++
+	ti := SC+1
+	Menu, Main, Rename, %SC%, %ti%
+	SC += 1
 
 	GuiControl,, NB, Idle
 	BusyS := 0
