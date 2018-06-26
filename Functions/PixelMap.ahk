@@ -24,6 +24,8 @@ PixelMap()
 	 LoginCollectExity := FY - 99
 	 LoginCollectNoticex := FX - 276
 	 LoginCollectNoticey := FY - 545
+	 FormationProfilex := FX - 75
+	 FormationProfiley := FY - 501
 
 
 	; Gx := FX + 401
