@@ -34,6 +34,8 @@ When starting Gunkolle make sure your android emulator is the active window when
 
 Dont do anything until you see the 'Ready' in the gui box.
 
+If you are having probablems trying to get the 'Ready' on the home page, you can changing your nox graphics render settings from 'Compatible' to 'Speed'.
+
 Click expedition only and leave window open in background.
 
 If you are not playing with Nox, add/create an entry in the config.ini file in the script directory. Use AU3_Spy Window Spy that is included with your AHK installation to determine the window properties.  As shown below (Three valid options are show, **PICK ONE**)-

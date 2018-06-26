@@ -67,7 +67,7 @@ Gui, Add, Edit, gIntervalF r2 w15 vIntervalV -VScroll ym, %SortieInterval%
 GuiControl, Move, IntervalV, h17 w70
 Gui, Add, Checkbox, vExpeditionV , Expedition only
 GuiControl, Move, ExpeditionV, x150 y33
-Gui, Add, Checkbox, vcorpsedragoffV , Corpse dragging off?
+Gui, Add, Checkbox, vcorpsedragoffV , Corpse dragging off?(4_3E only)
 GuiControl, Move, corpsedragoffV, x150 y58
 ; Gui, Add, Text, vText, #Nodes
 ; GuiControl, Move, Text, x150 y35
