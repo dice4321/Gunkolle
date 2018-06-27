@@ -153,10 +153,11 @@ WFindClick(x,y)
 	GuiControl,, NB, %x%
 	Found := 0
 	SearchNumber := 10
+	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 	while (found == 0) 
 	{
-		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 		SearchNumber:= SearchNumber + 3
+		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 		GuiControl,, NB, pixel shade offset [%SearchNumber%]
 	}
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
@@ -352,6 +353,12 @@ Sortie2:
 	ExpeditionCheck()
 	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w5000,50")
 
+	Sortiecount++
+	RetirementCounter++
+	ti := BC+1
+	Menu, Main, Rename, %BC%, %ti%
+	BC += 1
+
 	; Repair
 	Found := 0
 	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o5 Count1 n0")
@@ -375,10 +382,19 @@ Sortie2:
 	{
 		RFindClick("Factory", "rNoxPlayer mc o40 w10000,50")
 		RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
+		SetFilter := 1
 		loop, 2
 		{
 			sleep 500
 			RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
+			If(SetFilter == 1)
+			{
+				RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+				RFindClick("ThreeStar", "rNoxPlayer mc o10 w30000,50")
+				RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
+				RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
+				SetFilter--
+			}
 			sleep 500
 			rti := 0
 			rti2 := 5
@@ -403,12 +419,6 @@ Sortie2:
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
 		ExpeditionCheck()
 	}
-
-	Sortiecount++
-	RetirementCounter++
-	ti := BC+1
-	Menu, Main, Rename, %BC%, %ti%
-	BC += 1
 
 	GuiControl,, NB, Idle
 	BusyS := 0
