@@ -229,14 +229,13 @@ ExpeditionCheck()
 Production()
 {
 	Global
-	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o5 count1")
+	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o5 n0 count1")
 	if (Found == 1)
 	{
 		if (ProductionTdoll == 1)
 		{
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
-			sleep 500
-			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete1", "rNoxPlayer mc o5 n0 count1 w1000,50")
+			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete1", "rNoxPlayer mc o5 n0 count1")
 			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete2", "rNoxPlayer mc o5 n0 count1")
 			loop,2
 			{
@@ -245,7 +244,7 @@ Production()
 					RFindClick("Production\TdollProductionComplete"A_Index, "rNoxPlayer mc o5 w30000,50")
 					Loop
 					{
-						if ( FindClick(A_ScriptDir "\pics\Production\TdollProductionStart"A_Index, "rNoxPlayer mc o5 n0 count1") == 1 )
+						if ( FindClick(A_ScriptDir "\pics\Production\TdollProductionStart"A_Index, "rNoxPlayer mc o5 w30000,50 n0 count1") == 1 )
 						{
 							break
 						}
@@ -265,8 +264,7 @@ Production()
 
 			RFindClick("Production\Equipment", "rNoxPlayer mc o5 w30000,50")
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
-			
-			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete1", "rNoxPlayer mc o5 n0 count1 w1000,50")
+			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete1", "rNoxPlayer mc o5 n0 count1")
 			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete2", "rNoxPlayer mc o5 n0 count1")
 			FoundSlot3 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete3", "rNoxPlayer mc o5 n0 count1")
 			loop,3
@@ -276,7 +274,7 @@ Production()
 					RFindClick("Production\EquipmentSlotComplete"A_Index, "rNoxPlayer mc o5 w30000,50")
 					Loop
 					{
-						if ( FindClick(A_ScriptDir "\pics\Production\EquipmentSlotStart"A_Index, "rNoxPlayer mc o5 n0 count1") == 1 )
+						if ( FindClick(A_ScriptDir "\pics\Production\EquipmentSlotStart"A_Index, "rNoxPlayer mc o5 w30000,50 n0 count1") == 1 )
 						{
 							break
 						}
