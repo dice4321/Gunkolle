@@ -239,12 +239,13 @@ Production()
 			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete2", "rNoxPlayer mc o5 n0 count1")
 			loop,2
 			{
+				ProductionCounter := A_Index
 				if (FoundSlot%A_Index% == 1)
 				{
 					RFindClick("Production\TdollProductionComplete"A_Index, "rNoxPlayer mc o5 w30000,50")
 					Loop
 					{
-						if ( FindClick(A_ScriptDir "\pics\Production\TdollProductionStart"A_Index, "rNoxPlayer mc o5 n0 count1") == 1 )
+						if ( FindClick(A_ScriptDir "\pics\Production\TdollProductionStart"ProductionCounter, "rNoxPlayer mc o5 n0 count1") == 1 )
 						{
 							break
 						}
@@ -269,12 +270,13 @@ Production()
 			FoundSlot3 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete3", "rNoxPlayer mc o5 n0 count1")
 			loop,3
 			{
+				ProductionCounter := A_Index
 				if (FoundSlot%A_Index% == 1)
 				{
 					RFindClick("Production\EquipmentSlotComplete"A_Index, "rNoxPlayer mc o5 w30000,50")
 					Loop
 					{
-						if ( FindClick(A_ScriptDir "\pics\Production\EquipmentSlotStart"A_Index, "rNoxPlayer mc o5 n0 count1") == 1 )
+						if ( FindClick(A_ScriptDir "\pics\Production\EquipmentSlotStart"ProductionCounter, "rNoxPlayer mc o5 n0 count1") == 1 )
 						{
 							break
 						}
