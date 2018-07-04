@@ -1,4 +1,4 @@
-;Gunkolle v0.4.0
+;Gunkolle v0.4.1
 
 #Persistent
 #SingleInstance
@@ -49,6 +49,8 @@ IniRead, MaxRandomWait, config.ini, Variables, MaxRandomWaitS, 300000
 IniRead, Doll1, config.ini, Variables, Doll1, AR15
 IniRead, Doll2, config.ini, Variables, Doll2, M4A1
 IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
+IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
+IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -83,7 +85,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.0
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.1
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -170,12 +172,11 @@ ExpeditionCheck()
 	loopcount := 1
 	while (loopcount != 0)
 	{
-		FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w10000,50")
-		sleep 3000
+		FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w3000,50")
 		tpc := 0
 		pc := []
 		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,4)
+		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
 		if tpc = 1
 		{
 			GuiControl,, NB,At home
@@ -217,13 +218,90 @@ ExpeditionCheck()
 		loopcount--
 
 	}
-	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 	while( Found == 0 )
 	{
 			ExpeditionCheck()
-			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 	}
 }
+
+Production()
+{
+	Global
+	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o5 n0 count1")
+	if (Found == 1)
+	{
+		if (ProductionTdoll == 1)
+		{
+			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
+			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete1", "rNoxPlayer mc o5 n0 count1")
+			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete2", "rNoxPlayer mc o5 n0 count1")
+			loop,2
+			{
+				if (FoundSlot%A_Index% == 1)
+				{
+					RFindClick("Production\TdollProductionComplete"A_Index, "rNoxPlayer mc o5 w30000,50")
+					Loop
+					{
+						if ( FindClick(A_ScriptDir "\pics\Production\TdollProductionStart"A_Index, "rNoxPlayer mc o5 w30000,50 n0 count1") == 1 )
+						{
+							break
+						}
+						Else
+						{
+							ClickS(Safex,Safey)
+						}
+					}
+					RFindClick("Production\TdollProductionStart"A_Index, "rNoxPlayer mc o5 w30000,50")
+					RFindClick("Production\StartProduction", "rNoxPlayer mc o5 w30000,50")
+				}
+				sleep 2000
+			}
+		}
+		if ( ProductionEquipment == 1)
+		{
+
+			RFindClick("Production\Equipment", "rNoxPlayer mc o5 w30000,50")
+			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
+			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete1", "rNoxPlayer mc o5 n0 count1")
+			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete2", "rNoxPlayer mc o5 n0 count1")
+			FoundSlot3 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete3", "rNoxPlayer mc o5 n0 count1")
+			loop,3
+			{
+				if (FoundSlot%A_Index% == 1)
+				{
+					RFindClick("Production\EquipmentSlotComplete"A_Index, "rNoxPlayer mc o5 w30000,50")
+					Loop
+					{
+						if ( FindClick(A_ScriptDir "\pics\Production\EquipmentSlotStart"A_Index, "rNoxPlayer mc o5 w30000,50 n0 count1") == 1 )
+						{
+							break
+						}
+						Else
+						{
+							ClickS(Safex,Safey)
+						}
+					}
+					RFindClick("Production\EquipmentSlotStart"A_Index, "rNoxPlayer mc o5 w30000,50")
+					RFindClick("Production\StartProduction", "rNoxPlayer mc o5 w30000,50")
+				}
+				sleep 2000
+			}
+		}
+		sleep 1000
+		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
+		ExpeditionCheck()
+	}
+}
+
+RSleep(time:=600)
+{
+	Random, rtime, time-150, time+150
+	Sleep, %rtime%
+	return
+}
+
 
 Delay:
 {
@@ -259,12 +337,6 @@ Delay:
 	return
 }
 
-RSleep(time:=600)
-{
-	Random, rtime, time-150, time+150
-	Sleep, %rtime%
-	return
-}
 
 Sortie2:
 {
@@ -301,6 +373,22 @@ Sortie2:
 		GuiControl,, NB, At home [Expedition only]
 		ExpeditionCheck()
 	}
+
+	; if A_Hour between 9 and 11 ; if between 9am and 12pm 
+	; { 
+	; 	Loop 
+	; 	{ 
+
+	; 		GuiControl,, NB, %ExpeditionV%
+	; 		GuiControl,, NB, At home [Expedition only]
+	; 		ExpeditionCheck()
+	; 		sleep 5000
+	; 		if A_Hour not between 9 and 11
+	; 		{
+	; 			break
+	; 		}
+	; 	} 
+	; } 
 
 	; Check expedition
 	GuiControlGet, corpsedragoffV
@@ -419,6 +507,9 @@ Sortie2:
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
 		ExpeditionCheck()
 	}
+
+	; check productions
+	Production()
 
 	GuiControl,, NB, Idle
 	BusyS := 0
