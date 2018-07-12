@@ -172,10 +172,7 @@ ExpeditionCheck()
 	loopcount := 1
 	while (loopcount != 0)
 	{
-		; FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w3000,50")
-		pc := [HPC]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-		sleep 3000
+		FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w3000,50")
 		tpc := 0
 		pc := []
 		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
@@ -221,21 +218,20 @@ ExpeditionCheck()
 		loopcount--
 
 	}
-	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
-	; while( Found == 0 )
-	; {
-	; 		ExpeditionCheck()
-	; 		Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
-	; }
+	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
+	while( Found == 0 )
+	{
+			ExpeditionCheck()
+			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
+	}
 }
 
 Production()
 {
 	Global
 	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o5 n0 count1")
-	if((ProductionTdoll == 1 || ProductionEquipment == 1) && Found == 1) 
+	if (Found == 1)
 	{
-		RFindClick("\Production\FactoryReady", "rNoxPlayer mc o5")
 		if (ProductionTdoll == 1)
 		{
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
@@ -256,17 +252,17 @@ Production()
 						Else
 						{
 							ClickS(Safex,Safey)
-							sleep 500
 						}
 					}
 					RFindClick("Production\TdollProductionStart"A_Index, "rNoxPlayer mc o5 w30000,50")
 					RFindClick("Production\StartProduction", "rNoxPlayer mc o5 w30000,50")
-					sleep 1000
+					sleep 2000
 				}
 			}
 		}
 		if ( ProductionEquipment == 1)
 		{
+
 			RFindClick("Production\Equipment", "rNoxPlayer mc o5 w30000,50")
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
 			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\EquipmentSlotComplete1", "rNoxPlayer mc o5 n0 count1 w2000,50")
@@ -287,12 +283,11 @@ Production()
 						Else
 						{
 							ClickS(Safex,Safey)
-							sleep 500
 						}
 					}
 					RFindClick("Production\EquipmentSlotStart"A_Index, "rNoxPlayer mc o5 w30000,50")
 					RFindClick("Production\StartProduction", "rNoxPlayer mc o5 w30000,50")
-					sleep 1000
+					sleep 2000
 				}
 			}
 		}
@@ -510,7 +505,7 @@ Sortie2:
 		{
 			RFindClick("TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 w30000,50")
 		}
-		sleep 2500
+		sleep 1000
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
 		ExpeditionCheck()
 	}
