@@ -1,4 +1,4 @@
-;Gunkolle v0.4.1
+;Gunkolle v0.4.2
 
 #Persistent
 #SingleInstance
@@ -58,7 +58,7 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||3_2N|5_4 ; upcoming map changer
+Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||3_2N|5_4|0_2 ; upcoming map changer
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
 ; Gui, Add, Text, x55 ym, -
@@ -85,7 +85,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.2
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()

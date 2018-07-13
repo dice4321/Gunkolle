@@ -13,6 +13,10 @@ RunMap(x)
 	{
 		5_4()
 	}
+	else if(x == "0_2")
+	{
+		0_2()
+	}
 }
 
 
@@ -323,3 +327,126 @@ RetirementCounter--
 	}
 
 }
+
+0_2()
+{
+	Global
+	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o10 w30000,50")
+	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
+	if Found >= 1
+	{
+
+	}
+	Else
+	{
+		GuiControl,, NB, Paused
+		Pause
+	}
+	RFindClick("\Maps\0_2\0_2CommandPost", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\OK", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\HeliPort", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\OK", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\StartCombat", "rNoxPlayer mc o10 w30000,50 ")
+	sleep 1000
+	FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
+	sleep 2000
+	RFindClick("\Maps\0_2\HeliPortResupply", "rNoxPlayer mc o10 a200,300,-900,-300 w30000,50 n2 sleep100 ")
+	RFindClick("\Maps\0_2\Resupply", " rNoxPlayer mc o10 w30000,50")
+	sleep 500
+	RFindClick("\Maps\0_2\CommandCenterResupply", "rNoxPlayer mc o10 a550,300,-550,-300 w1000,50 ")
+	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\0_2Enemy1", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o10 w30000,50 ")
+	sleep 500
+	ControlSend, , a, Nox
+	sleep 1000
+	RFindClick("\Maps\0_2\0_2Enemy3", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\0_2Enemy4", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\Execute", "rNoxPlayer mc o10 w30000,50")
+	loop, 3
+	{
+		Found := 0
+		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o5 Count1 n0 w30000,50")
+		while(Found == 0)
+		{
+			Found := 0
+			Found := FindClick(A_ScriptDir "\pics\EndTurn", "rNoxPlayer mc o15 Count1 n0")
+			if Found >= 1
+			{
+
+			}
+			else
+			{
+				ClickS(Safex,Safey)
+				sleep 200
+			}
+			GuiControl,, NB, %found%
+		}
+	}
+	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
+	sleep 5000
+	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", "rNoxPlayer mc o10 Count1 n0")
+	While (Found != 1)
+	{
+		RFindClick("\Maps\0_2\DragSquad", "rNoxPlayer mc o10 w1000,50 ")
+		Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", " rNoxPlayer mc o10 Count1 n0 w1000,50")
+	}
+	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\0_2Enemy5", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\0_2Enemy6", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\Execute", "rNoxPlayer mc o10 w30000,50")
+	loop, 2
+	{
+		Found := 0
+		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o5 Count1 n0 w30000,50")
+		while(Found == 0)
+		{
+			Found := 0
+			Found := FindClick(A_ScriptDir "\pics\EndTurn", "rNoxPlayer mc o15 Count1 n0")
+			if Found >= 1
+			{
+
+			}
+			else
+			{
+				ClickS(Safex,Safey)
+				sleep 200
+			}
+			GuiControl,, NB, %found%
+		}
+	}
+	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
+	
+	loopcount := 1
+	loop, %loopcount%
+	{
+		Found := 0
+		FoundAlt := 0
+		sleep 5000
+		while(Found == 0 && FoundAlt == 0)
+		{
+			Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
+			FoundAlt := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o5 Count1 n0")
+			if (Found >= 1 or FoundAlt >= 1)
+			{
+
+			}
+			else
+			{
+				Found2 :=0
+				Found2 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
+				if Found2 >= 1
+				{
+					loopcount++
+				}
+				ClickS(Expeditionx,Expeditiony)
+				sleep 200
+			}
+			GuiControl,, NB, %found% %FoundAlt%
+		}
+	}
+}
+
+
+
