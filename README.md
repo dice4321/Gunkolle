@@ -40,13 +40,8 @@ Click expedition only and leave window open in background.
 
 If you are not playing with Nox, add/create an entry in the config.ini file in the script directory. Use AU3_Spy Window Spy that is included with your AHK installation to determine the window properties.  As shown below (Three valid options are show, **PICK ONE**)-
 
-Anything sortie related (experimental) please refer to the wiki.
-
-```
-[Variables]
-WINID=ahk_class Qt5QWindowIcon
-WINID=ahk_exe Nox.exe
-```
+## How to use: Gunkolle(Sortie)
+read the wiki
 
 ## How to use: Pause Utility
 
@@ -55,3 +50,9 @@ Simple pause script that runs alongside Gunkolle.
 Enter in config.ini under [Variables], PauseHr=22 , and PauseMn=22 to pause at 22:22.  Use 24 Hour format only. You may use PCSleep=1 to sleep the computer at that time as well.
 
 Use ResumeHr and ResumeMn to have the script resume at a specific time. Can be omitted for pause functionality only. When resume is enabled, PCSleep will be ignored and expired timers will automatically be set to pause/resume 24 hours later.
+
+```
+[Variables]
+WINID=ahk_class Qt5QWindowIcon
+WINID=ahk_exe Nox.exe
+```
