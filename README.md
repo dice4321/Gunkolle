@@ -42,6 +42,9 @@ If you are not playing with Nox, add/create an entry in the config.ini file in t
 
 Anything sortie related (experimental) please refer to the wiki.
 
+## How to use: Gunkolle(Sortie)
+read the wiki
+
 ```
 [Variables]
 WINID=ahk_class Qt5QWindowIcon
