@@ -357,10 +357,10 @@ RetirementCounter--
 	RFindClick("\Maps\0_2\CommandCenterResupply", "rNoxPlayer mc o10 a550,300,-550,-300 w1000,50 ")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy1", "rNoxPlayer mc o10 w30000,50 ")
-	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o10 w30000,50 ")
 	sleep 500
 	ControlSend, , a, Nox
 	sleep 1000
+	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy3", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy4", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\Execute", "rNoxPlayer mc o10 w30000,50")
