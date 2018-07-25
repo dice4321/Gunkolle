@@ -15,7 +15,7 @@ Running from source
 * Gdip_All library by tic (included)
 * findclick libaray by berban (also included)
 * playing at 1280 x 720 res
-* Requires a NVIDIA graphics card becuase of how NOX renders. (#16)
+* Requires a NVIDIA graphics card becuase of how NOX renders. ( #16 )
 
 Running from releases (v1.60803 or above)
 * None
