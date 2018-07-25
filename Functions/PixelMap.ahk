@@ -26,8 +26,12 @@ PixelMap()
 	 LoginCollectNoticey := FY - 545
 	 FormationProfilex := FX - 75
 	 FormationProfiley := FY - 501
-
-
+	 TdollEnhancement_Lockx := FX - 314
+	 TdollEnhancement_Locky := FY - 302
+	 Factoryx := FX + 819
+	 Factoryy := FY - 268
+	 FactoryReturnx := FX -255
+	 FactoryReturny := FY -533
 	; Gx := FX + 401
  	; Gy := FY - 8
 	; Sx := FX - 185 ;Sortie Button
