@@ -182,7 +182,7 @@ RunMap(x)
 			GuiControl,, NB, %found%
 		}
 	}
-	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o35 w30000,10 n2 a270,550,-920,-100")
+	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o35 w30000,10 a270,550,-920,-100")
 	RFindClick("\Maps\3_2N\Echelon3", "rNoxPlayer mc o60 w30000,50")
 	RFindClick("\Maps\3_2N\HeliPortOK", "rNoxPlayer mc o5 w30000,50")
 	Sleep 2000
@@ -197,6 +197,7 @@ RunMap(x)
 	RFindClick("\Maps\3_2N\Select", "rNoxPlayer mc o20 w30000,50 ")
 	RFindClick("\Maps\3_2N\Helipad2Select", "rNoxPlayer mc o20 w30000,50 a270,550,-920,-100")
 	RFindClick("\Maps\3_2N\Retreat", "rNoxPlayer mc o5 w2000,50 ")
+	sleep 500
 	RFindClick("\Maps\3_2N\Confirm", "rNoxPlayer mc o15 w30000,50")
 	sleep 1000
 	RFindClick("\Maps\3_2N\Terminate", "rNoxPlayer mc o5 w30000,50")
