@@ -1,4 +1,4 @@
-;Gunkolle v0.4.3
+;Gunkolle v0.4.4
 
 #Persistent
 #SingleInstance
@@ -34,7 +34,7 @@ DT := 0
 Nodes := 1
 Sortiecount := 0
 FactoryChecker := 1
-FactoryFlag := 0
+FactoryFlag := 1
 
 IniRead, NotificationLevel, config.ini, Variables, NotificationLevel, 1
 IniRead, TWinX, config.ini, Variables, LastXS, 0
@@ -88,7 +88,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.3
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.4
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -144,6 +144,13 @@ RFindClick(x,y)
 		{
 			RSleep(200)
 			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+			; looper++
+			; loop, %looper%
+			; FinderAlt = same Pic
+			; if same Pic{
+			; 	click same Pic
+			; 	looper++
+			; }
 		}
 	}
 	return
@@ -268,7 +275,9 @@ Production()
 				}
 			}
 		}
-		if ( Found := RFindClick("Production\Equipment", "rNoxPlayer mc o5 w30000,50") == 1)
+		RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
+		Found := FindClick(A_ScriptDir "\pics\Production\EquipmentReady", "rNoxPlayer mc o5 count1 n0 w2000,50")
+		if ( Found == 1)
 		{
 			RFindClick("Production\EquipmentReady", "rNoxPlayer mc o5 w30000,50")
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
@@ -304,7 +313,6 @@ Production()
 		}
 		sleep 1000
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
-		ExpeditionCheck()
 	}
 }
 
@@ -387,10 +395,12 @@ Sortie2:
 		ExpeditionCheck()
 		if ( FactoryChecker == 1)
 		{
-			Random, Factorytime, 280000, 320000
+			Random, Factorytime, 300000, 250000
 			SetTimer, FactoryFlag, %Factorytime%
 			FactoryChecker--
 		}
+		GuiControl,, NB, FactoryFlag %FactoryFlag% 
+		sleep 1000
 		if ( FactoryFlag == 1)
 		{
 			clickS(Factoryx,Factoryy)
@@ -495,8 +505,8 @@ Sortie2:
 
 	; Dismantle
 
-	Retirement := Mod(RetirementCounter, 5)
-	if(Retirement == 4)
+	Retirement := Mod(RetirementCounter, 4)
+	if(Retirement == 3)
 	{
 		RFindClick("Factory", "rNoxPlayer mc o40 w10000,50")
 		if(Enchancement == 1)
@@ -564,9 +574,19 @@ Sortie2:
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
 				If(SetFilter == 1)
 				{
-					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+					if(Enchancement == 1)
+					{
+						RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
+					}
+					Else
+					{
+						RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+					}
 					RFindClick("ThreeStar", "rNoxPlayer mc o10 w30000,50")
-					RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
+					if(Enchancement == 0)
+					{
+						RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
+					}
 					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
 					SetFilter--
 				}
@@ -1173,8 +1193,8 @@ DN:
 
 FactoryFlag:
 {
-	FactoryFlag++
-	FactoryChecker++
+	FactoryFlag := 1
+	FactoryChecker := 1
 	return
 }
 
