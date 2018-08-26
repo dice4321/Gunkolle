@@ -148,13 +148,11 @@ RunMap(x)
 	RFindClick("\Maps\3_2N\HeliPortOK", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\3_2N\StartCombat", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\3_2N\CloseNight", "rNoxPlayer mc o5 w30000,50")
-	sleep 3000
-	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o25 w30000,50 n2 a270,550,-920,-100")
-	RFindClick("\Maps\3_2N\HeliPort2Supply", "rNoxPlayer mc o5 w30000,50")
 	sleep 2000
-	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o20 w2000,50 a270,550,-920,-100")
-	RFindClick("\Maps\3_2N\Retreat", "rNoxPlayer mc o5 w2000,50 ")
-	sleep 500
+	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o25 w30000,10 n2 a270,550,-920,-100")
+	RFindClick("\Maps\3_2N\HeliPort2Supply", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\3_2N\HeliPort2AfterClicked", "rNoxPlayer mc o20 w12000,50 a270,550,-920,-100")
+	RFindClick("\Maps\3_2N\Retreat", "rNoxPlayer mc o5 w12000,50 ")
 	RFindClick("\Maps\3_2N\Confirm", "rNoxPlayer mc o5 w30000,50")
 	sleep 1000
 	RFindClick("\Maps\3_2N\PlanningMode", "rNoxPlayer mc o5 w30000,50")
@@ -184,10 +182,10 @@ RunMap(x)
 			GuiControl,, NB, %found%
 		}
 	}
-	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o35 w30000,10 a270,550,-920,-100")
 	RFindClick("\Maps\3_2N\Echelon3", "rNoxPlayer mc o60 w30000,50")
 	RFindClick("\Maps\3_2N\HeliPortOK", "rNoxPlayer mc o5 w30000,50")
-	Sleep 3000
+	Sleep 2000
 	RFindClick("\Maps\3_2N\HeliPort2Stage3", "rNoxPlayer mc o20 w2000,50 a270,550,-920,-100 ")
 	RFindClick("\Maps\3_2N\Switcher", "rNoxPlayer mc o30 w2000,50 a520,514,-650,-170 ")
 	sleep 500
@@ -200,7 +198,7 @@ RunMap(x)
 	RFindClick("\Maps\3_2N\Helipad2Select", "rNoxPlayer mc o20 w30000,50 a270,550,-920,-100")
 	RFindClick("\Maps\3_2N\Retreat", "rNoxPlayer mc o5 w2000,50 ")
 	sleep 500
-	RFindClick("\Maps\3_2N\Confirm", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\3_2N\Confirm", "rNoxPlayer mc o15 w30000,50")
 	sleep 1000
 	RFindClick("\Maps\3_2N\Terminate", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\3_2N\TerminateOK", "rNoxPlayer mc o5 w30000,50")
@@ -351,7 +349,8 @@ RetirementCounter--
 	sleep 1000
 	FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
 	sleep 2000
-	RFindClick("\Maps\0_2\HeliPortResupply", "rNoxPlayer mc o10 a200,300,-900,-300 w30000,50 n2 sleep100 ")
+	RFindClick("\Maps\0_2\HeliPortResupply", "rNoxPlayer mc o10 a200,300,-900,-300 w30000,50 ")
+	RFindClick("\Maps\0_2\HeliPortResupply2", "rNoxPlayer mc o10 a200,300,-900,-300 w30000,50 ")
 	RFindClick("\Maps\0_2\Resupply", " rNoxPlayer mc o10 w30000,50")
 	sleep 500
 	RFindClick("\Maps\0_2\CommandCenterResupply", "rNoxPlayer mc o10 a550,300,-550,-300 w1000,50 ")
