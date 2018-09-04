@@ -1176,11 +1176,6 @@ MaW:
 
 SSBF:
 {
-	if (Map < 1 or World < 1)
-	{
-		MsgBox Map or world invalid. Press enter after each field to submit.
-		return
-	}
 	GuiControl, Hide, SSB
 	BP := 1
 	DT := 1
