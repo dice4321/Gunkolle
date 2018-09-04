@@ -41,7 +41,7 @@ RunMap(x)
 	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("CommandPost", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("StartCombat", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("StartCombat", "rNoxPlayer mc o30 w3000,10 a1000,620")
 	Sleep 4000
 	if (corpsedragoffV != 1)
 	{
@@ -146,7 +146,7 @@ RunMap(x)
 	RFindClick("\Maps\3_2N\HeliPortOK", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\3_2N\HeliPort2", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\3_2N\HeliPortOK", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("\Maps\3_2N\StartCombat", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("StartCombat", "rNoxPlayer mc o30 w3000,10 a1000,620")
 	RFindClick("\Maps\3_2N\CloseNight", "rNoxPlayer mc o5 w30000,50")
 	sleep 2000
 	RFindClick("\Maps\3_2N\HeliPort2After", "rNoxPlayer mc o25 w30000,10 n2 a270,550,-920,-100")
@@ -256,7 +256,7 @@ RetirementCounter--
 	RFindClick("\Maps\5_4\OK", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\CommandCenter", "rNoxPlayer mc o10 w30000,50 Center a950,,,-500")
 	RFindClick("\Maps\5_4\OK", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("\Maps\5_4\StartCombat", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("StartCombat", "rNoxPlayer mc o30 w3000,10 a1000,620")
 	sleep 1000
 	RFindClick("\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 w30000,50 n0")
 	sleep 2000
@@ -345,7 +345,7 @@ RetirementCounter--
 	RFindClick("\Maps\0_2\OK", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\HeliPort", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\OK", "rNoxPlayer mc o10 w30000,50 ")
-	RFindClick("\Maps\0_2\StartCombat", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("StartCombat", "rNoxPlayer mc o30 w3000,10 a1000,620")
 	sleep 1000
 	FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
 	sleep 2000
