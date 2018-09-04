@@ -349,8 +349,8 @@ RetirementCounter--
 	sleep 1000
 	FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
 	sleep 2000
-	RFindClick("\Maps\0_2\HeliPortResupply", "rNoxPlayer mc o10 a200,300,-900,-300 w30000,50 ")
-	RFindClick("\Maps\0_2\HeliPortResupply2", "rNoxPlayer mc o10 a200,300,-900,-300 w30000,50 ")
+	RFindClick("\Maps\0_2\HeliPortResupply", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("\Maps\0_2\HeliPortResupply2", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("\Maps\0_2\Resupply", " rNoxPlayer mc o10 w30000,50")
 	sleep 500
 	RFindClick("\Maps\0_2\CommandCenterResupply", "rNoxPlayer mc o10 a550,300,-550,-300 w1000,50 ")
