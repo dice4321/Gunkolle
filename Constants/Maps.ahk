@@ -89,7 +89,7 @@ RunMap(x)
 			GuiControl,, NB, %found%
 		}
 	}
-	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	; go home
 	;needs fixing, find image before home screen to stop
@@ -293,7 +293,7 @@ RetirementCounter--
 		}
 	}
 
-	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
 	
 	loopcount := 1
 	loop, %loopcount%
@@ -383,7 +383,7 @@ RetirementCounter--
 			GuiControl,, NB, %found%
 		}
 	}
-	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
 	sleep 5000
 	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", "rNoxPlayer mc o10 Count1 n0")
 	While (Found != 1)
@@ -415,7 +415,7 @@ RetirementCounter--
 			GuiControl,, NB, %found%
 		}
 	}
-	RFindClick("EndTurn", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
 	
 	loopcount := 1
 	loop, %loopcount%

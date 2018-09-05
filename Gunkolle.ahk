@@ -436,7 +436,8 @@ Sortie2:
 		Found := FindClick(A_ScriptDir "\pics\WaitForFormation", "rNoxPlayer mc o10 Count1 n0 w5000,50")
 		While (Found != 1)
 		{
-			ClickS(Expeditionx,Expeditiony)
+			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10")
+			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10")
 			FindClick(A_ScriptDir "\pics\Formation", "rNoxPlayer mc o10")
 			Found := FindClick(A_ScriptDir "\pics\WaitForFormation", " rNoxPlayer mc o10 Count1 n0 w1000,50")
 		}
