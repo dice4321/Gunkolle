@@ -340,6 +340,7 @@ TimeCheck()
 				sleep 100
 				RFindClick("Dorm\MyFriends", "rNoxPlayer mc o5 w30000,50")
 				RFindClick("Dorm\VisitDorm", "rNoxPlayer mc o5 w30000,50")
+				RFindClick("Dorm\WaitForFriends", "rNoxPlayer mc o5 w30000,50 n0")
 				FoundMessage := 0
 				FoundMessage := FindClick(A_ScriptDir "\pics\Dorm\Message", "rNoxPlayer mc o30 count1 n0")
 				while (FoundMessage == 0)
