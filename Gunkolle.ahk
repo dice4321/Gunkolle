@@ -1,4 +1,4 @@
-;Gunkolle v0.4.5
+;Gunkolle v0.4.5.1
 
 #Persistent
 #SingleInstance
@@ -81,7 +81,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.5
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.5.1
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -176,10 +176,9 @@ ExpeditionCheck()
 	while (loopcount != 0)
 	{
 		; FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w3000,50")
-		pc := [HPC]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-		sleep 3000
-		tpc := 0
+		; pc := [HPC]
+		; tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+		; tpc := 0
 		pc := []
 		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
 		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
@@ -232,13 +231,26 @@ ExpeditionCheck()
 	; }
 }
 
+ExpeditionTransition(ClickThis,WaitForThis)
+{
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
+	While (Found != 1)
+	{
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10")
+		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10")
+		FindClick(A_ScriptDir "\pics\" ClickThis, "rNoxPlayer mc o10")
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
+	}
+}
+
+
 Production()
 {
 	Global
 	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o5 n0 count1")
 	if((ProductionTdoll == 1 || ProductionEquipment == 1) && Found == 1) 
 	{
-		RFindClick("\Production\FactoryReady", "rNoxPlayer mc o5")
+		ExpeditionTransition("Production\FactoryReady","Production\WaitForTdollProduction")
 		if (ProductionTdoll == 1)
 		{
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
@@ -432,15 +444,7 @@ Sortie2:
 		Dollcount2 := 1 + modder2
 		Doll[] := [%Doll1%,%Doll2%]
 		Found := 0
-		RFindClick("Formation", "rNoxPlayer mc o5 w10000,50") ;go to formation 
-		Found := FindClick(A_ScriptDir "\pics\WaitForFormation", "rNoxPlayer mc o10 Count1 n0 w5000,50")
-		While (Found != 1)
-		{
-			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10")
-			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10")
-			FindClick(A_ScriptDir "\pics\Formation", "rNoxPlayer mc o10")
-			Found := FindClick(A_ScriptDir "\pics\WaitForFormation", " rNoxPlayer mc o10 Count1 n0 w1000,50")
-		}
+		ExpeditionTransition("Formation","WaitForFormation")
 		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc a125,125,-775,-220") ; select Doll1
 		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
 		if Doll%DollCount2% in %5Star%
@@ -527,7 +531,7 @@ Sortie2:
 	Retirement := Mod(RetirementCounter, DisassembleCycle + 1)
 	if(Retirement == DisassembleCycle)
 	{
-		RFindClick("Factory", "rNoxPlayer mc o40 w10000,50")
+		ExpeditionTransition("Factory","TdollEnhancement")
 		if(Enchancement == 1)
 		{
 			RFindClick("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
