@@ -89,6 +89,7 @@ RunMap(x)
 			GuiControl,, NB, %found%
 		}
 	}
+	sleep 1000
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	; go home
