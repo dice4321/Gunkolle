@@ -237,9 +237,9 @@ ExpeditionTransition(ClickThis,WaitForThis)
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
 	While (Found != 1)
 	{
-		RFindClick("ExpeditionArrive", "rNoxPlayer mc o10")
-		RFindClick("ExpeditionConfirm", "rNoxPlayer mc o10")
-		RFindClick(ClickThis, "rNoxPlayer mc o10")
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10")
+		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10")
+		FindClick(A_ScriptDir "\pics\" ClickThis, "rNoxPlayer mc o10")
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
 	}
 }
