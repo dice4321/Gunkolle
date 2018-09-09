@@ -1,4 +1,4 @@
-;Gunkolle v0.4.5.1
+;Gunkolle v0.4.5.2 STABLE
 
 #Persistent
 #SingleInstance
@@ -81,7 +81,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.5.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.5.2
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -124,19 +124,8 @@ RFindClick(x,y)
 	Random, RandX, -10, 10
 	Random, RandY, -10, 10
 	GuiControl,, NB, %x%
-	Found := 0
-	while (Found == 0)
-	{
-		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
-		if(Found == 0)
-		{
-			ClickS(Safex,Safey)
-			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
-		}
-		else
-		{
-			RSleep(200)
-			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+	RSleep(200)
+	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
 			; looper++
 			; loop, %looper%
 			; FinderAlt = same Pic
@@ -144,8 +133,6 @@ RFindClick(x,y)
 			; 	click same Pic
 			; 	looper++
 			; }
-		}
-	}
 	return
 }
 
@@ -176,9 +163,10 @@ ExpeditionCheck()
 	while (loopcount != 0)
 	{
 		; FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0 w3000,50")
-		; pc := [HPC]
-		; tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-		; tpc := 0
+		pc := [HPC]
+		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+		tpc := 0
+		sleep 3000
 		pc := []
 		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
 		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
@@ -237,9 +225,9 @@ ExpeditionTransition(ClickThis,WaitForThis)
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
 	While (Found != 1)
 	{
-		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10")
-		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10")
-		FindClick(A_ScriptDir "\pics\" ClickThis, "rNoxPlayer mc o10")
+		RFindClick("ExpeditionArrive", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		RFindClick("ExpeditionConfirm", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		RFindClick(ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
 	}
 }
