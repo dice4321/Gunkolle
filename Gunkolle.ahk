@@ -1,4 +1,4 @@
-;Gunkolle v0.4.5.2 STABLE
+;Gunkolle v0.4.6.0
 
 #Persistent
 #SingleInstance
@@ -47,6 +47,7 @@ IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
 IniRead, Enchancement, config.ini, Variables, Enchancement, 0
 IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 0
+IniRead, FriendCollector, config.ini, Variables, FriendCollector, 1
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -81,7 +82,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.5.2
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.6.0
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -229,6 +230,52 @@ ExpeditionTransition(ClickThis,WaitForThis)
 		RFindClick("ExpeditionConfirm", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
 		RFindClick(ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
+	}
+}
+
+TimeCheck()
+{
+	global FriendCollector
+	global FriendChecker
+	if(FriendCollector == 1)
+	{
+		if(FriendChecker == 1)
+		{
+			FormatTime, TimeString,, HHmm
+			GuiControl,, NB, %TimeString%
+			if TimeString between 2300 and 2415
+			{ 
+				FriendChecker--
+				Random, FriendTime, 1900000, 1800000
+				SetTimer, FriendFlag, %Friendtime%
+				RFindClick("Dorm\Dorm", "rNoxPlayer mc o5 w30000,50")
+				RFindClick("Dorm\Visit", "rNoxPlayer mc o5 w30000,50")
+				sleep 100
+				RFindClick("Dorm\MyFriends", "rNoxPlayer mc o5 w30000,50")
+				RFindClick("Dorm\VisitDorm", "rNoxPlayer mc o5 w30000,50")
+				RFindClick("Dorm\WaitForFriends", "rNoxPlayer mc o5 w30000,50 n0")
+				FoundMessage := 0
+				FoundMessage := FindClick(A_ScriptDir "\pics\Dorm\Message", "rNoxPlayer mc o30 count1 n0")
+				while (FoundMessage == 0)
+				{
+					RFindClick("Dorm\Like", "rNoxPlayer mc o5 w30000,50")
+					sleep 500
+					Found := FindClick(A_ScriptDir "\pics\Dorm\Battery", "rNoxPlayer mc o5 count1 n0")
+					if (Found == 1)
+					{
+						RFindClick("Dorm\Battery", "rNoxPlayer mc o5 w30000,50")
+						RFindClick("Dorm\BatteryClose", "rNoxPlayer mc o5 w30000,50")
+					}
+					RFindClick("Dorm\Next", "rNoxPlayer mc o5 w30000,50")
+					sleep 1000
+					RFindClick("Dorm\WaitForFriends", "rNoxPlayer mc o5 w30000,50 n0")
+					sleep 200
+					FoundMessage := FindClick(A_ScriptDir "\pics\Dorm\Message", "rNoxPlayer mc o30 count1 n0 ")
+				}
+				RFindClick("Dorm\Return", "rNoxPlayer mc o5 w30000,50")
+				RFindClick("Dorm\Exit", "rNoxPlayer mc o5 w30000,50")
+			} 
+		}
 	}
 }
 
@@ -405,6 +452,8 @@ Sortie2:
 		}
 		Production()
 	}
+
+	TimeCheck()
 
 	; if A_Hour between 9 and 11 ; if between 9am and 12pm 
 	; { 
@@ -1204,6 +1253,13 @@ FactoryFlag:
 	return
 }
 
+FriendFlag:
+{
+	FriendChecker := 1
+	SetTimer, FriendFlag, off
+	return
+}
+
 #Include %A_ScriptDir%/Functions/Click.ahk
 #Include %A_ScriptDir%/Functions/TimerUtils.ahk
 #Include %A_ScriptDir%/Functions/PixelCheck.ahk
@@ -1229,6 +1285,7 @@ Initialize()
 	coffset := 10
 	FactoryChecker := 1
 	FactoryFlag := 1
+	FriendChecker := 1
 	5Star = TYPE97,OTS14,HK416,G41,TYPE95,G11,FAL,WA2000
 	4Star = 
 }
