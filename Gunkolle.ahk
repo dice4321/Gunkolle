@@ -482,7 +482,7 @@ Sortie2:
 		ExpeditionCheck()
 	}	
 
-	ExpeditionTransition("Combat","Emergency")
+	ExpeditionTransition("Combat","CombatPage")
 	GuiControlGet, WorldV
 	RunMap(WorldV)
 
