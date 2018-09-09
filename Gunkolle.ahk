@@ -46,8 +46,8 @@ IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
 IniRead, Enchancement, config.ini, Variables, Enchancement, 0
-IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 0
-IniRead, FriendCollector, config.ini, Variables, FriendCollector, 1
+IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
+IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -241,9 +241,9 @@ TimeCheck()
 	{
 		if(FriendChecker == 1)
 		{
-			FormatTime, TimeString,, HHmm
+			FormatTime, TimeString,% A_NowUTC, HHmm
 			GuiControl,, NB, %TimeString%
-			if TimeString between 2300 and 2415
+			if TimeString between 1100 and 1115
 			{ 
 				FriendChecker--
 				Random, FriendTime, 1900000, 1800000
