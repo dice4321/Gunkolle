@@ -121,9 +121,11 @@ return
 ; Random
 RFindClick(x,y)
 {
-	local RandX, RandY
-	Random, RandX, -10, 10
-	Random, RandY, -10, 10
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
+	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	RSleep(200)
 	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
@@ -140,9 +142,11 @@ RFindClick(x,y)
 ; Wait
 WFindClick(x,y)
 {	
-	local RandX, RandY
-	Random, RandX, -10, 10
-	Random, RandY, -10, 10
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
+	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
 	SearchNumber := 0
