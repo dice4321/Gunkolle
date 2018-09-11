@@ -1,4 +1,4 @@
-;Gunkolle v0.4.6.0
+;Gunkolle v0.4.6.1
 
 #Persistent
 #SingleInstance
@@ -82,7 +82,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.6.0
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.6.1
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -124,7 +124,7 @@ RFindClick(x,y)
 	local RandX, RandY, radius := 10
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	RSleep(200)
@@ -145,7 +145,7 @@ WFindClick(x,y)
 	local RandX, RandY, radius := 10
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
