@@ -1,4 +1,4 @@
-;Gunkolle v0.4.6.1
+;Gunkolle v0.4.7.0
 
 #Persistent
 #SingleInstance
@@ -48,6 +48,7 @@ IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
 IniRead, Enchancement, config.ini, Variables, Enchancement, 0
 IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
+IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -82,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.6.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.0
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -241,16 +242,16 @@ TimeCheck()
 {
 	global FriendCollector
 	global FriendChecker
+	FormatTime, TimeString,% A_NowUTC, HHmm
+	GuiControl,, NB, %TimeString%
 	if(FriendCollector == 1)
 	{
 		if(FriendChecker == 1)
 		{
-			FormatTime, TimeString,% A_NowUTC, HHmm
-			GuiControl,, NB, %TimeString%
 			if TimeString between 1100 and 1115
 			{ 
 				FriendChecker--
-				Random, FriendTime, 1900000, 1800000
+				Random, FriendTime, 1800000, 1900000
 				SetTimer, FriendFlag, %Friendtime%
 				RFindClick("Dorm\Dorm", "rNoxPlayer mc o5 w30000,50")
 				RFindClick("Dorm\Visit", "rNoxPlayer mc o5 w30000,50")
@@ -278,8 +279,22 @@ TimeCheck()
 				}
 				RFindClick("Dorm\Return", "rNoxPlayer mc o5 w30000,50")
 				RFindClick("Dorm\Exit", "rNoxPlayer mc o5 w30000,50")
+				ExpeditionCheck()
 			} 
 		}
+	}
+	if((BatteryCollector == 1) && (BatteryChecker == 1) && (TimeString between 1900 and 1915))
+	{
+		BatteryChecker--
+		Random, BatteryTime, 1800000, 1900000
+		SetTimer, BatteryFlag, %BatteryTime%
+		Clicks(Dormx,Dormy)
+		pc := [DormVisitButton]
+		WaitForPixelColor(DormVisitButtonx,DormVisitButtony,pc,,,30)
+		sleep 5000
+		Clicks(Batteryx,Batteryy)
+		pc := [HPC]
+		WaitForPixelColor(Homex,Homey,pc,AndroidpopupExitx,AndroidpopupExity,30)
 	}
 }
 
@@ -440,7 +455,7 @@ Sortie2:
 		ExpeditionCheck()
 		if ( FactoryChecker == 1)
 		{
-			Random, Factorytime, 300000, 250000
+			Random, Factorytime, 250000, 300000
 			SetTimer, FactoryFlag, %Factorytime%
 			FactoryChecker--
 		}
@@ -1264,6 +1279,13 @@ FriendFlag:
 	return
 }
 
+BatteryFlag:
+{
+	BatteryChecker := 1
+	SetTimer, BatteryFlag, off
+	return
+}
+
 #Include %A_ScriptDir%/Functions/Click.ahk
 #Include %A_ScriptDir%/Functions/TimerUtils.ahk
 #Include %A_ScriptDir%/Functions/PixelCheck.ahk
@@ -1290,6 +1312,7 @@ Initialize()
 	FactoryChecker := 1
 	FactoryFlag := 1
 	FriendChecker := 1
+	BatteryChecker := 1
 	5Star = TYPE97,OTS14,HK416,G41,TYPE95,G11,FAL,WA2000
 	4Star = 
 }

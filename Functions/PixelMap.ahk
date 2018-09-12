@@ -32,6 +32,12 @@ PixelMap()
 	 Factoryy := FY - 268
 	 FactoryReturnx := FX -255
 	 FactoryReturny := FY -533
+	 Dormx := FX + 804
+	 Dormy := FY - 361	 
+	 DormVisitButtonx := FX - 261
+	 DormVisitButtony := FY + 70
+	 Batteryx := FX - 98
+	 Batteryy := FY + 13
 	; Gx := FX + 401
  	; Gy := FY - 8
 	; Sx := FX - 185 ;Sortie Button
