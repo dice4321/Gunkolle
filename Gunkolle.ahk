@@ -238,6 +238,17 @@ ExpeditionTransition(ClickThis,WaitForThis)
 	}
 }
 
+ClickWait(ClickThis,WaitForThis)
+{
+	GuiControl,, NB, %WaitForThis%
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
+	While (Found != 1)
+	{
+		RFindClick(ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
+	}
+}
+
 TimeCheck()
 {
 	global FriendCollector
@@ -520,7 +531,7 @@ Sortie2:
 		pc := [FormationProfile]
 		tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
-		sleep 500
+		ClickWait("Echelon2","Echelon2Clicked")
 		RFindClick("Echelon2", "rNoxPlayer mc o20 w30000,50")
 		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		ClickS(Role1x,Role1y)
