@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.1
+;Gunkolle v0.4.7.2
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.2
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -264,6 +264,8 @@ TimeCheck()
 {
 	global FriendCollector
 	global FriendChecker
+	global BatteryCollector
+	global BatteryChecker
 	FormatTime, TimeString,% A_NowUTC, HHmm
 	GuiControl,, NB, %TimeString%
 	if(FriendCollector == 1)
