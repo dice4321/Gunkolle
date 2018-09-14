@@ -262,10 +262,11 @@ ClickWait(ClickThis,WaitForThis)
 
 TimeCheck()
 {
-	global FriendCollector
-	global FriendChecker
-	global BatteryCollector
-	global BatteryChecker
+	global
+	; global FriendCollector
+	; global FriendChecker
+	; global BatteryCollector
+	; global BatteryChecker
 	FormatTime, TimeString,% A_NowUTC, HHmm
 	GuiControl,, NB, %TimeString%
 	if(FriendCollector == 1)
@@ -307,18 +308,21 @@ TimeCheck()
 			} 
 		}
 	}
-	if((BatteryCollector == 1) && (BatteryChecker == 1) && (TimeString between 1900 and 1915))
+	if((BatteryCollector == 1) && (BatteryChecker == 1))
 	{
-		BatteryChecker--
-		Random, BatteryTime, 1800000, 1900000
-		SetTimer, BatteryFlag, %BatteryTime%
-		Clicks(Dormx,Dormy)
-		pc := [DormVisitButton]
-		WaitForPixelColor(DormVisitButtonx,DormVisitButtony,pc,,,30)
-		sleep 5000
-		Clicks(Batteryx,Batteryy)
-		pc := [HPC]
-		WaitForPixelColor(Homex,Homey,pc,AndroidpopupExitx,AndroidpopupExity,30)
+		if TimeString between 1900 and 1915
+		{
+			BatteryChecker--
+			Random, BatteryTime, 1800000, 1900000
+			SetTimer, BatteryFlag, %BatteryTime%
+			Clicks(Dormx,Dormy)
+			pc := [DormVisitButton]
+			WaitForPixelColor(DormVisitButtonx,DormVisitButtony,pc,,,30)
+			sleep 5000
+			Clicks(Batteryx,Batteryy)
+			pc := [HPC]
+			WaitForPixelColor(Homex,Homey,pc,AndroidpopupExitx,AndroidpopupExity,30)
+		}
 	}
 }
 
