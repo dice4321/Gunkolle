@@ -227,19 +227,30 @@ ExpeditionCheck()
 
 ExpeditionTransition(ClickThis,WaitForThis)
 {
-	GuiControl,, NB, %WaitForThis%
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
+	RandX := Round((OutX * radius))
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
+	GuiControl,, NB, %ClickThis%
 	While (Found != 1)
 	{
-		RFindClick("ExpeditionArrive", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
-		RFindClick("ExpeditionConfirm", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
-		RFindClick(ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
+		GuiControl,, NB, Wating for %WaitForThis%
 	}
 }
 
 ClickWait(ClickThis,WaitForThis)
 {
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
+	RandX := Round((OutX * radius))
 	GuiControl,, NB, %WaitForThis%
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
 	While (Found != 1)
@@ -532,7 +543,6 @@ Sortie2:
 		tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
 		ClickWait("Echelon2","Echelon2Clicked")
-		RFindClick("Echelon2", "rNoxPlayer mc o20 w30000,50")
 		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		ClickS(Role1x,Role1y)
 		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
