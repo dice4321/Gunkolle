@@ -1,3 +1,6 @@
+#### 0.4.7.3
+* **_Update_** Fixed bug where script would get stuck if an expedition appeared on the combat map select screen.
+
 #### 0.4.7.2
 * **_Update_** Fixed batterycollector bug
 

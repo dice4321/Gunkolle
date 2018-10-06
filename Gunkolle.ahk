@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.2
+;Gunkolle v0.4.7.3
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.2
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.3
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -129,14 +129,21 @@ RFindClick(x,y)
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	RSleep(200)
-	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
-			; looper++
-			; loop, %looper%
-			; FinderAlt = same Pic
-			; if same Pic{
-			; 	click same Pic
-			; 	looper++
-			; }
+	Found := 0
+	while (Found == 0)
+	{
+		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
+		if(Found == 0)
+		{
+			ClickS(Safex,Safey)
+			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
+		}
+		else
+		{
+			RSleep(200)
+			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+		}
+	}
 	return
 }
 
