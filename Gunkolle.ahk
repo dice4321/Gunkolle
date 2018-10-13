@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.3
+;Gunkolle v0.4.7.4
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.3
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.4
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -232,7 +232,7 @@ ExpeditionCheck()
 	; }
 }
 
-ExpeditionTransition(ClickThis,WaitForThis)
+Transition(ClickThis,WaitForThis)
 {
 	local RandX, RandY, radius := 10
 	Random, OutX, -1.0, 1.0
@@ -280,10 +280,10 @@ TimeCheck()
 	{
 		if(FriendChecker == 1)
 		{
-			if TimeString between 1100 and 1115
+			if TimeString between 1100 and 1415
 			{ 
 				FriendChecker--
-				Random, FriendTime, 1800000, 1900000
+				Random, FriendTime, 3000000, 3600000
 				SetTimer, FriendFlag, %Friendtime%
 				RFindClick("Dorm\Dorm", "rNoxPlayer mc o5 w30000,50")
 				RFindClick("Dorm\Visit", "rNoxPlayer mc o5 w30000,50")
@@ -317,10 +317,10 @@ TimeCheck()
 	}
 	if((BatteryCollector == 1) && (BatteryChecker == 1))
 	{
-		if TimeString between 1900 and 1915
+		if TimeString between 1930 and 2130
 		{
 			BatteryChecker--
-			Random, BatteryTime, 1800000, 1900000
+			Random, BatteryTime, 3000000, 3600000
 			SetTimer, BatteryFlag, %BatteryTime%
 			Clicks(Dormx,Dormy)
 			pc := [DormVisitButton]
@@ -340,7 +340,7 @@ Production()
 	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o5 n0 count1")
 	if((ProductionTdoll == 1 || ProductionEquipment == 1) && Found == 1) 
 	{
-		ExpeditionTransition("Production\FactoryReady","Production\WaitForTdollProduction")
+		Transition("Production\FactoryReady","Production\WaitForTdollProduction")
 		if (ProductionTdoll == 1)
 		{
 			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o5 w30000,50 n0")
@@ -536,7 +536,7 @@ Sortie2:
 		Dollcount2 := 1 + modder2
 		Doll[] := [%Doll1%,%Doll2%]
 		Found := 0
-		ExpeditionTransition("Formation","WaitForFormation")
+		Transition("Formation","WaitForFormation")
 		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc a125,125,-775,-220") ; select Doll1
 		RFindClick("Filter", "rNoxPlayer mc o5 w30000,50") ; select filter
 		if Doll%DollCount2% in %5Star%
@@ -584,7 +584,7 @@ Sortie2:
 		ExpeditionCheck()
 	}	
 
-	ExpeditionTransition("Combat","CombatPage")
+	Transition("Combat","CombatPage")
 	GuiControlGet, WorldV
 	RunMap(WorldV)
 
@@ -622,7 +622,48 @@ Sortie2:
 	Retirement := Mod(RetirementCounter, DisassembleCycle + 1)
 	if(Retirement == DisassembleCycle)
 	{
-		ExpeditionTransition("Factory","TdollEnhancement")
+		Transition("Factory","TdollEnhancement")
+		if (Enchancement == 0 || Enchancement == 1)
+		{
+			RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
+			SetFilter := 1
+			loop, 2
+			{
+				sleep 500
+				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
+				If(SetFilter == 1)
+				{
+					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("ThreeStar", "rNoxPlayer mc o10 w30000,50")
+					if(Enchancement == 0)
+					{
+						RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
+					}
+					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
+					SetFilter--
+				}
+				sleep 500
+				rti := 0
+				rti2 := 5
+				Loop
+				{
+					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
+					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
+					rti := rti+1
+					Sleep 10
+
+				}Until (rti > rti2)
+				RFindClick("TdollRetirementOK", "rNoxPlayer mc o5 w30000,50")
+			}
+			RFindClick("TdollRetirementDismantle", "rNoxPlayer mc o5 w30000,50")
+			Found := 0
+			Found := FindClick(A_ScriptDir "\pics\TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 Count1 n0 w2000,50")
+			if Found >= 1
+			{
+				RFindClick("TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 w30000,50")
+			}
+			sleep 2500
+		}
 		if(Enchancement == 1)
 		{
 			RFindClick("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
@@ -657,7 +698,7 @@ Sortie2:
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
 				If(SetFilter == 1)
 				{
-					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
 					RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
 					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
 					SetFilter--
@@ -676,54 +717,6 @@ Sortie2:
 			}
 			RFindClick("TdollEnhancement_Enhancement", "rNoxPlayer mc o5 w30000,50")
 			RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o5 w30000,50")
-		}
-		if (Enchancement == 0 || Enchancement == 1)
-		{
-			RFindClick("Retirement", "rNoxPlayer mc o5 w30000,50")
-			SetFilter := 1
-			loop, 2
-			{
-				sleep 500
-				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-				If(SetFilter == 1)
-				{
-					if(Enchancement == 1)
-					{
-						RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
-					}
-					Else
-					{
-						RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
-					}
-					RFindClick("ThreeStar", "rNoxPlayer mc o10 w30000,50")
-					if(Enchancement == 0)
-					{
-						RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
-					}
-					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
-					SetFilter--
-				}
-				sleep 500
-				rti := 0
-				rti2 := 5
-				Loop
-				{
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
-					rti := rti+1
-					Sleep 10
-
-				}Until (rti > rti2)
-				RFindClick("TdollRetirementOK", "rNoxPlayer mc o5 w30000,50")
-			}
-			RFindClick("TdollRetirementDismantle", "rNoxPlayer mc o5 w30000,50")
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 Count1 n0 w2000,50")
-			if Found >= 1
-			{
-				RFindClick("TdollRetirementDismantleConfirm", "rNoxPlayer mc o5 w30000,50")
-			}
-			sleep 2500
 		}
 		RFindClick("FactoryReturn", "rNoxPlayer mc o5 w30000,50")
 		ExpeditionCheck()
