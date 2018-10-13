@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.1
+;Gunkolle v0.4.7.3
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.3
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -129,14 +129,21 @@ RFindClick(x,y)
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	RSleep(200)
-	FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
-			; looper++
-			; loop, %looper%
-			; FinderAlt = same Pic
-			; if same Pic{
-			; 	click same Pic
-			; 	looper++
-			; }
+	Found := 0
+	while (Found == 0)
+	{
+		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
+		if(Found == 0)
+		{
+			ClickS(Safex,Safey)
+			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
+		}
+		else
+		{
+			RSleep(200)
+			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+		}
+	}
 	return
 }
 
@@ -227,19 +234,30 @@ ExpeditionCheck()
 
 ExpeditionTransition(ClickThis,WaitForThis)
 {
-	GuiControl,, NB, %WaitForThis%
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
+	RandX := Round((OutX * radius))
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
+	GuiControl,, NB, %ClickThis%
 	While (Found != 1)
 	{
-		RFindClick("ExpeditionArrive", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
-		RFindClick("ExpeditionConfirm", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
-		RFindClick(ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o10 Count1 n0 w1000,50")
+		GuiControl,, NB, Wating for %WaitForThis%
 	}
 }
 
 ClickWait(ClickThis,WaitForThis)
 {
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
+	RandX := Round((OutX * radius))
 	GuiControl,, NB, %WaitForThis%
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o10 Count1 n0 w1000,50")
 	While (Found != 1)
@@ -251,8 +269,11 @@ ClickWait(ClickThis,WaitForThis)
 
 TimeCheck()
 {
-	global FriendCollector
-	global FriendChecker
+	global
+	; global FriendCollector
+	; global FriendChecker
+	; global BatteryCollector
+	; global BatteryChecker
 	FormatTime, TimeString,% A_NowUTC, HHmm
 	GuiControl,, NB, %TimeString%
 	if(FriendCollector == 1)
@@ -294,18 +315,21 @@ TimeCheck()
 			} 
 		}
 	}
-	if((BatteryCollector == 1) && (BatteryChecker == 1) && (TimeString between 1900 and 1915))
+	if((BatteryCollector == 1) && (BatteryChecker == 1))
 	{
-		BatteryChecker--
-		Random, BatteryTime, 1800000, 1900000
-		SetTimer, BatteryFlag, %BatteryTime%
-		Clicks(Dormx,Dormy)
-		pc := [DormVisitButton]
-		WaitForPixelColor(DormVisitButtonx,DormVisitButtony,pc,,,30)
-		sleep 5000
-		Clicks(Batteryx,Batteryy)
-		pc := [HPC]
-		WaitForPixelColor(Homex,Homey,pc,AndroidpopupExitx,AndroidpopupExity,30)
+		if TimeString between 1900 and 1915
+		{
+			BatteryChecker--
+			Random, BatteryTime, 1800000, 1900000
+			SetTimer, BatteryFlag, %BatteryTime%
+			Clicks(Dormx,Dormy)
+			pc := [DormVisitButton]
+			WaitForPixelColor(DormVisitButtonx,DormVisitButtony,pc,,,30)
+			sleep 5000
+			Clicks(Batteryx,Batteryy)
+			pc := [HPC]
+			WaitForPixelColor(Homex,Homey,pc,AndroidpopupExitx,AndroidpopupExity,30)
+		}
 	}
 }
 
@@ -532,7 +556,6 @@ Sortie2:
 		tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
 		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
 		ClickWait("Echelon2","Echelon2Clicked")
-		RFindClick("Echelon2", "rNoxPlayer mc o20 w30000,50")
 		RFindClick("WaitForFormation", "rNoxPlayer mc o5 w30000,50 n0") ;wait for formation
 		ClickS(Role1x,Role1y)
 		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
