@@ -700,7 +700,7 @@ Sortie2:
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
 				If(SetFilter == 1)
 				{
-					RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
 					RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
 					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
 					SetFilter--
