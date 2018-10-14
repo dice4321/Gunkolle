@@ -668,6 +668,8 @@ Sortie2:
 		{
 			RFindClick("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
 			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")
+			RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
+			RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
 			sleep 500
 			y:=0
 			loop,2
