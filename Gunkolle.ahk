@@ -380,7 +380,7 @@ Production()
 			}
 		}
 		sleep 1000
-		RFindClick("FactoryReturn", "rNoxPlayer mc o500 w30000,50")
+		RFindClick("FactoryReturn", "rNoxPlayer mc o50 w30000,50")
 	}
 }
 
@@ -692,7 +692,7 @@ Sortie2:
 			RFindClick("TdollEnhancement_Enhancement", "rNoxPlayer mc o50 w30000,50")
 			RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o50 w30000,50")
 		}
-		RFindClick("FactoryReturn", "rNoxPlayer mc o500 w30000,50")
+		RFindClick("FactoryReturn", "rNoxPlayer mc o50 w30000,50")
 	}
 
 
