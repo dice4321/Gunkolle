@@ -575,7 +575,7 @@ Sortie2:
 
 	; Repair
 	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o50 Count1 n0")
+	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o20 Count1 n0")
 	if Found >= 1
 	{
 		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
