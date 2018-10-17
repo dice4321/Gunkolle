@@ -1,3 +1,7 @@
+#### 0.4.7.5
+* **_Update_** corpse switcher/5_4,0_2,4_3e maps/repair/enchancement/disassemble/battery_collector assets/logic
+* **_TODO_** 3_2N and Production function
+
 #### 0.4.7.4
 * **_Update_** Fixed bug where **Enchancement** would hang when there is no 3 star dolls to scrap.
 * **_Update_** 3_2N Map tweak
