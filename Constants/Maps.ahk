@@ -81,6 +81,7 @@ GoHome()
 {
 	Global
 	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
+	sleep 250
 	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
 	Sleep 3000
@@ -138,7 +139,7 @@ GoHome()
 {
 	Global
 	RFindClick("\Maps\3_2N\NightBattle", "rNoxPlayer mc o30 w30000,50")
-	sleep 500
+	sleep 250
 	RFindClick("\Maps\3_2N\3_2N", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\3_2N\Battle", "rNoxPlayer mc o5 w30000,50")
 	Found := FindClick(A_ScriptDir "\pics\Maps\3_2N\WaitMap", "rNoxPlayer mc o30 Count1 n0 w30000,50")
