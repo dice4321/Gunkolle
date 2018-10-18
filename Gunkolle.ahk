@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.5.3
+;Gunkolle v0.4.7.5.4
 
 #Persistent
 #SingleInstance
@@ -48,6 +48,7 @@ IniRead, Enchancement, config.ini, Variables, Enchancement, 0
 IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
+IniRead, SortieInterval, config.ini, Variables, SortieInterval, -1 ;900000 for full morale
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -82,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.5.3
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.5.4
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -95,6 +96,7 @@ return
 ; Random
 RFindClick(x,y)
 {
+
 	local RandX, RandY, radius := 10
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
@@ -112,7 +114,7 @@ RFindClick(x,y)
 		}
 		else
 		{
-			RSleep(0)
+			RSleep(MinRandomWait, MaxRandomWait)
 			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
 		}
 	}
@@ -384,9 +386,9 @@ Production()
 	}
 }
 
-RSleep(time:=600)
+RSleep(min,max)
 {
-	Random, rtime, time-150, time+150
+	Random, rtime, min, max
 	Sleep, %rtime%
 	return
 }
@@ -575,12 +577,12 @@ Sortie2:
 
 	; Repair
 	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o20 Count1 n0")
+	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o10 Count1 n0")
 	if Found >= 1
 	{
 		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
-		sleep 1000
+		RFindClick("RepairSlotWait", "rNoxPlayer mc o5 w30000,50 n0")
 		WFindClick("Damage", "rNoxPlayer mc")
 		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairQuick", "rNoxPlayer mc o50 w30000,50")
