@@ -678,18 +678,41 @@ Sortie2:
 				y++
 			}
 			SetFilter := 1
-			loop, 1
+			loop, 2
 			{
 				sleep 500
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
 				If(SetFilter == 1)
 				{
-					RFindClick("SmartSelect", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
 					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
 					SetFilter--
 				}
 				sleep 500
-				RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
+				rti := 0
+				rti2 := 5
+				Loop
+				{
+					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
+					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
+					rti := rti+1
+					Sleep 10
+				}Until (rti > rti2)
+			RFindClick("TdollRetirementOK", "rNoxPlayer mc o5 w30000,50")
+			; SetFilter := 1
+			; loop, 1
+			; {
+			; 	sleep 500
+			; 	RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
+			; 	If(SetFilter == 1)
+			; 	{
+			; 		RFindClick("SmartSelect", "rNoxPlayer mc o10 w30000,50")
+			; 		SetFilter--
+			; 	}
+			; 	sleep 500
+			; 	RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
+			; }
 			}
 			RFindClick("TdollEnhancement_Enhancement", "rNoxPlayer mc o50 w30000,50")
 			RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o50 w30000,50")
