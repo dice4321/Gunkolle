@@ -1,27 +1,32 @@
+#### 0.4.7.6
+* **_Bugfix_** Expedition handling at the end of sortie
+* **_Bugfix_** many image fixes after UI update
+* **_Update_** Can send out Autobattles 
+
 #### 0.4.7.5
 * **_Update_** corpse switcher/5_4,0_2,4_3e maps/repair/enchancement/disassemble/battery_collector assets/logic
 * **_TODO_** 3_2N and Production function
 
 #### 0.4.7.4
-* **_Update_** Fixed bug where **Enchancement** would hang when there is no 3 star dolls to scrap.
-* **_Update_** 3_2N Map tweak
-* **_Update_** 5_4 Map tweak
+* **_Bugfix_** Fixed bug where **Enchancement** would hang when there is no 3 star dolls to scrap.
+* **_Bugfix_** 3_2N Map tweak
+* **_Bugfix_** 5_4 Map tweak
 * **_Update_** Batterycollector/FriendCollector hours extended, will now check every hour for 3 hours after they open.
 
 #### 0.4.7.3
-* **_Update_** Fixed bug where script would get stuck if an expedition appeared on the combat map select screen.
+* **_Bugfix_** Fixed bug where script would get stuck if an expedition appeared on the combat map select screen.
 
 #### 0.4.7.2
-* **_Update_** Fixed batterycollector bug
+* **_Bugfix_** Fixed batterycollector bug
 
 #### 0.4.7.1
-* **_Update_** Fixed 4_3e bug
+* **_Bugfix_** Fixed 4_3e bug
 
 #### 0.4.7.0
 * **_New_** **BatteryCollector**  At 5pm, the script will collect your dorm batteries.
 
 #### 0.4.6.1
-* **_Update_** Fixed 0_2 bug (thanks @gucciandablade)
+* **_Bugfix_** Fixed 0_2 bug (thanks @gucciandablade)
 
 #### 0.4.6
 * **_New_** **FriendCollector** At 4am, the script will like everyone of your friends dorms for points and collect 10 random batteries.

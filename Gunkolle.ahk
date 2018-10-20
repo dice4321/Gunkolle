@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.5.4
+;Gunkolle v0.4.7.6
 
 #Persistent
 #SingleInstance
@@ -83,7 +83,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.5.4
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.6
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -164,11 +164,8 @@ ExpeditionCheck()
 		else if or tpc = 2 or tpc = 3
 		{
 			GuiControl,, NB, Expedition Found
-			ClickS(Expeditionx,Expeditiony)
-			sleep 2000
-			ClickS(Expeditionx,Expeditiony)
-			sleep 2000
-			ClickS(Expeditionx,Expeditiony)
+			pc := [HPC]
+			tpc := WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,5)
 			loopcount++
 		}
 		else if tpc = 4 or tpc = 5
@@ -185,7 +182,7 @@ ExpeditionCheck()
 		}
 		else if tpc = 7
 		{	
-			GuiControl,, NB, Login Collec tNotice
+			GuiControl,, NB, Login Collect Notice
 			ClickS(LoginCollectNoticey,LoginCollectNoticey)
 			loopcount++
 		}

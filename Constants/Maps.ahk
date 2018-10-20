@@ -53,18 +53,17 @@ GoHome()
 		Found2 := 0
 		Found3 := 0
 		sleep 5000
-		while(Found1 == 0 && Found2 == 0 && Found3 == 0)
+		while(Found1 == 0 && Found2 == 0)
 		{
 			Found1 := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 			Found2 := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
-			Found3 := FindClick(A_ScriptDir "\pics\CombatReturn", "rNoxPlayer mc o40 Count1 w100,50")
-			if (Found1 >= 1 or Found2 >= 1 or Found2 >= 1)
 			{
 
 			}
 			else
 			{
-				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1 n0")
+				Found3 := FindClick(A_ScriptDir "\pics\CombatReturn", "rNoxPlayer mc o40 Count1 w100,50")
+				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
 				if FoundExp >= 1
 				{
 					loopcount++
