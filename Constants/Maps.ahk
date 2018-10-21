@@ -57,6 +57,7 @@ GoHome()
 		{
 			Found1 := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
 			Found2 := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
+			if (Found1 >= 1 or Found2 >= 1)
 			{
 
 			}
