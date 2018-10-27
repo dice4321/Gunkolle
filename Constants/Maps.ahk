@@ -16,6 +16,10 @@ RunMap(x)
 	{
 		0_2()
 	}
+	else if(x == "5_2E")
+	{
+		5_2E()
+	}
 }
 
 nodes(nodecount)
@@ -74,6 +78,47 @@ GoHome()
 			GuiControl,, NB, %found1% %found2% %found3% 
 		}
 	}
+}
+
+5_2E()
+{
+	Global
+	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
+	sleep 250
+	RFindClick("\Maps\5_2E\5_2E", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")	
+	sleep 3000
+	Found := FindClick(A_ScriptDir "\pics\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	if Found >= 1
+	{
+
+	}
+	Else
+	{
+		GuiControl,, NB, Paused
+		Pause
+	}
+	RFindClick("\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\5_2E\CommandPost", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("StartCombat", "rNoxPlayer mc o30 w3000,10 a1000,620")
+	sleep 4000
+	RFindClick("\Maps\5_2E\CommandPost", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
+	RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
+	sleep 1000
+	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\5_2E\HeliportBottomLeftPlanning", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\5_2E\Enemy1", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\5_2E\Enemy2", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\5_2E\Enemy3", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\5_2E\Enemy4", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\5_2E\Enemy5", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
+	nodes(5)
+	sleep 1000
+	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
+	GoHome()
 }
 
 

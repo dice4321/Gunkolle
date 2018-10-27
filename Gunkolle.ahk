@@ -56,7 +56,7 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||5_4|0_2 ; upcoming map changer 3_2N
+Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||5_4|5_2E|0_2 ; upcoming map changer 3_2N
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
 ; Gui, Add, Text, x55 ym, -
