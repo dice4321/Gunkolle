@@ -41,6 +41,8 @@ IniRead, MinRandomWait, config.ini, Variables, MinRandomWaitS, 0
 IniRead, MaxRandomWait, config.ini, Variables, MaxRandomWaitS, 300000
 IniRead, Doll1, config.ini, Variables, Doll1, AR15
 IniRead, Doll2, config.ini, Variables, Doll2, M4A1
+IniRead, Doll3, config.ini, Variables, Doll3
+IniRead, Doll4, config.ini, Variables, Doll4
 IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
@@ -391,6 +393,67 @@ RSleep(min,max)
 	return
 }
 
+ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
+{
+	Global
+	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-775,-220") ; select Doll1
+	if resetFilter
+	{
+		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
+		RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
+	}
+	RFindClick("Filter", "rNoxPlayer mc o50 w30000,50") ; select filter
+	if %loadedDoll% in %5Star%
+	{
+		RFindClick("5STAR", "rNoxPlayer mc o50 w10000,50") ;go to formation 
+	}
+	Else
+	{
+		RFindClick("4STAR", "rNoxPlayer mc o50 w10000,50") ;go to formation 
+	}
+	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")	
+	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
+	sleep 200
+	;tpc := 0
+	;pc := []
+	;pc := [FormationProfile]
+	;tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
+	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc")
+}
+
+AddToSecondEchelon(doll, slot)
+{
+	Global
+	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") ;wait for formation
+	if (slot == 1)
+	{
+		ClickS(Role1x,Role1y)
+	}
+	else if (slot == 2)
+	{
+		ClickS(Role2x,Role1y)
+	}		
+	RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+	if %doll% in %5Star%
+	{
+		RFindClick("5STAR", "rNoxPlayer mc o50 w10000,50") 
+	}
+	else
+	{
+		RFindClick("4STAR", "rNoxPlayer mc o50 w10000,50") 
+	}
+	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")
+	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
+	;tpc := 0
+	;pc := []
+	;pc := [FormationProfile]
+	;tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
+	sleep 200
+	WFindClick("DollList\"%doll% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
+}
+
 
 Delay:
 {
@@ -503,56 +566,38 @@ Sortie2:
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
 	{
-		modder := Mod(Sortiecount, 2)
-		modder2 := Mod(Sortiecount + 1, 2)
-		Dollcount1 := 1 + modder
-		Dollcount2 := 1 + modder2
-		Doll[] := [%Doll1%,%Doll2%]
+		dualDPS := (Doll3 != "ERROR") and (Doll4 != "ERROR")
+		if (Mod(Sortiecount, 2) == 0)
+		{
+			exhaustedDoll1 = Doll1
+			loadedDoll1 = Doll2
+			exhaustedDoll2 = Doll3
+			loadedDoll2 = Doll4
+		}
+		else
+		{
+			exhaustedDoll1 = Doll2
+			loadedDoll1 = Doll1
+			exhaustedDoll2 = Doll4
+			loadedDoll2 = Doll3
+		}
 		Found := 0
 		Transition("Formation","WaitForFormation")
-		WFindClick("DollList\"Doll%DollCount1%, "rNoxPlayer mc a125,125,-775,-220") ; select Doll1
-		RFindClick("Filter", "rNoxPlayer mc o50 w30000,50") ; select filter
-		if Doll%DollCount2% in %5Star%
+		ReplaceDPS(exhaustedDoll1, loadedDoll1)
+		if (dualDPS)
 		{
-			RFindClick("5STAR", "rNoxPlayer mc o50 w10000,50") ;go to formation 
+			sleep 500
+			ReplaceDPS(exhaustedDoll2, loadedDoll2, True)
 		}
-		Else
-		{
-			RFindClick("4STAR", "rNoxPlayer mc o50 w10000,50") ;go to formation 
-		}
-		RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")
-		RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-		sleep 200
-		tpc := 0
-		pc := []
-		pc := [FormationProfile]
-		tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-		WFindClick("DollList\"Doll%DollCount2% "Profile","rNoxPlayer mc")
-		ClickWait("Echelon2","Echelon2Clicked")
-		RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") ;wait for formation
-		ClickS(Role1x,Role1y)
-		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
-		RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
-		RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
-		if Doll%DollCount1% in %5Star%
-		{
-			RFindClick("5STAR", "rNoxPlayer mc o50 w10000,50") 
-		}
-		Else
-		{
-			RFindClick("4STAR", "rNoxPlayer mc o50 w10000,50") 
-		}
-		RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")
-		RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-		tpc := 0
-		pc := []
-		pc := [FormationProfile]
-		tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-		sleep 200
-		WFindClick("DollList\"Doll%DollCount1% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
+		ClickWait("Echelon2","Echelon2Clicked")		
 		sleep 500
-		RFindClick("FormationReturn", "rNoxPlayer mc o50 w30000,50") ; go home
-
+		AddToSecondEchelon(exhaustedDoll1, 1)
+		if (dualDPS)
+		{
+			sleep 500
+			AddToSecondEchelon(exhaustedDoll2, 2)
+		}
+		RFindClick("FormationReturn", "rNoxPlayer mc o50 w30000,50") ; go home		
 		; Check expedition
 		ExpeditionCheck()
 	}	
