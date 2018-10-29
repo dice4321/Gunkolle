@@ -104,6 +104,18 @@ RFindClick(x,y)
 	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
+
+	Haystack = x
+
+	NeedleRegEx = [o]+(([1-9][0-9])|(0?[1-9]))
+	FoundPos := RegExMatch(Haystack, NeedleRegEx, result1)
+	NeedleRegEx = \d{1,2}
+	FoundPos := RegExMatch(result1, NeedleRegEx, result2)
+	if result2 < 30
+		o := "o30"
+	Else
+		o := ""
+
 	Found := 0
 	while (Found == 0)
 	{
@@ -270,7 +282,7 @@ TimeCheck()
 				{
 					RFindClick("Dorm\Like", "rNoxPlayer mc o10 w30000,50")
 					sleep 500
-					Found := FindClick(A_ScriptDir "\pics\Dorm\Battery", "rNoxPlayer mc o10 count1 n0")
+					Found := FindClick(A_ScriptDir "\pics\Dorm\Battery", "rNoxPlayer mc o30 count1 n0")
 					if (Found == 1)
 					{
 						RFindClick("Dorm\Battery", "rNoxPlayer mc o10 w30000,50")
@@ -575,7 +587,7 @@ Sortie2:
 
 	; Repair
 	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o10 Count1 n0")
+	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o30 Count1 n0")
 	if Found >= 1
 	{
 		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
