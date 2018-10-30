@@ -128,10 +128,10 @@ RFindClick(x,y)
 		else
 		{
 			RSleep(MinRandomWait, MaxRandomWait)
-			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+			value := FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
 		}
 	}
-	return
+	return value
 }
 
 ; Wait
