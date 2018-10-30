@@ -156,7 +156,8 @@ GoHome()
 	}
 	if (corpsedragoffV == 1)
 	{
-		RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50 n2 sleep 1000")
+		RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("4_3eHeliResupplyAfter", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
 
 	}
