@@ -49,6 +49,8 @@ WINID=ahk_exe Nox.exe
 
 ## How to use: Gunkolle(Sortie)
 read the wiki
+![Alt Text](https://streamable.com/5qfso)
+![Alt Text](https://streamable.com/np83u)
 
 ## How to use: Pause Utility
 
