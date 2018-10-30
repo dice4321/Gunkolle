@@ -119,7 +119,7 @@ RFindClick(x,y)
 	Found := 0
 	while (Found == 0)
 	{
-		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
+		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1 "o)
 		if(Found == 0)
 		{
 			ClickS(Safex,Safey)
@@ -128,7 +128,7 @@ RFindClick(x,y)
 		else
 		{
 			RSleep(MinRandomWait, MaxRandomWait)
-			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " "o)
 		}
 	}
 	return
@@ -229,7 +229,7 @@ Transition(ClickThis,WaitForThis)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
 		GuiControl,, NB, Wating for %WaitForThis%
 	}

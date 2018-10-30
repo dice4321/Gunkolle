@@ -28,7 +28,7 @@ nodes(nodecount)
 	loop, %nodecount%
 	{
 		Found := 0
-		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o5 Count1 n0 w30000,50")
+		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 		while(Found == 0)
 		{
 			Found := 0
@@ -59,7 +59,7 @@ GoHome()
 		sleep 5000
 		while(Found1 == 0 && Found2 == 0)
 		{
-			Found1 := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
+			Found1 := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o30 Count1 n0")
 			Found2 := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
 			if (Found1 >= 1 or Found2 >= 1)
 			{
@@ -68,7 +68,7 @@ GoHome()
 			else
 			{
 				Found3 := FindClick(A_ScriptDir "\pics\CombatReturn", "rNoxPlayer mc o40 Count1 w100,50")
-				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
+				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Count1")
 				if FoundExp >= 1
 				{
 					loopcount++
@@ -88,7 +88,7 @@ GoHome()
 	RFindClick("\Maps\5_2E\5_2E", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")	
 	sleep 3000
-	Found := FindClick(A_ScriptDir "\pics\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	Found := FindClick(A_ScriptDir "\pics\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o30 Count1 n0 w5000,50")
 	if Found >= 1
 	{
 
@@ -130,7 +130,7 @@ GoHome()
 	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
 	Sleep 3000
-	Found := FindClick(A_ScriptDir "\pics\Heliport", "rNoxPlayer mc o5 Count1 n0 w5000,50")
+	Found := FindClick(A_ScriptDir "\pics\Heliport", "rNoxPlayer mc o30 Count1 n0 w5000,50")
 	if Found >= 1
 	{
 
@@ -255,7 +255,7 @@ GoHome()
 	Global
 	RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o5 w30000,50")
-	Found := FindClick(A_ScriptDir "\pics\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
+	Found := FindClick(A_ScriptDir "\pics\Maps\5_4\5_4MapWait", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 	if Found >= 1
 	{
 
@@ -335,7 +335,7 @@ GoHome()
 
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
 	sleep 5000
-	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", "rNoxPlayer mc o10 Count1 n0")
+	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", "rNoxPlayer mc o30 Count1 n0")
 	While (Found != 1)
 	{
 		RFindClick("\Maps\0_2\DragSquad", "rNoxPlayer mc o10 w1000,50 ")
