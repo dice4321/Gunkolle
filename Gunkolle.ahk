@@ -396,7 +396,7 @@ RSleep(min,max)
 ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 {
 	Global
-	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-775,-220") ; select Doll1
+	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-590,-220") ; select Doll1
 	if resetFilter
 	{
 		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
