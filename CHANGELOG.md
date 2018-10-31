@@ -1,3 +1,7 @@
+#### 0.4.7.7
+* **_New_** 5_2E Map for dragging(thanks @fnzr for this map)
+* **_Bugfix_** Temporary bugfix in enchancement
+
 #### 0.4.7.6
 * **_Bugfix_** Expedition handling at the end of sortie
 * **_Bugfix_** many image fixes after UI update
