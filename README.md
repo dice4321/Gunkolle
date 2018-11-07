@@ -50,7 +50,7 @@ WINID=ahk_exe Nox.exe
 ## How to use: Gunkolle(Sortie)
 read the wiki
 
-![lol](https://github.com/dice4321/Gunkolle/blob/master/pics/lol32.gif)
+![lol](https://github.com/dice4321/Gunkolle/blob/master/uselesspics/lol32.gif)
 
 ## How to use: Pause Utility
 

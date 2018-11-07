@@ -39,6 +39,8 @@ PixelMap()
 	 DormVisitButtony := FY + 70
 	 Batteryx := FX - 98
 	 Batteryy := FY + 13
+	 CombatMapBasex := FX - 83
+	 CombatMapBasey := FY - 463 
 	; Gx := FX + 401
  	; Gy := FY - 8
 	; Sx := FX - 185 ;Sortie Button

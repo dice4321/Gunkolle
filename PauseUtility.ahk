@@ -77,7 +77,7 @@ TogglePause:
 	SetTimer, TogglePause, Off
 	DetectHiddenWindows, On
 	SetTitleMatchMode 2
-	WinGet, ahkc_id, ID, AHKanColle ahk_class AutoHotkeyGUI
+	WinGet, ahkc_id, ID, Gunkolle ahk_class AutoHotkeyGUI
 	WinGet, ahkcs_id, ID, AHKCSortie ahk_class AutoHotkeyGUI
 	PostMessage, 0x111, 65306,,, ahk_id %ahkc_id%
 	PostMessage, 0x111, 65306,,, ahk_id %ahkcs_id%
@@ -99,7 +99,7 @@ ToggleResume:
 	SetTimer, ToggleResume, Off
 	DetectHiddenWindows, On
 	SetTitleMatchMode 2
-	WinGet, ahkc_id, ID, AHKanColle ahk_class AutoHotkeyGUI
+	WinGet, ahkc_id, ID, Gunkolle ahk_class AutoHotkeyGUI
 	WinGet, ahkcs_id, ID, AHKCSortie ahk_class AutoHotkeyGUI
 	PostMessage, 0x111, 65306,,, ahk_id %ahkc_id%
 	PostMessage, 0x111, 65306,,, ahk_id %ahkcs_id%

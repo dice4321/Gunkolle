@@ -1,4 +1,4 @@
-;Gunkolle v0.4.7.7
+;Gunkolle v0.4.8.0
 
 #Persistent
 #SingleInstance
@@ -58,7 +58,7 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||5_4|5_2E|0_2 ; upcoming map changer 3_2N
+Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||5_4|5_4_friendly|5_2E|0_2 ; upcoming map changer 3_2N
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
 ; Gui, Add, Text, x55 ym, -
@@ -85,7 +85,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.7.7
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.0
 
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
@@ -96,6 +96,15 @@ if DisableCriticalCheck = 1
 }
 return
 
+
+;TODO
+;pass in values with 'o' wait for 5-10 Seconds
+;	while !found
+;		if not found within 5 seconds, start from 'o parameter' count up every second until 30 seconds
+;			if not found within 30 seconds, activate 'expedition search'
+;	while found
+;		keep clicking until !found
+;	
 ; Random
 RFindClick(x,y)
 {
@@ -209,6 +218,7 @@ ExpeditionCheck()
 Transition(ClickThis,WaitForThis)
 {
 	local RandX, RandY, radius := 10
+	local Counter
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
@@ -222,6 +232,13 @@ Transition(ClickThis,WaitForThis)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
 		GuiControl,, NB, Wating for %WaitForThis%
+		Counter++
+		if Counter > 20
+		{
+			Counter == 0
+			ExpeditionCheck()
+		}
+
 	}
 }
 
@@ -584,10 +601,14 @@ Sortie2:
 		Found := 0
 		Transition("Formation","WaitForFormation")
 		ReplaceDPS(exhaustedDoll1, loadedDoll1)
+		IniWrite,%Doll2%,config.ini,Variables,Doll1
+		IniWrite,%Doll1%,config.ini,Variables,Doll2
 		if (dualDPS)
 		{
 			sleep 500
 			ReplaceDPS(exhaustedDoll2, loadedDoll2, True)
+			IniWrite,%Doll4%,config.ini,Variables,Doll3
+			IniWrite,%Doll3%,config.ini,Variables,Doll4
 		}
 		ClickWait("Echelon2","Echelon2Clicked")		
 		sleep 500
@@ -598,19 +619,20 @@ Sortie2:
 			AddToSecondEchelon(exhaustedDoll2, 2)
 		}
 		RFindClick("FormationReturn", "rNoxPlayer mc o50 w30000,50") ; go home		
+
 		; Check expedition
 		ExpeditionCheck()
 	}	
 
 	Transition("Combat","CombatPage")
 	GuiControlGet, WorldV
-	RunMap(WorldV)
+	RunMap(WorldV) 
 
 	GuiControl,, NB, At home
 
 	; Check expedition
 	ExpeditionCheck()
-	Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
+	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
 
 	Sortiecount++
 	RetirementCounter++
@@ -625,7 +647,7 @@ Sortie2:
 	{
 		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
-		RFindClick("RepairSlotWait", "rNoxPlayer mc o5 w30000,50 n0")
+		RFindClick("RepairSlotWait", "rNoxPlayer mc o50 w30000,50 n0")
 		WFindClick("Damage", "rNoxPlayer mc")
 		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairQuick", "rNoxPlayer mc o50 w30000,50")
@@ -742,7 +764,16 @@ Sortie2:
 					rti := rti+1
 					Sleep 10
 				}Until (rti > rti2)
-			RFindClick("TdollRetirementOK", "rNoxPlayer mc o5 w30000,50")
+				Found := 0
+				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
+				if Found >= 1
+				{
+					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
+				}
+				Else
+				{
+					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
+				}
 			; SetFilter := 1
 			; loop, 1
 			; {
@@ -1393,3 +1424,11 @@ GuiClose:
 	IniWrite,%TWinY%,config.ini,Variables,LastYS
 	ExitApp
 }
+
+
+; TODO
+
+; i've noticed that rarely
+; it will get stuck going to formation
+; if an expedition comes back
+

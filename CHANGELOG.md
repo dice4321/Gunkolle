@@ -1,3 +1,11 @@
+
+#### 0.4.8.0
+* **_New_** Dual corpse dragging now an option(big thanks to @fnzr)
+* **_New_** 5_4_friendly map option, incase you want those 200 friend points.
+* **QOL** Script now remebers which Dolls are being switched if you exit the script.
+* **_Bugfix_** Dismantle bug - bug where script would get stuck if you had <12 dolls left to dismantle.
+* **_Bugfix_** Pause now works as intended.
+
 #### 0.4.7.7
 * **_New_** 5_2E Map for dragging(thanks @fnzr for this map)
 * **_Bugfix_** Temporary bugfix in enchancement
