@@ -1,4 +1,4 @@
-;Gunkolle v0.4.8.0
+;Gunkolle v0.4.8.1
 
 #Persistent
 #SingleInstance
@@ -85,7 +85,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.0
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.1
 
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
@@ -106,6 +106,11 @@ return
 ;		keep clicking until !found
 ;	
 ; Random
+
+; Or
+
+; find img
+; click img til gone.
 RFindClick(x,y)
 {
 
@@ -154,6 +159,25 @@ WFindClick(x,y)
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
 	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
 }
+
+TFindClick(ClickThis,WaitForThis)
+{
+	local RandX, RandY, radius := 10
+	local Counter
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
+	RandX := Round((OutX * radius))
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
+	GuiControl,, NB, %ClickThis%
+	While (Found <= 1)
+	{
+		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
+		GuiControl,, NB, Wating for %WaitForThis%
+	}
+}
+
 
 ExpeditionCheck()
 {		
@@ -225,7 +249,7 @@ Transition(ClickThis,WaitForThis)
 	RandX := Round((OutX * radius))
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
 	GuiControl,, NB, %ClickThis%
-	While (Found != 1)
+	While (Found <= 1)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
@@ -251,7 +275,7 @@ ClickWait(ClickThis,WaitForThis)
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %WaitForThis%
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
-	While (Found != 1)
+	While (Found <= 1)
 	{
 		RFindClick(ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY " w1000,50")
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
@@ -579,7 +603,6 @@ Sortie2:
 	; } 
 
 	; Check expedition
-
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
 	{
@@ -796,7 +819,7 @@ Sortie2:
 
 
 	; check productions
-	; Production()
+	Production()
 
 	GuiControl,, NB, Idle
 	BusyS := 0
