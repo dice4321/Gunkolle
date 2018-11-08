@@ -1,4 +1,4 @@
-;Gunkolle v0.4.8.1
+;Gunkolle v0.4.8.1.1
 
 #Persistent
 #SingleInstance
@@ -85,7 +85,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.1.1
 
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
@@ -138,7 +138,7 @@ RFindClick(x,y)
 	return
 }
 
-; Wait
+; Wait incremental
 WFindClick(x,y)
 {	
 	local RandX, RandY, radius := 10
@@ -170,7 +170,7 @@ TFindClick(ClickThis,WaitForThis)
 	RandX := Round((OutX * radius))
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
 	GuiControl,, NB, %ClickThis%
-	While (Found <= 1)
+	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
@@ -178,6 +178,32 @@ TFindClick(ClickThis,WaitForThis)
 	}
 }
 
+Transition(ClickThis,WaitForThis)
+{
+	local RandX, RandY, radius := 10
+	local Counter
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
+	RandX := Round((OutX * radius))
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
+	GuiControl,, NB, %ClickThis%
+	While (Found == 0)
+	{
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
+		GuiControl,, NB, Wating for %WaitForThis%
+		Counter++
+		if Counter > 20
+		{
+			Counter == 0
+			ExpeditionCheck()
+		}
+
+	}
+}
 
 ExpeditionCheck()
 {		
@@ -237,49 +263,6 @@ ExpeditionCheck()
 	; 		ExpeditionCheck()
 	; 		Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
 	; }
-}
-
-Transition(ClickThis,WaitForThis)
-{
-	local RandX, RandY, radius := 10
-	local Counter
-	Random, OutX, -1.0, 1.0
-	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
-	RandX := Round((OutX * radius))
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
-	GuiControl,, NB, %ClickThis%
-	While (Found <= 1)
-	{
-		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
-		GuiControl,, NB, Wating for %WaitForThis%
-		Counter++
-		if Counter > 20
-		{
-			Counter == 0
-			ExpeditionCheck()
-		}
-
-	}
-}
-
-ClickWait(ClickThis,WaitForThis)
-{
-	local RandX, RandY, radius := 10
-	Random, OutX, -1.0, 1.0
-	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
-	RandX := Round((OutX * radius))
-	GuiControl,, NB, %WaitForThis%
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
-	While (Found <= 1)
-	{
-		RFindClick(ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY " w1000,50")
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
-	}
 }
 
 TimeCheck()
@@ -633,7 +616,7 @@ Sortie2:
 			IniWrite,%Doll4%,config.ini,Variables,Doll3
 			IniWrite,%Doll3%,config.ini,Variables,Doll4
 		}
-		ClickWait("Echelon2","Echelon2Clicked")		
+		TFindClick("Echelon2","Echelon2Clicked")		
 		sleep 500
 		AddToSecondEchelon(exhaustedDoll1, 1)
 		if (dualDPS)
