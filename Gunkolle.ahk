@@ -1,4 +1,4 @@
-;Gunkolle v0.4.8.1.1
+;Gunkolle v0.4.8.2
 
 #Persistent
 #SingleInstance
@@ -51,6 +51,7 @@ IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
 IniRead, SortieInterval, config.ini, Variables, SortieInterval, -1 ;900000 for full morale
+IniRead, WorldV, config.ini, Variables, WorldSwitcher 
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -58,7 +59,8 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 vWorldV -VScroll ym-3, 4_3E||5_4|5_4_friendly|5_2E|0_2 ; upcoming map changer 3_2N
+Gui, Add, DDL, x40 w60 ym-3 vWorldV, |4_3E||5_4|5_4_friendly|5_2E|0_2 
+GuiControl, ChooseString, WorldV, %WorldV%
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
 ; Gui, Add, Text, x55 ym, -
@@ -85,7 +87,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.1.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.8.2
 
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
@@ -196,8 +198,9 @@ Transition(ClickThis,WaitForThis)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
 		GuiControl,, NB, Wating for %WaitForThis%
 		Counter++
-		if Counter > 20
+		if (Counter >= 20)
 		{
+			GuiControl,, NB, Running Transition
 			Counter == 0
 			ExpeditionCheck()
 		}
@@ -205,57 +208,67 @@ Transition(ClickThis,WaitForThis)
 	}
 }
 
-ExpeditionCheck()
-{		
+ExpeditionCheck(State := "")
+{			
 	global
-	loopcount := 1
-	while (loopcount != 0)
+	loop,1
 	{
-		; FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w3000,50")
-		pc := [HPC]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-		tpc := 0
-		sleep 3000
-		pc := []
-		pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
-		tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-		if tpc = 1
+		if (State == "Daily")
 		{
-			GuiControl,, NB,At home
+			FormatTime, TimeString,% A_NowUTC, HHmm
+			GuiControl,, NB, %TimeString%
+			if (TimeString >= 0800 || TimeString <= 0810)
+				break
 		}
-		else if or tpc = 2 or tpc = 3
+		GuiControl,, NB, ExpeditionCheck running
+		loopcount := 1
+		while (loopcount != 0)
 		{
-			GuiControl,, NB, Expedition Found
 			pc := [HPC]
-			tpc := WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,5)
-			loopcount++
-		}
-		else if tpc = 4 or tpc = 5
-		{
-			GuiControl,, NB, Android popup Found
-			ClickS(AndroidpopupExitx,AndroidpopupExity)
-			loopcount++
-		}
-		else if tpc = 6
-		{
-			GuiControl,, NB, Login Collect Found
-			ClickS(LoginCollectExitx,LoginCollectExity)
-			loopcount++
-		}
-		else if tpc = 7
-		{	
-			GuiControl,, NB, Login Collect Notice
-			ClickS(LoginCollectNoticey,LoginCollectNoticey)
-			loopcount++
-		}
-		Else
-		{	
-			GuiControl,, NB, Initial Event notice Found
-			ClickS(Dailypopx,Dailypopy)
-			loopcount++
-		}
-		loopcount--
+			tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+			tpc := 0
+			sleep 3000
+			pc := []
+			pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
+			tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
+			if tpc = 1
+			{
+				GuiControl,, NB,At home
+			}
+			else if or tpc = 2 or tpc = 3
+			{
+				GuiControl,, NB, Expedition Found
+				pc := [HPC]
+				tpc := WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,5)
+				loopcount++
+			}
+			else if tpc = 4 or tpc = 5
+			{
+				GuiControl,, NB, Android popup Found
+				ClickS(AndroidpopupExitx,AndroidpopupExity)
+				loopcount++
+			}
+			else if tpc = 6
+			{
+				GuiControl,, NB, Login Collect Found
+				ClickS(LoginCollectExitx,LoginCollectExity)
+				loopcount++
+			}
+			else if tpc = 7
+			{	
+				GuiControl,, NB, Login Collect Notice
+				ClickS(LoginCollectNoticey,LoginCollectNoticey)
+				loopcount++
+			}
+			Else
+			{	
+				GuiControl,, NB, Initial Event notice Found
+				ClickS(Dailypopx,Dailypopy)
+				loopcount++
+			}
+			loopcount--
 
+		}
 	}
 	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
 	; while( Found == 0 )
@@ -410,6 +423,27 @@ Production()
 	}
 }
 
+Repair()
+{
+	FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w30000,50 Count1 n0 a1200,,,-600")
+	Found := 0
+	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o30 Count1 n0 a800,200,-200,-400")
+	if Found >= 1
+	{
+		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
+		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
+		RFindClick("RepairSlotWait", "rNoxPlayer mc o30 w30000,50 n0 a0,100,-1000,-300")
+		WFindClick("Damage", "rNoxPlayer mc")
+		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
+		RFindClick("RepairQuick", "rNoxPlayer mc o50 w30000,50")
+		RFindClick("RepairOK", "rNoxPlayer mc o50 w30000,50")
+		RFindClick("RepairReturnFaded", "rNoxPlayer mc o50 w30000,50 ")
+		RFindClick("RepairReturn", "rNoxPlayer mc o50 w30000,50")
+		ExpeditionCheck("Daily")
+	}
+}
+
+
 RSleep(min,max)
 {
 	Random, rtime, min, max
@@ -438,10 +472,10 @@ ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")	
 	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
 	sleep 200
-	;tpc := 0
-	;pc := []
-	;pc := [FormationProfile]
-	;tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
+	tpc := 0
+	pc := []
+	pc := [FormationProfile]
+	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
 	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc")
 }
 
@@ -470,11 +504,11 @@ AddToSecondEchelon(doll, slot)
 	}
 	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")
 	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-	;tpc := 0
-	;pc := []
-	;pc := [FormationProfile]
-	;tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
 	sleep 200
+	tpc := 0
+	pc := []
+	pc := [FormationProfile]
+	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
 	WFindClick("DollList\"%doll% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
 }
 
@@ -567,6 +601,7 @@ Sortie2:
 		Production()
 	}
 
+	Repair()
 	TimeCheck()
 
 	; if A_Hour between 9 and 11 ; if between 9am and 12pm 
@@ -607,14 +642,10 @@ Sortie2:
 		Found := 0
 		Transition("Formation","WaitForFormation")
 		ReplaceDPS(exhaustedDoll1, loadedDoll1)
-		IniWrite,%Doll2%,config.ini,Variables,Doll1
-		IniWrite,%Doll1%,config.ini,Variables,Doll2
 		if (dualDPS)
 		{
 			sleep 500
 			ReplaceDPS(exhaustedDoll2, loadedDoll2, True)
-			IniWrite,%Doll4%,config.ini,Variables,Doll3
-			IniWrite,%Doll3%,config.ini,Variables,Doll4
 		}
 		TFindClick("Echelon2","Echelon2Clicked")		
 		sleep 500
@@ -627,17 +658,27 @@ Sortie2:
 		RFindClick("FormationReturn", "rNoxPlayer mc o50 w30000,50") ; go home		
 
 		; Check expedition
-		ExpeditionCheck()
+		ExpeditionCheck("Daily")
 	}	
 
 	Transition("Combat","CombatPage")
+
 	GuiControlGet, WorldV
 	RunMap(WorldV) 
+
+	IniWrite,%Doll2%,config.ini,Variables,Doll1
+	IniWrite,%Doll1%,config.ini,Variables,Doll2
+	if (dualDPS)
+	{
+		sleep 500
+		IniWrite,%Doll4%,config.ini,Variables,Doll3
+		IniWrite,%Doll3%,config.ini,Variables,Doll4
+	}
 
 	GuiControl,, NB, At home
 
 	; Check expedition
-	ExpeditionCheck()
+	ExpeditionCheck("Daily")
 	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
 
 	Sortiecount++
@@ -647,21 +688,6 @@ Sortie2:
 	BC += 1
 
 	; Repair
-	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o10 Count1 n0")
-	if Found >= 1
-	{
-		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
-		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
-		RFindClick("RepairSlotWait", "rNoxPlayer mc o50 w30000,50 n0")
-		WFindClick("Damage", "rNoxPlayer mc")
-		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
-		RFindClick("RepairQuick", "rNoxPlayer mc o50 w30000,50")
-		RFindClick("RepairOK", "rNoxPlayer mc o50 w30000,50")
-		RFindClick("RepairReturnFaded", "rNoxPlayer mc o50 w30000,50 ")
-		RFindClick("RepairReturn", "rNoxPlayer mc o50 w30000,50")
-		ExpeditionCheck()
-	}
 
 	; Dismantle
 
@@ -725,16 +751,16 @@ Sortie2:
 			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")
 			RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
 			RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
-			sleep 500
+			sleep 2000 ;need a transition here
 			y:=0
-			loop,1
+			loop,2
 			{
 				rti := 0
 				rti2 := 5
 				tpc := 0
 				loop
 				{
-					tpc := PixelGetColorS(TdollEnhancement_Lockx+180*rti,TdollEnhancement_Locky+310*y,3)
+					tpc := PixelGetColorS(TdollEnhancement_Lockx+179*rti,TdollEnhancement_Locky+310*y,3)
 					if (tpc == TdollEnhancement_Lock)
 					{
 						ClickS(TdollEnhancement_Lockx+180*rti,TdollEnhancement_Locky+310*y)
@@ -1343,6 +1369,8 @@ MaW:
 
 SSBF:
 {
+	GuiControlGet, WorldV
+	IniWrite, %WorldV%, config.ini, Variables, WorldSwitcher 
 	GuiControl, Hide, SSB
 	BP := 1
 	DT := 1

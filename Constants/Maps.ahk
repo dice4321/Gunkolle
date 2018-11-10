@@ -88,7 +88,7 @@ FocusChapter(Chapter)
 {
 	Global
 	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w1000,50 n0")
+	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w5000,50 n0")
 	while (Found == 0)
 	{
 		ClickS(CombatMapBasex,CombatMapBasey+100*Chapter)
@@ -142,6 +142,7 @@ FocusChapter(Chapter)
 4_3E( )
 {
 	Global
+	FocusChapter(4)
 	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
 	sleep 250
 	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
@@ -271,8 +272,9 @@ FocusChapter(Chapter)
 {
 	Global
 	FocusChapter(5)
-	RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o5 w30000,50")
+	sleep 500
+	RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o20 w30000,50")
 	Found := FindClick(A_ScriptDir "\pics\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
 	if Found >= 1
 	{
@@ -292,7 +294,8 @@ FocusChapter(Chapter)
 	sleep 1000
 	RFindClick("\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 w30000,50 n0")
 	sleep 2000
-	RFindClick("\Maps\5_4\CommandCenterAfter", "rNoxPlayer mc o10 a950,,,-500 w2000,50 n2 sleep100")
+	RFindClick("\Maps\5_4\CommandCenterAfter", "rNoxPlayer mc o10 a950,,,-500 w2000,50")
+	RFindClick("\Maps\5_4\CommandCenterAfterClicked", "rNoxPlayer mc o10 a950,,,-500 w2000,50")
 	RFindClick("\Maps\5_4\Resupply", "rNoxPlayer mc o10 w30000,50")
 	sleep 500
 	RFindClick("\Maps\5_4\TopLeftHeliPort", "rNoxPlayer mc o10 w30000,50")
@@ -421,6 +424,11 @@ FocusChapter(Chapter)
 		RFindClick("Maps\5_4\5_4MapWait", "rNoxPlayer mc o20 w30000,50 n0")
 		sleep 1000
 	}
+	RFindClick("Maps\5_4\SupportExit2", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("Maps\5_4\Terminate", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("Maps\5_4\Restart", "rNoxPlayer mc o20 w30000,50")
 	5_4()
+	GuiControl,, NB, Friends Done for today, select another map.
+	Pause
 }
 
