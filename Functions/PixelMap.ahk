@@ -28,7 +28,7 @@ PixelMap()
 	 FormationProfilex := FX - 75
 	 FormationProfiley := FY - 501
 	 TdollEnhancement_Lockx := FX - 314
-	 TdollEnhancement_Locky := FY - 302
+	 TdollEnhancement_Locky := FY - 295
 	 Factoryx := FX + 819
 	 Factoryy := FY - 268
 	 FactoryReturnx := FX -255

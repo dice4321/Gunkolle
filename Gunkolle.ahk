@@ -115,7 +115,6 @@ return
 ; click img til gone.
 RFindClick(x,y)
 {
-
 	local RandX, RandY, radius := 10
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
@@ -194,7 +193,7 @@ Transition(ClickThis,WaitForThis)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o10 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
 		GuiControl,, NB, Wating for %WaitForThis%
 		Counter++
@@ -427,10 +426,11 @@ Repair()
 {
 	FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w30000,50 Count1 n0 a1200,,,-600")
 	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o30 Count1 n0 a800,200,-200,-400")
+	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o50 w500,50 Count1 n0 a800,200,-200,-400")
 	if Found >= 1
 	{
-		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50")
+		sleep 2000
+		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50 a800,200,-200,-400")
 		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairSlotWait", "rNoxPlayer mc o30 w30000,50 n0 a0,100,-1000,-300")
 		WFindClick("Damage", "rNoxPlayer mc")
@@ -602,6 +602,7 @@ Sortie2:
 	}
 
 	Repair()
+
 	TimeCheck()
 
 	; if A_Hour between 9 and 11 ; if between 9am and 12pm 
@@ -624,6 +625,10 @@ Sortie2:
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
 	{
+		IniRead, Doll1, config.ini, Variables, Doll1
+		IniRead, Doll2, config.ini, Variables, Doll2
+		IniRead, Doll3, config.ini, Variables, Doll3
+		IniRead, Doll4, config.ini, Variables, Doll4
 		dualDPS := (Doll3 != "ERROR") and (Doll4 != "ERROR")
 		if (Mod(Sortiecount, 2) == 0)
 		{
@@ -760,10 +765,10 @@ Sortie2:
 				tpc := 0
 				loop
 				{
-					tpc := PixelGetColorS(TdollEnhancement_Lockx+179*rti,TdollEnhancement_Locky+310*y,3)
+					tpc := PixelGetColorS(TdollEnhancement_Lockx+179*rti,TdollEnhancement_Locky+304*y,3)
 					if (tpc == TdollEnhancement_Lock)
 					{
-						ClickS(TdollEnhancement_Lockx+180*rti,TdollEnhancement_Locky+310*y)
+						ClickS(TdollEnhancement_Lockx+180*rti,TdollEnhancement_Locky+304*y)
 						break
 					}
 					rti := rti+1

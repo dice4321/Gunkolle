@@ -268,22 +268,25 @@ FocusChapter(Chapter)
 	RetirementCounter--
 }
 
-5_4()
+5_4(friendly := False)
 {
 	Global
-	FocusChapter(5)
-	sleep 500
-	RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o20 w30000,50")
-	RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o20 w30000,50")
-	Found := FindClick(A_ScriptDir "\pics\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
-	if Found >= 1
+	if (friendly == False)
 	{
+		FocusChapter(5)
+		sleep 500
+		RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o20 w30000,50")
+		RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o20 w30000,50")
+		Found := FindClick(A_ScriptDir "\pics\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
+		if Found >= 1
+		{
 
-	}
-	Else
-	{
-		GuiControl,, NB, Paused
-		Pause
+		}
+		Else
+		{
+			GuiControl,, NB, Paused
+			Pause
+		}
 	}
 	RFindClick("\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 w30000,50 n0")
 	RFindClick("\Maps\5_4\TopLeftHeliPort", "rNoxPlayer mc o10 w30000,50")
@@ -427,7 +430,7 @@ FocusChapter(Chapter)
 	RFindClick("Maps\5_4\SupportExit2", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("Maps\5_4\Terminate", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("Maps\5_4\Restart", "rNoxPlayer mc o20 w30000,50")
-	5_4()
+	5_4(True)
 	GuiControl,, NB, Friends Done for today, select another map.
 	Pause
 }
