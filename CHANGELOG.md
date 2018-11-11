@@ -1,4 +1,7 @@
 
+#### 0.4.9.0
+* **_New_** Automated combat sims (data) now avaliable, will check every 2 hours on days Data is avaiable. Set **CombatSimsData** to 1,2 or 3 for beginner, intermediate, or advance data collection.
+
 #### 0.4.8.2
 * **_QOL_** Expedition handling has been updated, many seconds saved, change the interval if you want to wait between sorties.
 * **_Bugfix_** repair waiting more than 30 seconds fixed. Maybe.

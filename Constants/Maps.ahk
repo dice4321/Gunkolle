@@ -87,10 +87,13 @@ GoHome()
 FocusChapter(Chapter)
 {
 	Global
-	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w5000,50 n0")
-	while (Found == 0)
-	{
+	Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMissionClicked", "rNoxPlayer mc o30 w4000,50")
+	if (Found !=1) {
+		FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMission", "rNoxPlayer mc o30")
+	}
+	FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMission", "rNoxPlayer mc o30 w5000,50")
+	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "dx rNoxPlayer mc o30 Count1 w5000,50 n0")
+	while (Found == 0) {
 		ClickS(CombatMapBasex,CombatMapBasey+100*Chapter)
 		Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w1000,50 n0")
 	}
