@@ -1,8 +1,15 @@
 
+#### 0.4.8.2
+* **_QOL_** Expedition handling has been updated, many seconds saved, change the interval if you want to wait between sorties.
+* **_Bugfix_** repair waiting more than 30 seconds fixed. Maybe.
+
+#### 0.4.8.1
+* **_Bugfix_** Production now safe to use.
+
 #### 0.4.8.0
 * **_New_** Dual corpse dragging now an option(big thanks to @fnzr)
 * **_New_** 5_4_friendly map option, incase you want those 200 friend points.
-* **QOL** Script now remebers which Dolls are being switched if you exit the script.
+* **_QOL_** Script now remebers which Dolls are being switched if you exit the script.
 * **_Bugfix_** Dismantle bug - bug where script would get stuck if you had <12 dolls left to dismantle.
 * **_Bugfix_** Pause now works as intended.
 
