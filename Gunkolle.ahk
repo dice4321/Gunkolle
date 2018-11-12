@@ -1,4 +1,4 @@
-;Gunkolle v0.4.9.0
+;Gunkolle v0.4.9.1
 
 #Persistent
 #SingleInstance
@@ -88,7 +88,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.9.0
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.9.1
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -149,7 +149,7 @@ WFindClick(x,y)
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
-	SearchNumber := 0
+	SearchNumber := 40
 	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 	while (found == 0) 
 	{
@@ -353,27 +353,26 @@ TimeCheck()
 			Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w1500,50 n0")
 			if (Found != True)
 				RFindClick("CombatSims\Data\DataMode", "rNoxPlayer mc o30 w500,50")
-			FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy0", "rNoxPlayer mc o30 Count1")
-			While (FoundEnergy != true) {
+			While (EnergyCount < CombatSims) {
 				EnergyCount := 0
-				While (FoundEnergy != true) {
+				While (FoundZero != true) {
 					EnergyCount++
-					FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy" EnergyCount, "rNoxPlayer mc o30 Count1")
+					FoundZero := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy" EnergyCount, "rNoxPlayer mc o30 Count1")
 				}
 				GuiControl,, NB, Energy read count = %EnergyCount%
 				loop,3 {
-					if((Mod(EnergyCount, A_Index) == 0) && (CombatSims == A_Index))
+					if ((Mod(EnergyCount, A_Index) == 0) && (CombatSims == A_Index)) {
 						RFindClick("CombatSims\Data\Training" A_Index, "rNoxPlayer mc o30 Count1")
+						RFindClick("CombatSims\Data\EnterCombat", "rNoxPlayer mc o30 w5000,50")
+						RFindClick("CombatSims\Data\Confirm", "rNoxPlayer mc o30 w5000,50")
+						Found := 0
+						sleep 5000
+						While (Found != true) {
+							ClickS(Safex,Safey)
+							Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w500,50 n0")
+						}
+					}
 				}
-				RFindClick("CombatSims\Data\EnterCombat", "rNoxPlayer mc o30 w5000,50")
-				RFindClick("CombatSims\Data\Confirm", "rNoxPlayer mc o30 w5000,50")
-				Found := 0
-				sleep 5000
-				While (Found != true) {
-					ClickS(Safex,Safey)
-					Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w500,50 n0")
-				}
-				FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy0", "rNoxPlayer mc o30 Count1 w500,50")
 			}
 			GoHome()
 		}
@@ -661,10 +660,6 @@ Sortie2:
 	GuiControlGet, corpsedragoffV
 	if (corpsedragoffV != 1)
 	{
-		IniRead, Doll1, config.ini, Variables, Doll1
-		IniRead, Doll2, config.ini, Variables, Doll2
-		IniRead, Doll3, config.ini, Variables, Doll3
-		IniRead, Doll4, config.ini, Variables, Doll4
 		dualDPS := (Doll3 != "ERROR") and (Doll4 != "ERROR")
 		if (Mod(Sortiecount, 2) == 0)
 		{

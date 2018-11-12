@@ -87,12 +87,11 @@ GoHome()
 FocusChapter(Chapter)
 {
 	Global
-	Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMissionClicked", "rNoxPlayer mc o30 w4000,50")
-	if (Found !=1) {
+	Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMissionClicked", "rNoxPlayer mc o30 w5000,50")
+	if (Found != 1) {
 		FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMission", "rNoxPlayer mc o30")
 	}
-	FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMission", "rNoxPlayer mc o30 w5000,50")
-	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "dx rNoxPlayer mc o30 Count1 w5000,50 n0")
+	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w3000,50 n0")
 	while (Found == 0) {
 		ClickS(CombatMapBasex,CombatMapBasey+100*Chapter)
 		Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w1000,50 n0")
@@ -324,8 +323,8 @@ FocusChapter(Chapter)
 {
 	Global
 	FocusChapter(0)
-	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o30 w30000,50")
 	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 	if Found >= 1
 	{

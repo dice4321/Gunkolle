@@ -1,3 +1,6 @@
+#### 0.4.9.1
+* **_Bugfix_** CombatSimsData logix fix
+* **_Bugfix_** Config fix
 
 #### 0.4.9.0
 * **_New_** Automated combat sims (data) now avaliable, will check every 2 hours on days Data is avaiable. Set **CombatSimsData** to 1,2 or 3 for beginner, intermediate, or advance data collection.
