@@ -1,4 +1,4 @@
-;Gunkolle v0.4.9.1
+;Gunkolle v0.4.9.1.1
 
 #Persistent
 #SingleInstance
@@ -88,7 +88,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.9.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.9.1.1
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -127,7 +127,7 @@ RFindClick(x,y)
 		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 		if(Found == 0)
 		{
-			ClickS(Safex,Safey)
+			ClickS(homex,homey)
 			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o50 Count1")
 		}
 		else
@@ -140,7 +140,7 @@ RFindClick(x,y)
 }
 
 ; Wait incremental
-WFindClick(x,y)
+WFindClick(x,y,SearchNumber := 40)
 {	
 	local RandX, RandY, radius := 10
 	Random, OutX, -1.0, 1.0
@@ -149,7 +149,6 @@ WFindClick(x,y)
 	RandX := Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
-	SearchNumber := 40
 	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 	while (found == 0) 
 	{
@@ -175,33 +174,43 @@ TFindClick(ClickThis,WaitForThis)
 	{
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
-		GuiControl,, NB, Wating for %WaitForThis%
+		GuiControl,, NB, Waiting for [%WaitForThis%]
 	}
 }
 
 Transition(ClickThis,WaitForThis)
 {
+	Global
 	local RandX, RandY, radius := 10
 	local Counter
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign)) + 5
 	RandX := Round((OutX * radius))
+	FormatTime, TimeString,% A_NowUTC, HHmm
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
-	GuiControl,, NB, %ClickThis%
 	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
-		GuiControl,, NB, Wating for %WaitForThis%
+		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o50 Count1 n0")
+		GuiControl,, NB, Waiting for [%WaitForThis%]
 		Counter++
-		if (Counter >= 10)
+		if (((Counter >= 20) && (Found == 0))) || ((TimeString >= 0800) && (TimeString <= 0810))
 		{
-			GuiControl,, NB, Running Transition
 			Counter == 0
 			ExpeditionCheck()
+		}
+		if (Found2 == true)
+		{
+			While (FoundHome != true) 
+			{
+				ClickS(Expeditionx,Expeditiony)
+				FoundHome := FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w1000,50 Count1 n0 a1200,,,-600")
+			}
+			
 		}
 
 	}
@@ -216,8 +225,9 @@ ExpeditionCheck(State := "")
 		{
 			FormatTime, TimeString,% A_NowUTC, HHmm
 			GuiControl,, NB, %TimeString%
-			if (TimeString >= 0800 || TimeString <= 0810)
+			if ((TimeString <= 0800) || (TimeString >= 0810)){
 				break
+			}	
 		}
 		GuiControl,, NB, ExpeditionCheck running
 		loopcount := 1
@@ -237,8 +247,9 @@ ExpeditionCheck(State := "")
 			else if or tpc = 2 or tpc = 3
 			{
 				GuiControl,, NB, Expedition Found
+				pc := []
 				pc := [HPC]
-				tpc := WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,5)
+				WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,30)
 				loopcount++
 			}
 			else if tpc = 4 or tpc = 5
@@ -275,7 +286,20 @@ ExpeditionCheck(State := "")
 	; 		ExpeditionCheck()
 	; 		Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
 	; }
+return
 }
+
+UpdateEnergy()
+{
+	EnergyCount := 0
+	FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy0", "rNoxPlayer mc o30 Count1 w1000,50 n0")
+	While (FoundEnergy != true) {
+		EnergyCount++
+		FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy" EnergyCount, "rNoxPlayer mc o30 Count1 n0")
+	}
+	return EnergyCount
+}
+
 
 TimeCheck()
 {
@@ -346,31 +370,29 @@ TimeCheck()
 		SetTimer, CombatSimsDataFlag, %CombatSimsDataTime%
 		FormatTime, TimeString,% A_NowUTC, HHmm
 		FormatTime, someday, A_NowUTC, ddd
-		if (((RegExMatch(someday, "Mon|Thu|Sat") && (TimeString >= 0800 and TimeString <= 2400)) || (RegExMatch(someday, "Sun|Tue|Fri") && (TimeString >= 0000 and TimeString <= 0800))))
+		if (((RegExMatch(someday, "Sun|Tue|Fri") && (TimeString >= 0800 and TimeString <= 2400)) || (RegExMatch(someday, "Mon|Thu|Sat") && (TimeString <= 0800 and TimeString >= 0000))))
 		{
 			Transition("Combat","CombatPage")
-			RFindClick("CombatSims\Data\CombatSims", "rNoxPlayer mc o30 w2000,50")
+			FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatSims", "rNoxPlayer mc o30 w2000,50")
 			Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w1500,50 n0")
 			if (Found != True)
-				RFindClick("CombatSims\Data\DataMode", "rNoxPlayer mc o30 w500,50")
-			While (EnergyCount < CombatSims) {
-				EnergyCount := 0
-				While (FoundZero != true) {
-					EnergyCount++
-					FoundZero := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy" EnergyCount, "rNoxPlayer mc o30 Count1")
-				}
-				GuiControl,, NB, Energy read count = %EnergyCount%
+				RFindClick("CombatSims\Data\DataMode", "rNoxPlayer mc o30 w2000,50")
+			EnergyCount := UpdateEnergy()
+			GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
+			While (EnergyCount >= CombatSimsData) {
+				EnergyCount := UpdateEnergy()
 				loop,3 {
-					if ((Mod(EnergyCount, A_Index) == 0) && (CombatSims == A_Index)) {
-						RFindClick("CombatSims\Data\Training" A_Index, "rNoxPlayer mc o30 Count1")
+					if ((EnergyCount >= CombatSimsData) && (CombatSimsData == A_Index)) {
+						RFindClick("CombatSims\Data\Training" A_Index, "rNoxPlayer mc o30 Count1 w5000,50")
 						RFindClick("CombatSims\Data\EnterCombat", "rNoxPlayer mc o30 w5000,50")
 						RFindClick("CombatSims\Data\Confirm", "rNoxPlayer mc o30 w5000,50")
 						Found := 0
-						sleep 5000
 						While (Found != true) {
 							ClickS(Safex,Safey)
-							Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w500,50 n0")
+							Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w2000,50 n0")
 						}
+						EnergyCount := UpdateEnergy()
+						GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
 					}
 				}
 			}
@@ -378,7 +400,6 @@ TimeCheck()
 		}
 	}
 }
-
 
 Production()
 {
@@ -462,10 +483,9 @@ Repair()
 	FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w30000,50 Count1 n0 a1200,,,-600")
 	Found := 0
 	Found := FindClick(A_ScriptDir "\pics\Repair", "rNoxPlayer mc o50 w500,50 Count1 n0 a800,200,-200,-400")
-	if Found >= 1
+	if ( Found >= 1)
 	{
-		sleep 2000
-		RFindClick("Repair", "rNoxPlayer mc o50 w30000,50 a800,200,-200,-400")
+		Transition("Repair","RepairSlot")
 		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairSlotWait", "rNoxPlayer mc o30 w30000,50 n0 a0,100,-1000,-300")
 		WFindClick("Damage", "rNoxPlayer mc")
