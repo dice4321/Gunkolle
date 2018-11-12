@@ -323,7 +323,7 @@ FocusChapter(Chapter)
 {
 	Global
 	FocusChapter(0)
-	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o200 w30000,50")
 	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o30 w30000,50")
 	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 	if Found >= 1
