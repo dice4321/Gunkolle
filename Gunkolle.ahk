@@ -509,7 +509,7 @@ RSleep(min,max)
 ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 {
 	Global
-	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-590,-220") ; select Doll1
+	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-590,-220",120) ; select Doll1
 	if resetFilter
 	{
 		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
@@ -531,7 +531,7 @@ ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 	pc := []
 	pc := [FormationProfile]
 	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc")
+	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc",120)
 }
 
 AddToSecondEchelon(doll, slot)
@@ -564,7 +564,7 @@ AddToSecondEchelon(doll, slot)
 	pc := []
 	pc := [FormationProfile]
 	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-	WFindClick("DollList\"%doll% "Profile", "rNoxPlayer mc")  ; select Dollportrait1
+	WFindClick("DollList\"%doll% "Profile", "rNoxPlayer mc",120)  ; select Dollportrait1
 }
 
 
