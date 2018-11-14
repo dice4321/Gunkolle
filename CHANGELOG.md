@@ -1,3 +1,8 @@
+#### 0.4.9.2
+* **_Update_** better handling of selecting dolls at switcher.
+* **_Update_** CombatSimsData auto 95% done (please report if something weird
+happends).
+
 #### 0.4.9.1
 * **_Bugfix_** CombatSimsData logix fix
 * **_Bugfix_** Config fix

@@ -15,7 +15,7 @@ ClickS(x,y)
 	Random, yoff, -coffset, coffset
 	if Background = 1
 	{
-		SetControlDelay -1
+		SetControlDelay 0
 		if Class = 0
 		{
 			tx := xoff+x
@@ -53,7 +53,7 @@ ClickSS(x,y)
 	Random, yoff, -coffset, coffset
 	if Background = 1
 	{
-		SetControlDelay -1
+		SetControlDelay 0
 		if Class = 0
 		{
 			tx := xoff+x

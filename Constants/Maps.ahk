@@ -32,7 +32,7 @@ nodes(nodecount)
 	loop, %nodecount%
 	{
 		Found := 0
-		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o5 Count1 n0 w30000,50")
+		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 		while(Found == 0)
 		{
 			Found := 0
@@ -63,7 +63,7 @@ GoHome()
 		sleep 5000
 		while(Found1 == 0 && Found2 == 0)
 		{
-			Found1 := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o5 Count1 n0")
+			Found1 := FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w1000,50 Count1 n0 a1200,,,-600")
 			Found2 := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
 			if (Found1 >= 1 or Found2 >= 1)
 			{
@@ -72,7 +72,7 @@ GoHome()
 			else
 			{
 				Found3 := FindClick(A_ScriptDir "\pics\CombatReturn", "rNoxPlayer mc o40 Count1 w100,50")
-				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o5 Count1")
+				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Count1")
 				if FoundExp >= 1
 				{
 					loopcount++
@@ -323,7 +323,7 @@ FocusChapter(Chapter)
 {
 	Global
 	FocusChapter(0)
-	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o200 w30000,50")
 	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o30 w30000,50")
 	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\0_2MapWait", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 	if Found >= 1
