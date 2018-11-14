@@ -1,5 +1,4 @@
-;Gunkolle v0.4.9.1.1
-
+;Gunkolle v0.4.9.2
 #Persistent
 #SingleInstance
 #Include %A_ScriptDir%/Functions/Gdip_All.ahk ;Thanks to tic (Tariq Porter) for his GDI+ Library => ahkscript.org/boards/viewtopic.php?t=6517
@@ -88,7 +87,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.9.1.1
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.4.9.2
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -155,6 +154,11 @@ WFindClick(x,y,SearchNumber := 40)
 		SearchNumber:= SearchNumber + 6
 		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 		GuiControl,, NB, pixel shade offset [%SearchNumber%]
+		if (SearchNumber >= 200)
+		{
+			GuiControl,, NB, Wrong doll, exit and redo config.
+			Pause
+		}
 	}
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
 	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
@@ -291,7 +295,8 @@ return
 
 UpdateEnergy()
 {
-	EnergyCount := 0
+	FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w15000,50 n0")
+	EnergyCount = 0
 	FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy0", "rNoxPlayer mc o30 Count1 w1000,50 n0")
 	While (FoundEnergy != true) {
 		EnergyCount++
@@ -383,16 +388,18 @@ TimeCheck()
 				EnergyCount := UpdateEnergy()
 				loop,3 {
 					if ((EnergyCount >= CombatSimsData) && (CombatSimsData == A_Index)) {
+						GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
 						RFindClick("CombatSims\Data\Training" A_Index, "rNoxPlayer mc o30 Count1 w5000,50")
 						RFindClick("CombatSims\Data\EnterCombat", "rNoxPlayer mc o30 w5000,50")
 						RFindClick("CombatSims\Data\Confirm", "rNoxPlayer mc o30 w5000,50")
 						Found := 0
 						While (Found != true) {
-							ClickS(Safex,Safey)
+							ClickS(Expeditionx,Expeditiony)
 							Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w2000,50 n0")
 						}
 						EnergyCount := UpdateEnergy()
 						GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
+						sleep 2000
 					}
 				}
 			}
@@ -404,21 +411,22 @@ TimeCheck()
 Production()
 {
 	Global
-	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o50 n0 count1")
+	FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w30000,50 Count1 n0 a1200,,,-600")
+	Found := FindClick(A_ScriptDir "\pics\Production\FactoryReady", "rNoxPlayer mc o30 w2000,50 n0 count1 a1000,300,,-300")
 	if((ProductionTdoll == 1 || ProductionEquipment == 1) && Found == 1) 
 	{
 		Transition("Production\FactoryReady","Production\WaitForTdollProduction")
 		if (ProductionTdoll == 1)
 		{
-			RFindClick("Production\WaitForTdollProduction", "rNoxPlayer mc o50 w30000,50 n0")
-			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete1", "rNoxPlayer mc o50 n0 count1 w2000,50")
-			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete2", "rNoxPlayer mc o50 n0 count1")
-			loop,2
+			FoundSlot1 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete1", "rNoxPlayer mc o30 n0 count1 w2000,50")
+			FoundSlot2 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete2", "rNoxPlayer mc o30 n0 count1")
+			FoundSlot3 := FindClick(A_ScriptDir "\pics\Production\TdollProductionComplete3", "rNoxPlayer mc o30 n0 count1")
+			loop,3
 			{
 				ProductionCounter := A_Index
 				if (FoundSlot%A_Index% == 1)
 				{
-					RFindClick("Production\TdollProductionComplete"A_Index, "rNoxPlayer mc o50 w30000,50")
+					RFindClick("Production\TdollProductionComplete"A_Index, "rNoxPlayer mc o30 w30000,50")
 					Loop
 					{
 						if ( FindClick(A_ScriptDir "\pics\Production\TdollProductionStart"ProductionCounter, "rNoxPlayer mc o50 n0 count1") == 1 )
@@ -486,7 +494,7 @@ Repair()
 	if ( Found >= 1)
 	{
 		Transition("Repair","RepairSlot")
-		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50")
+		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50 a50,100,-1050,-100")
 		RFindClick("RepairSlotWait", "rNoxPlayer mc o30 w30000,50 n0 a0,100,-1000,-300")
 		WFindClick("Damage", "rNoxPlayer mc")
 		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
@@ -512,8 +520,8 @@ ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-590,-220",120) ; select Doll1
 	if resetFilter
 	{
-		RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
-		RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
+		RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
+		RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
 	}
 	RFindClick("Filter", "rNoxPlayer mc o50 w30000,50") ; select filter
 	if %loadedDoll% in %5Star%
@@ -546,9 +554,9 @@ AddToSecondEchelon(doll, slot)
 	{
 		ClickS(Role2x,Role1y)
 	}		
-	RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
+	RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
 	if %doll% in %5Star%
 	{
 		RFindClick("5STAR", "rNoxPlayer mc o50 w10000,50") 
@@ -711,11 +719,12 @@ Sortie2:
 			sleep 500
 			AddToSecondEchelon(exhaustedDoll2, 2)
 		}
-		RFindClick("FormationReturn", "rNoxPlayer mc o50 w30000,50") ; go home		
-
+		TFindClick("FormationReturn","WaitForHome")
 		; Check expedition
-		ExpeditionCheck("Daily")
+		
 	}	
+
+	ExpeditionCheck("Daily")
 
 	Transition("Combat","CombatPage")
 
