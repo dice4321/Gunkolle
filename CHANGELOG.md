@@ -2,6 +2,7 @@
 * **_Update_** better handling of selecting dolls at switcher.
 * **_Update_** CombatSimsData auto 95% done (please report if something weird
 happends).
+* **_Bugfix_** Auto Production(T dolls).
 
 #### 0.4.9.1
 * **_Bugfix_** CombatSimsData logix fix

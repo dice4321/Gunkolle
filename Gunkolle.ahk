@@ -375,7 +375,7 @@ TimeCheck()
 		SetTimer, CombatSimsDataFlag, %CombatSimsDataTime%
 		FormatTime, TimeString,% A_NowUTC, HHmm
 		FormatTime, someday, A_NowUTC, ddd
-		if (((RegExMatch(someday, "Sun|Tue|Fri") && (TimeString >= 0800 and TimeString <= 2400)) || (RegExMatch(someday, "Mon|Thu|Sat") && (TimeString <= 0800 and TimeString >= 0000))))
+		if (((RegExMatch(someday, "Mon|Thu|Sat") && (TimeString >= 0800 && TimeString <= 2400)) || (RegExMatch(someday, "Sun|Tue|Fri") && (TimeString >= 0000 && TimeString <= 0800))))
 		{
 			Transition("Combat","CombatPage")
 			FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatSims", "rNoxPlayer mc o30 w2000,50")
