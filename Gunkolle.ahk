@@ -202,7 +202,7 @@ Transition(ClickThis,WaitForThis)
 		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o50 Count1 n0")
 		GuiControl,, NB, Waiting for [%WaitForThis%]
 		Counter++
-		if (((Counter >= 20) && (Found == 0))) || ((TimeString >= 0800) && (TimeString <= 0810))
+		if (((Counter >= 20) && (Found == 0)))
 		{
 			Counter == 0
 			ExpeditionCheck()
