@@ -1,3 +1,9 @@
+#### 0.4.9.3
+* **_Update_** Better handling to selecting nodes in combat.
+* **_Update_** Added SVD assets. Thanks @CripsyBekon for the assets! 
+* **_Bugfix_** Combat sims should now be functioning as intended also thanks to @CripsyBekon
+* **_Bugfix_** Catch expeditions before and after the combat screen.
+
 #### 0.4.9.2
 * **_Update_** better handling of selecting dolls at switcher.
 * **_Update_** CombatSimsData auto 95% done (please report if something weird
