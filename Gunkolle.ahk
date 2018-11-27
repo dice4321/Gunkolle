@@ -139,6 +139,32 @@ RFindClick(x,y,v*)
 	return
 }
 
+; Wait incremental
+WFindClick(x,y,SearchNumber := 40)
+{	
+	local RandX, RandY, radius := 10
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
+	RandX := Round((OutX * radius))
+	GuiControl,, NB, %x%
+	Found := 0
+	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
+	while (found == 0) 
+	{
+		SearchNumber:= SearchNumber + 6
+		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
+		GuiControl,, NB, pixel shade offset [%SearchNumber%]
+		if (SearchNumber >= 200)
+		{
+			GuiControl,, NB, Wrong doll, exit and redo config.
+			Pause
+		}
+	}
+	GuiControl,, NB, pixel shade offset [%SearchNumber%]
+	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
+}
+
 NoStopFindClick(x,y,v*)
 {
 	local RandX, RandY := v[1], radius := 10, looper := 1
@@ -169,31 +195,6 @@ NoStopFindClick(x,y,v*)
 	}
 }
 
-; Wait incremental
-WFindClick(x,y,SearchNumber := 40)
-{	
-	local RandX, RandY, radius := 10
-	Random, OutX, -1.0, 1.0
-	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := Round((OutX * radius))
-	GuiControl,, NB, %x%
-	Found := 0
-	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
-	while (found == 0) 
-	{
-		SearchNumber:= SearchNumber + 6
-		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
-		GuiControl,, NB, pixel shade offset [%SearchNumber%]
-		if (SearchNumber >= 200)
-		{
-			GuiControl,, NB, Wrong doll, exit and redo config.
-			Pause
-		}
-	}
-	GuiControl,, NB, pixel shade offset [%SearchNumber%]
-	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
-}
 
 TFindClick(ClickThis,WaitForThis,v*)
 {
@@ -222,17 +223,17 @@ Transition(ClickThis,WaitForThis)
 	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
 	RandX := Round((OutX * radius))
 	FormatTime, TimeString,% A_NowUTC, HHmm
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0 w1000,50")
 	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w1000,50")
 		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o50 Count1 n0")
 		GuiControl,, NB, Waiting for [%WaitForThis%]
 		Counter++
-		if (((Counter >= 10) && (Found == 0)))
+		if ((Counter >= 10) && (Found == 0))
 		{
 			Counter = 0
 			ExpeditionCheck()
@@ -809,7 +810,7 @@ Sortie2:
 	Retirement := Mod(RetirementCounter, DisassembleCycle + 1)
 	if(Retirement == DisassembleCycle)
 	{
-		Transition("Factory","TdollEnhancement")
+		Transition("Factory","Production\WaitForTdollProduction")
 		if (Enchancement == 0 || Enchancement == 1)
 		{
 			RFindClick("Retirement", "rNoxPlayer mc o50 w30000,50")

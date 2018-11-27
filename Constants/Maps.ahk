@@ -134,7 +134,7 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\5_2E\Enemy3", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("\Maps\5_2E\Enemy4", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("\Maps\5_2E\Enemy5", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50 a1100,620")
 	nodes(5)
 	sleep 1000
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
@@ -191,7 +191,7 @@ FocusChapter(Chapter)
 	RFindClick("4_3eEnemy3", "rNoxPlayer mc o20 w30000,50",-30)
 	RFindClick("4_3eEnemy4", "rNoxPlayer mc o20 w30000,50",-30)
 	sleep 1000
-	RFindClick("Execute", "rNoxPlayer mc o15 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	nodes(4)
 	sleep 1000
@@ -243,7 +243,7 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\3_2N\3_2NEnemy1", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("\Maps\3_2N\3_2NEnemy2", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("\Maps\3_2N\3_2NEnemy3", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	nodes(3)
 
@@ -314,7 +314,7 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\5_4\5_4Enemy3", "rNoxPlayer mc o10 w30000,50",-30)
 	RFindClick("\Maps\5_4\5_4Enemy4", "rNoxPlayer mc o10 w30000,50",-30)
 	RFindClick("\Maps\5_4\5_4Enemy5", "rNoxPlayer mc o10 w30000,50",-30)
-	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	nodes(5)
 
@@ -361,7 +361,7 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50",-30)
 	RFindClick("\Maps\0_2\0_2Enemy3", "rNoxPlayer mc o30 w30000,50",-30)
 	RFindClick("\Maps\0_2\0_2Enemy4", "rNoxPlayer mc o30 w30000,50",-30)
-	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	nodes(3)
 
@@ -373,10 +373,10 @@ FocusChapter(Chapter)
 		RFindClick("\Maps\0_2\DragSquad", "rNoxPlayer mc o10 w1000,50",-30)
 		Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", " rNoxPlayer mc o10 Count1 n0 w1000,50")
 	}
-	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
+	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\0_2\0_2Enemy5", "rNoxPlayer mc o10 w30000,50",-30)
 	RFindClick("\Maps\0_2\0_2Enemy6", "rNoxPlayer mc o10 w30000,50",-30)
-	RFindClick("Execute", "rNoxPlayer mc o10 w30000,50")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50 a1100,620")
 
 	nodes(2)
 
