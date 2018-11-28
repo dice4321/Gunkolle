@@ -128,8 +128,8 @@ RFindClick(x,y,v*)
 		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 		if(Found == 0)
 		{
-			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Count1")
-			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o50 Count1")
+			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1")
+			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Count1")
 		}
 		else
 		{
@@ -174,7 +174,7 @@ NoStopFindClick(x,y,v*)
 	RandX := RandX + Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
-	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY "Count1")
+	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY "Count1")
 	loop, %looper%
 	{
 		if (Found == 1)
@@ -187,8 +187,8 @@ NoStopFindClick(x,y,v*)
 		{
 			while(Found3 != 1)
 			{
-				FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY "Count1")
-				Found3 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o50 Center x"RandX " y"RandY "Count1")
+				FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY "Count1")
+				Found3 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Center x"RandX " y"RandY "Count1")
 			}
 			looper +=1
 		}
@@ -226,11 +226,11 @@ Transition(ClickThis,WaitForThis)
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0 w1000,50")
 	While (Found == 0)
 	{
-		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
-		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w1000,50")
-		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o50 Count1 n0")
+		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o40 Count1 n0")
 		GuiControl,, NB, Waiting for [%WaitForThis%]
 		Counter++
 		if ((Counter >= 10) && (Found == 0))
@@ -823,11 +823,11 @@ Sortie2:
 				{
 					if(Enchancement == 0)
 					{
-						RFindClick("SmartSelect", "rNoxPlayer mc o10 w30000,50")
+						RFindClick("SmartSelect", "rNoxPlayer mc o20 w30000,50")
 					}
-					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
-					RFindClick("ThreeStar", "rNoxPlayer mc o10 w30000,50")
-					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
+					RFindClick("ThreeStar", "rNoxPlayer mc o20 w30000,50")
+					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
 					SetFilter--
 				}
 				sleep 500
@@ -865,8 +865,8 @@ Sortie2:
 		{
 			RFindClick("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
 			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")
-			RFindClick("FilterYellow", "rNoxPlayer mc o10 w30000,50")
-			RFindClick("FilterReset", "rNoxPlayer mc o10 w30000,50")
+			RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
+			RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
 			sleep 2000 ;need a transition here
 			y:=0
 			loop,2
@@ -897,9 +897,9 @@ Sortie2:
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
 				If(SetFilter == 1)
 				{
-					RFindClick("Filter", "rNoxPlayer mc o10 w30000,50")
-					RFindClick("TwoStar", "rNoxPlayer mc o10 w30000,50")
-					RFindClick("Confirm", "rNoxPlayer mc o10 w30000,50")
+					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
+					RFindClick("TwoStar", "rNoxPlayer mc o20 w30000,50")
+					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
 					SetFilter--
 				}
 				sleep 2000
