@@ -24,11 +24,10 @@ $RECYCLE.BIN/
 test - Copy.ahk
 XYColor.ahk
 test.ahk
-config.ini
-config.ini
-config.ini
 Gui-Script.ahk
 config.ini
 New Text Document.txt
 config.ini
 *.ini
+CoordiatesA.ahk
+Win.ahk

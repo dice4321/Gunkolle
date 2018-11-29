@@ -128,7 +128,7 @@ RFindClick(x,y,v*)
 		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 		if(Found == 0)
 		{
-			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1")
+			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1 a680")
 			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Count1")
 		}
 		else
@@ -261,7 +261,7 @@ ExpeditionCheck(State := "")
 		{
 			FormatTime, TimeString,% A_NowUTC, HHmm
 			GuiControl,, NB, %TimeString%
-			if ((TimeString <= 0800) || (TimeString >= 0810)){
+			if ((TimeString <= 0755) || (TimeString >= 0810)){
 				break
 			}	
 		}
