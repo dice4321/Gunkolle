@@ -119,7 +119,7 @@ RFindClick(x,y,v*)
 	local RandX, RandY := v[1], radius := 10
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
+	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
 	RandX := RandX + Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
@@ -128,7 +128,7 @@ RFindClick(x,y,v*)
 		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 		if(Found == 0)
 		{
-			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1 a680")
+			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1")
 			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Count1")
 		}
 		else
