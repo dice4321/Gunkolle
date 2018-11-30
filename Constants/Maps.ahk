@@ -303,7 +303,7 @@ FocusChapter(Chapter)
 	sleep 1000
 	RFindClick("\Maps\5_4\5_4MapWait", "rNoxPlayer mc o20 w30000,50 n0")
 	sleep 1000
-	RFindClick("\Maps\5_4\CommandCenterAfter", "rNoxPlayer mc o20 a950,,,-500 w2000,50",-30)
+	ClickTilGone("\Maps\5_4\CommandCenterAfter", "rNoxPlayer mc o20 a950,,,-500 w2000,50",-30)
 	RFindClick("\Maps\5_4\CommandCenterAfterClicked", "rNoxPlayer mc o20 a950,,,-500 w2000,50",-30)
 	RFindClick("\Maps\5_4\Resupply", "rNoxPlayer mc o20 w30000,50")
 	sleep 1000
@@ -311,7 +311,8 @@ FocusChapter(Chapter)
 	Found := 0
 	While (Found != 1)
 	{
-		if(Found := FindClick(A_ScriptDir "\pics\Maps\5_4\TopLeftHeliPort", "rNoxPlayer mc o20 Count1 n0 w1000,50") == 1)
+		Found := FindClick(A_ScriptDir "\pics\Maps\5_4\TopLeftHeliPort", "rNoxPlayer mc o20 Count1 n0 w50,10")
+		if(Found == 1)
 		{
 			RFindClick("\Maps\5_4\TopLeftHeliPort", "rNoxPlayer mc o20 w30000,50",-30)
 		}

@@ -116,7 +116,7 @@ return
 ; click img til gone.
 RFindClick(x,y,v*)
 {
-	local RandX, RandY := v[1], radius := 10
+	local RandX, RandY := v[1], radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
@@ -142,7 +142,7 @@ RFindClick(x,y,v*)
 ; Wait incremental
 WFindClick(x,y,SearchNumber := 40)
 {	
-	local RandX, RandY, radius := 10
+	local RandX, RandY, radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
@@ -167,14 +167,14 @@ WFindClick(x,y,SearchNumber := 40)
 
 NoStopFindClick(x,y,v*)
 {
-	local RandX, RandY := v[1], radius := 10, looper := 1
+	local RandX, RandY := v[1], radius := 5, looper := 1
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
 	RandX := RandX + Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
-	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY "Count1")
+	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY "  n0 Count1")
 	loop, %looper%
 	{
 		if (Found == 1)
@@ -195,10 +195,23 @@ NoStopFindClick(x,y,v*)
 	}
 }
 
+ClickTilGone(x,y,v)
+{
+	While (Found != 1)
+	{
+		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1")
+		if(Found == 1)
+		{
+			RFindClick(x,y,v)
+		}
+	}
+}
+
+
 
 TFindClick(ClickThis,WaitForThis,v*)
 {
-	local RandX, RandY := v[1], radius := 10
+	local RandX, RandY := v[1], radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
@@ -216,7 +229,7 @@ TFindClick(ClickThis,WaitForThis,v*)
 Transition(ClickThis,WaitForThis)
 {
 	Global
-	local RandX, RandY, radius := 10
+	local RandX, RandY, radius := 5
 	local Counter
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
@@ -233,7 +246,7 @@ Transition(ClickThis,WaitForThis)
 		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o40 Count1 n0")
 		GuiControl,, NB, Waiting for [%WaitForThis%]
 		Counter++
-		if ((Counter >= 10) && (Found == 0))
+		if ((Counter >= 20) && (Found == 0))
 		{
 			Counter = 0
 			ExpeditionCheck()
@@ -766,9 +779,8 @@ Sortie2:
 			sleep 500
 			AddToSecondEchelon(exhaustedDoll2, 2)
 		}
-		TFindClick("FormationReturn","WaitForHome")
+		Transition("FormationReturn","WaitForHome")
 		; Check expedition
-		
 	}	
 
 	ExpeditionCheck("Daily")
@@ -1589,4 +1601,5 @@ GuiClose:
 ; i've noticed that rarely
 ; it will get stuck going to formation
 ; if an expedition comes back
+;add wait timer to retirement 3 stars
 
