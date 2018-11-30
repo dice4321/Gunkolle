@@ -1,3 +1,6 @@
+#### 0.4.9.4
+* **_Bugfix_** 5-4 should be more stable.
+
 #### 0.4.9.3
 * **_Update_** Better handling to selecting nodes in combat.
 * **_Update_** Added SVD assets. Thanks @CripsyBekon for the assets! 
