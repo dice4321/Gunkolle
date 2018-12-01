@@ -337,7 +337,7 @@ FocusChapter(Chapter)
 	FocusChapter(0)
 	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o200 w30000,50")
 	sleep 500
-	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o120 w30000,50")
+	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o20 w30000,50")
 	Found := NoStopFindClick("Maps\0_2\0_2MapWait", "rNoxPlayer mc o30 Count1 n0 w10000,50")
 	if Found >= 1
 	{

@@ -197,16 +197,23 @@ NoStopFindClick(x,y,v*)
 
 ClickTilGone(x,y,v)
 {
-	While (Found != 1)
+	local RandX, RandY := v[1], radius := 5
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX := RandX + Round((OutX * radius))
+	GuiControl,, NB, %x%
+	Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1")
+	While (Found == 1)
 	{
-		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1")
-		if(Found == 1)
+		FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " w1,1")
+		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1 w1,1")
+		if(found == 1)
 		{
-			RFindClick(x,y,v)
+			break
 		}
 	}
 }
-
 
 
 TFindClick(ClickThis,WaitForThis,v*)
@@ -340,6 +347,7 @@ return
 
 UpdateEnergy()
 {
+	global
 	FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w15000,50 n0")
 	EnergyCount = 0
 	FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy0", "rNoxPlayer mc o30 Count1 w1000,50 n0")
