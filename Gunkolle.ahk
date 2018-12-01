@@ -128,7 +128,7 @@ RFindClick(x,y,v*)
 		Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 		if(Found == 0)
 		{
-			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1")
+			FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Count1")
 			FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Count1")
 		}
 		else
@@ -174,7 +174,7 @@ NoStopFindClick(x,y,v*)
 	RandX := RandX + Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
-	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY "  n0 Count1")
+	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY "  n0 Count1")
 	loop, %looper%
 	{
 		if (Found == 1)
@@ -187,7 +187,7 @@ NoStopFindClick(x,y,v*)
 		{
 			while(Found3 != 1)
 			{
-				FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY "Count1")
+				FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY "Count1")
 				Found3 := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Center x"RandX " y"RandY "Count1")
 			}
 			looper +=1
@@ -239,17 +239,17 @@ Transition(ClickThis,WaitForThis)
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0 w1000,50")
 	While (Found == 0)
 	{
-		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Center x"RandX " y"RandY)
+		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
 		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w1000,50")
 		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o40 Count1 n0")
-		GuiControl,, NB, Waiting for [%WaitForThis%]
+		GuiControl,, NB, Waiting for [%WaitForThis%] | loop counter == %Counter%
 		Counter++
 		if ((Counter >= 20) && (Found == 0))
 		{
 			Counter = 0
-			ExpeditionCheck()
+			ExpeditionCheck("daily")
 		}
 		if (Found2 == true)
 		{
@@ -347,6 +347,7 @@ UpdateEnergy()
 		EnergyCount++
 		FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy" EnergyCount, "rNoxPlayer mc o30 Count1 n0")
 	}
+	GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
 	return EnergyCount
 }
 
@@ -429,12 +430,10 @@ TimeCheck()
 				RFindClick("CombatSims\Data\DataMode", "rNoxPlayer mc o30 w2000,50")
 				}
 			EnergyCount := UpdateEnergy()
-			GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
 			While (EnergyCount >= CombatSimsData) {
 				EnergyCount := UpdateEnergy()
 				loop,3 {
 					if ((EnergyCount >= CombatSimsData) && (CombatSimsData == A_Index)) {
-						GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
 						RFindClick("CombatSims\Data\Training" A_Index, "rNoxPlayer mc o30 Count1 w5000,50")
 						RFindClick("CombatSims\Data\EnterCombat", "rNoxPlayer mc o30 w5000,50")
 						RFindClick("CombatSims\Data\Confirm", "rNoxPlayer mc o30 w5000,50")
@@ -446,7 +445,6 @@ TimeCheck()
 							Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w2000,50 n0")
 						}
 						EnergyCount := UpdateEnergy()
-						GuiControl,, NB, EnergyCount == %EnergyCount% CombatSimsData == %CombatSimsData%
 						sleep 2000
 					}
 				}

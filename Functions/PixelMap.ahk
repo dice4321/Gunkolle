@@ -17,10 +17,10 @@ PixelMap()
 	 TdollRetirementSlot1y := FY - 375
 	 Homex := FX
 	 Homey := FY
-	 Dailypopx := FX - 300
+	 Dailypopx := FX - 288
 	 Dailypopy := FY - 555
-	 AndroidpopupExitx := FX - 316
-	 AndroidpopupExity := FY - 581
+	 AndroidpopupExitx := FX - 314
+	 AndroidpopupExity := FY - 583
 	 LoginCollectExitx := FX + 295
 	 LoginCollectExity := FY - 99
 	 LoginCollectNoticex := FX - 276
