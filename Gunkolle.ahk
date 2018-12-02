@@ -195,7 +195,7 @@ NoStopFindClick(x,y,v*)
 	}
 }
 
-ClickTilGone(x,y,v)
+ClickTilGone(x,y,v*)
 {
 	local RandX, RandY := v[1], radius := 5
 	Random, OutX, -1.0, 1.0

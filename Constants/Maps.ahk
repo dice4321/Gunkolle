@@ -36,7 +36,7 @@ nodes(nodecount)
 		while(Found == 0)
 		{
 			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\LoadScreen", "rNoxPlayer mc o50 n0 Count1 w100,50")
+			Found := FindClick(A_ScriptDir "\pics\LoadScreen", "rNoxPlayer mc o50 n0 Count1 w50,50")
 			if Found >= 1
 			{
 
@@ -63,7 +63,7 @@ GoHome()
 		sleep 5000
 		while(Found1 == 0 && Found2 == 0)
 		{
-			Found1 := FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w1000,50 Count1 n0 a1200,,,-600")
+			Found1 := FindClick(A_ScriptDir "\pics\WaitForHome", "rNoxPlayer mc o30 w250,50 Count1 n0 a1200,,,-600")
 			Found2 := FindClick(A_ScriptDir "\pics\DailyMessage", "rNoxPlayer mc o40 Count1 n0")
 			if (Found1 >= 1 or Found2 >= 1)
 			{
@@ -345,7 +345,7 @@ FocusChapter(Chapter)
 	sleep 1000
 	RFindClick("\Maps\0_2\HeliPortResupply", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("\Maps\0_2\HeliPortResupply2", "rNoxPlayer mc o20 w30000,50")
-	RFindClick("\Maps\0_2\Resupply", " rNoxPlayer mc o10 w30000,50")
+	ClickTilGone("\Maps\0_2\Resupply", " rNoxPlayer mc o10 w30000,50")
 	sleep 500
 	RFindClick("\Maps\0_2\CommandCenterResupply", "rNoxPlayer mc o10 a550,300,-550,-300 w1000,50 ")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
