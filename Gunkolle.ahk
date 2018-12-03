@@ -45,8 +45,8 @@ IniRead, Doll4, config.ini, Variables, Doll4
 IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
-IniRead, Enchancement, config.ini, Variables, Enchancement, 0
-IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
+; IniRead, Enchancement, config.ini, Variables, Enchancement, 0
+; IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
 IniRead, CombatSimsData, config.ini, Variables, CombatSimsData, 0
@@ -816,150 +816,9 @@ Sortie2:
 	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
 
 	Sortiecount++
-	RetirementCounter++
 	ti := BC+1
 	Menu, Main, Rename, %BC%, %ti%
 	BC += 1
-
-	; Repair
-
-	; Dismantle
-
-	Retirement := Mod(RetirementCounter, DisassembleCycle + 1)
-	if(Retirement == DisassembleCycle)
-	{
-		Transition("Factory","Production\WaitForTdollProduction")
-		if (Enchancement == 0 || Enchancement == 1)
-		{
-			RFindClick("Retirement", "rNoxPlayer mc o50 w30000,50")
-			SetFilter := 1
-			loop, 1
-			{
-				sleep 500
-				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-				If(SetFilter == 1)
-				{
-					if(Enchancement == 0)
-					{
-						RFindClick("SmartSelect", "rNoxPlayer mc o20 w30000,50")
-					}
-					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("ThreeStar", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
-					SetFilter--
-				}
-				sleep 500
-				rti := 0
-				rti2 := 5
-				Loop
-				{
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
-					rti := rti+1
-					Sleep 10
-
-				}Until (rti > rti2)
-				Found := 0
-				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
-				if Found >= 1
-				{
-					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
-				}
-				Else
-				{
-					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
-				}
-			}
-			RFindClick("TdollRetirementDismantle", "rNoxPlayer mc o50 w30000,50")
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\TdollRetirementDismantleConfirm", "rNoxPlayer mc o50 Count1 n0 w2000,50")
-			if Found >= 1
-			{
-				RFindClick("TdollRetirementDismantleConfirm", "rNoxPlayer mc o50 w30000,50")
-			}
-			sleep 2000
-		}
-		if(Enchancement == 1)
-		{
-			ClickTilGone("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
-			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")
-			RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
-			RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
-			sleep 2000 ;need a transition here
-			y:=0
-			loop,2
-			{
-				rti := 0
-				rti2 := 5
-				tpc := 0
-				loop
-				{
-					tpc := PixelGetColorS(TdollEnhancement_Lockx+179*rti,TdollEnhancement_Locky+304*y,3)
-					if (tpc == TdollEnhancement_Lock)
-					{
-						ClickS(TdollEnhancement_Lockx+180*rti,TdollEnhancement_Locky+304*y)
-						break
-					}
-					rti := rti+1
-				}until (rti > rti2)
-				if (tpc == TdollEnhancement_Lock)
-				{
-					break
-				}
-				y++
-			}
-			SetFilter := 1
-			loop, 2
-			{
-				sleep 500
-				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-				If(SetFilter == 1)
-				{
-					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("TwoStar", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
-					SetFilter--
-				}
-				sleep 2000
-				rti := 0
-				rti2 := 5
-				Loop
-				{
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
-					rti := rti+1
-					Sleep 10
-				}Until (rti > rti2)
-				Found := 0
-				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
-				if Found >= 1
-				{
-					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
-				}
-				Else
-				{
-					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
-				}
-			; SetFilter := 1
-			; loop, 1
-			; {
-			; 	sleep 500
-			; 	RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-			; 	If(SetFilter == 1)
-			; 	{
-			; 		RFindClick("SmartSelect", "rNoxPlayer mc o10 w30000,50")
-			; 		SetFilter--
-			; 	}
-			; 	sleep 500
-			; 	RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
-			; }
-			}
-			RFindClick("TdollEnhancement_Enhancement", "rNoxPlayer mc o50 w30000,50")
-			RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o50 w30000,50")
-		}
-		RFindClick("FactoryReturn", "rNoxPlayer mc o50 w30000,50")
-	}
-
 
 	; check productions
 	Production()
@@ -1570,6 +1429,7 @@ CombatSimsDataFlag:
 #Include %A_ScriptDir%/Functions/Notify.ahk
 #Include %A_ScriptDir%/Functions/FindClick.ahk
 #Include %A_ScriptDir%/Constants/Maps.ahk
+#Include %A_ScriptDir%/Constants/Retirement.ahk
 
 
 Initialize()

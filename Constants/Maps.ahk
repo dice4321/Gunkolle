@@ -144,12 +144,21 @@ FocusChapter(Chapter)
 4_3E( )
 {
 	Global
-	FocusChapter(4)
-	RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
-	sleep 250
-	RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
-	Sleep 3000
+	looper := 1
+	loop, %looper%
+	{
+		FocusChapter(4)
+		RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
+		sleep 250
+		RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
+		Found := FindClick(A_ScriptDir "\pics\CombatTdollEnhancement", "rNoxPlayer mc o30 Count1 n0 w3000,50")
+		if(Found == 1)
+		{
+			Retirement()
+			looper++
+		}
+	}
 	Found := FindClick(A_ScriptDir "\pics\Heliport", "rNoxPlayer mc o5 Count1 n0 w5000,50")
 	if Found >= 1
 	{
@@ -275,10 +284,20 @@ FocusChapter(Chapter)
 	Global
 	if (friendly == False)
 	{
-		FocusChapter(5)
-		sleep 500
-		RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o20 w30000,50")
-		RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o20 w30000,50")
+		looper := 1
+		loop, %looper%
+		{
+			FocusChapter(5)
+			sleep 250
+			RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o20 w30000,50")
+			RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o20 w30000,50")
+			Found := FindClick(A_ScriptDir "\pics\CombatTdollEnhancement", "rNoxPlayer mc o30 Count1 n0 w3000,50")
+			if(Found == 1)
+			{
+				Retirement()
+				looper++
+			}
+		}
 		Found := NoStopFindClick("Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
 		if Found >= 1
 		{
@@ -320,9 +339,19 @@ FocusChapter(Chapter)
 0_2()
 {
 	Global
-	FocusChapter(0)
-	RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o200 w30000,50")
-	RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o30 w30000,50")
+	looper := 1
+	loop, %looper%
+	{
+		FocusChapter(0)
+		RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o200 w30000,50")
+		RFindClick("\Maps\0_2\0_2Battle", "rNoxPlayer mc o30 w30000,50")
+		Found := FindClick(A_ScriptDir "\pics\CombatTdollEnhancement", "rNoxPlayer mc o30 Count1 n0 w3000,50")
+		if(Found == 1)
+		{
+			Retirement()
+			looper++
+		}
+	}
 	Found := NoStopFindClick("Maps\0_2\0_2MapWait", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 	if Found >= 1
 	{
