@@ -54,8 +54,8 @@ nodes(nodecount)
 GoHome()
 {
 	Global
-	loopcount := 1
-	loop, %loopcount%
+	RetirementLoop := 1
+	loop, %RetirementLoop%
 	{
 		Found1 := 0
 		Found2 := 0
@@ -75,7 +75,7 @@ GoHome()
 				FoundExp := FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o30 Count1")
 				if FoundExp >= 1
 				{
-					loopcount++
+					RetirementLoop++
 				}
 				ClickS(Homex,Homey)
 			}
@@ -102,8 +102,8 @@ FocusChapter(Chapter)
 5_2E()
 {
 	Global
-	loopcount := 1
-	while (loopcount != 0)
+	RetirementLoop := 1
+	while (RetirementLoop != 0)
 	{
 		FocusChapter(5)
 		RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
@@ -114,9 +114,9 @@ FocusChapter(Chapter)
 		if(Found == 1)
 		{
 			Retirement()
-			loopcount++
+			RetirementLoop++
 		}
-		loopcount--
+		RetirementLoop--
 	}
 	Found := FindClick(A_ScriptDir "\pics\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o5 Count1 n0 w5000,50")
 	if Found >= 1
@@ -156,8 +156,8 @@ FocusChapter(Chapter)
 4_3E( )
 {
 	Global
-	loopcount := 1
-	while (loopcount != 0)
+	RetirementLoop := 1
+	while (RetirementLoop != 0)
 	{
 		FocusChapter(4)
 		RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
@@ -168,9 +168,9 @@ FocusChapter(Chapter)
 		if(Found == 1)
 		{
 			Retirement()
-			loopcount++
+			RetirementLoop++
 		}
-		loopcount--
+		RetirementLoop--
 	}
 	Found := FindClick(A_ScriptDir "\pics\Heliport", "rNoxPlayer mc o5 Count1 n0 w5000,50")
 	if Found >= 1
@@ -297,8 +297,8 @@ FocusChapter(Chapter)
 	Global
 	if (friendly == False)
 	{
-		loopcount := 1
-		while (loopcount != 0)
+		RetirementLoop := 1
+		while (RetirementLoop != 0)
 		{
 			FocusChapter(5)
 			sleep 250
@@ -308,9 +308,9 @@ FocusChapter(Chapter)
 			if(Found == 1)
 			{
 				Retirement()
-				loopcount++
+				RetirementLoop++
 			}
-			loopcount--
+			RetirementLoop--
 		}
 		Found := NoStopFindClick("Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 Count1 n0 w30000,50")
 		if Found >= 1
@@ -353,8 +353,8 @@ FocusChapter(Chapter)
 0_2()
 {
 	Global
-	loopcount := 1
-	while (loopcount != 0)
+	RetirementLoop := 1
+	while (RetirementLoop != 0)
 	{
 		FocusChapter(0)
 		RFindClick("\Maps\0_2\0_2Map", "rNoxPlayer mc o200 w30000,50")
@@ -363,9 +363,9 @@ FocusChapter(Chapter)
 		if(Found == 1)
 		{
 			Retirement()
-			loopcount++
+			RetirementLoop++
 		}
-		loopcount--
+		RetirementLoop--
 	}
 	Found := NoStopFindClick("Maps\0_2\0_2MapWait", "rNoxPlayer mc o30 Count1 n0 w30000,50")
 	if Found >= 1

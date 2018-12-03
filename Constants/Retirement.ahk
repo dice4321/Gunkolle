@@ -140,4 +140,5 @@ Retirement()
 		ExpeditionCheck()
 		Transition("Combat","CombatPage")
 	}
+	return
 }
