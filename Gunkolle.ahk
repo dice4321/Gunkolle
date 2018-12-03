@@ -216,7 +216,7 @@ ClickTilGone(x,y,v*)
 	{
 		FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " w1,1")
 		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1 w1,1")
-		if(found == 1)
+		if(found != 1)
 		{
 			break
 		}
@@ -607,12 +607,8 @@ ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 	}
 	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")	
 	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-	sleep 200
-	tpc := 0
-	pc := []
-	pc := [FormationProfile]
-	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc a0,130,-200,0",120)
+	ClickTilGone("ProfileWait","rNoxPlayer mc o50 w30000,50 n0")
+	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc a,130,-200,",120)
 	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") 
 }
 
@@ -642,11 +638,7 @@ AddToSecondEchelon(doll, slot)
 	}
 	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")
 	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-	sleep 200
-	tpc := 0
-	pc := []
-	pc := [FormationProfile]
-	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
+	ClickTilGone("ProfileWait","rNoxPlayer mc o50 w30000,50 n0")
 	WFindClick("DollList\"%doll% "Profile", "rNoxPlayer mc",120)  ; select Dollportrait1
 }
 
