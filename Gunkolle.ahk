@@ -116,7 +116,7 @@ return
 ; click img til gone.
 RFindClick(x,y,v*)
 {
-	local RandX, RandY := v[1], radius := 5
+	local RandX, RandY := v[1], radius := 5, counter := 0
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
 	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
@@ -134,7 +134,14 @@ RFindClick(x,y,v*)
 		else
 		{
 			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+			previousImg := x
+			previousParameters := y
 		}
+		if(counter == 1)
+		{
+			FindClick(A_ScriptDir "\pics\" previousImg,previousParameters "Center x"RandX " y"RandY "w5000,50")
+		}
+		counter++
 	}
 	return
 }
@@ -163,6 +170,7 @@ WFindClick(x,y,SearchNumber := 40)
 	}
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
 	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
+	previousImg := x
 }
 
 NoStopFindClick(x,y,v*)
@@ -604,7 +612,7 @@ ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 	pc := []
 	pc := [FormationProfile]
 	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc",120)
+	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc a0,130,-200,0",120)
 	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") 
 }
 
@@ -612,6 +620,7 @@ AddToSecondEchelon(doll, slot)
 {
 	Global
 	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") ;wait for formation
+	sleep 500
 	if (slot == 1)
 	{
 		ClickS(Role1x,Role1y)
@@ -778,7 +787,6 @@ Sortie2:
 			ReplaceDPS(exhaustedDoll2, loadedDoll2, True)
 		}
 		TFindClick("Echelon2","Echelon2Clicked")		
-		sleep 500
 		AddToSecondEchelon(exhaustedDoll1, 1)
 		if (dualDPS)
 		{
@@ -881,7 +889,7 @@ Sortie2:
 		}
 		if(Enchancement == 1)
 		{
-			RFindClick("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
+			ClickTilGone("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
 			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")
 			RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
 			RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")

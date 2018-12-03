@@ -36,7 +36,7 @@ nodes(nodecount)
 		while(Found == 0)
 		{
 			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\LoadScreen", "rNoxPlayer mc o50 n0 Count1 w50,50")
+			Found := FindClick(A_ScriptDir "\pics\LoadScreen", "rNoxPlayer mc o50 n0 Count1 w100,50")
 			if Found >= 1
 			{
 
@@ -295,11 +295,9 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\5_4\OK", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\CommandCenter", "rNoxPlayer mc o10 w30000,50 Center a950,,,-500")
 	RFindClick("\Maps\5_4\OK", "rNoxPlayer mc o10 w30000,50")
+	sleep 500
 	RFindClick("StartCombat", "rNoxPlayer mc o30 w3000,10 a1000,620")
-	sleep 1000
-	RFindClick("\Maps\5_4\5_4MapWait", "rNoxPlayer mc o10 w30000,50 n0")
-	sleep 2000
-	RFindClick("\Maps\5_4\CommandCenterAfter", "rNoxPlayer mc o10 a950,,,-500 w2000,50")
+	TFindClick("\Maps\5_4\CommandCenterAfter", "\Maps\5_4\CommandCenterAfterClicked")
 	RFindClick("\Maps\5_4\CommandCenterAfterClicked", "rNoxPlayer mc o10 a950,,,-500 w2000,50")
 	RFindClick("\Maps\5_4\Resupply", "rNoxPlayer mc o10 w30000,50")
 	sleep 500
