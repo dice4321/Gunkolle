@@ -6,10 +6,11 @@ Retirement()
 	if(true)
 	{
 		Transition("CombatTdollEnhancement","Retirement")
-		if (Enchancement == 0 || Enchancement == 1)
+		if (Enhancement == 0 || Enhancement == 1)
 		{
 			RFindClick("Retirement", "rNoxPlayer mc o50 w30000,50")
 			SetFilter := 1
+			done := 0
 			while(done != 1)
 			{
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc o75 w30000,50")
@@ -18,7 +19,7 @@ Retirement()
 				{
 					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
 					RFindClick("ThreeStar", "rNoxPlayer mc o20 w30000,50")
-					if(Enchancement == 0)
+					if(Enhancement == 0)
 					{
 						RFindClick("TwoStar", "rNoxPlayer mc o20 w30000,50")
 					}
@@ -58,7 +59,7 @@ Retirement()
 				}
 			}
 		}
-		if(Enchancement == 1)
+		if(Enhancement == 1)
 		{
 			ClickTilGone("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
 			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")

@@ -45,7 +45,7 @@ IniRead, Doll4, config.ini, Variables, Doll4
 IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
-IniRead, Enchancement, config.ini, Variables, Enchancement, 0
+IniRead, Enhancement, config.ini, Variables, Enhancement, 0
 ; IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
