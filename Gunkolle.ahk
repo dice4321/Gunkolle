@@ -45,7 +45,7 @@ IniRead, Doll4, config.ini, Variables, Doll4
 IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
-; IniRead, Enchancement, config.ini, Variables, Enchancement, 0
+IniRead, Enchancement, config.ini, Variables, Enchancement, 0
 ; IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
@@ -211,7 +211,7 @@ ClickTilGone(x,y,v*)
 	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
 	RandX := RandX + Round((OutX * radius))
 	GuiControl,, NB, %x%
-	Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1")
+	Found := FindClick(A_ScriptDir "\pics\" x,y " count1 Center x"RandX " y"RandY)
 	While (Found == 1)
 	{
 		FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " w1,1")
