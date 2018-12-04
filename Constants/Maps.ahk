@@ -401,13 +401,8 @@ FocusChapter(Chapter)
 	nodes(3)
 
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620")
-	sleep 4000
-	Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", "rNoxPlayer mc o10 Count1 n0")
-	While (Found != 1)
-	{
-		RFindClick("\Maps\0_2\DragSquad", "rNoxPlayer mc o10 w1000,50 ")
-		Found := FindClick(A_ScriptDir "\pics\Maps\0_2\DragSquadClicked", " rNoxPlayer mc o10 Count1 n0 w1000,50")
-	}
+	sleep 4000 ;need it
+	TFindClick("\Maps\0_2\DragSquad","\Maps\0_2\DragSquadClicked")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy5", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy6", "rNoxPlayer mc o10 w30000,50 ")
