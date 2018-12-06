@@ -161,12 +161,13 @@ WFindClick(x,y,SearchNumber := 40)
 	while (found == 0) 
 	{
 		SearchNumber:= SearchNumber + 6
-		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
+		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " n0")
 		GuiControl,, NB, pixel shade offset [%SearchNumber%]
 		if (SearchNumber >= 200)
 		{
-			GuiControl,, NB, Wrong doll, exit and redo config.
+			GuiControl,, NB, Could not find %x%, exit and redo config.
 			Pause
+			SearchNumber := 0
 		}
 	}
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
@@ -570,6 +571,7 @@ Repair()
 		Transition("Repair","RepairSlot")
 		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50 a50,100,-1050,-100")
 		RFindClick("RepairSlotWait", "rNoxPlayer mc o30 w30000,50 n0 a0,100,-1000,-300")
+		sleep 250
 		WFindClick("Damage", "rNoxPlayer mc")
 		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairQuick", "rNoxPlayer mc o50 w30000,50")
@@ -617,15 +619,19 @@ AddToSecondEchelon(doll, slot)
 {
 	Global
 	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") ;wait for formation
-	sleep 500
-	if (slot == 1)
+	Found := 0
+	while(Found == 0)
 	{
-		ClickS(Role1x,Role1y)
-	}
-	else if (slot == 2)
-	{
-		ClickS(Role2x,Role1y)
-	}		
+		if (slot == 1)
+		{
+			ClickS(Role1x,Role1y)
+		}
+		else if (slot == 2)
+		{
+			ClickS(Role2x,Role1y)
+		}	
+		Found = FindClick(A_ScriptDir "\pics\FilterYellow", "rNoxPlayer mc o20 w30000,50 n0 count1")
+	}	
 	RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
@@ -832,8 +838,7 @@ Sortie2:
 		BP := 0
 		SetTimer, NBUpdate, 2000
 	}
-	return
-	
+	return	
 }
 
 ; Sortie:
