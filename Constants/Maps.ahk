@@ -33,6 +33,7 @@ nodes(nodecount)
 	{
 		Found := 0
 		FindClick(A_ScriptDir "\pics\CombatPause", "rNoxPlayer mc o30 Count1 n0 w30000,50")
+		sleep 7500
 		while(Found == 0)
 		{
 			Found := 0
@@ -87,7 +88,7 @@ GoHome()
 FocusChapter(Chapter)
 {
 	Global
-	Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMissionClicked", "rNoxPlayer mc o30 w5000,50")
+	Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMissionClicked", "rNoxPlayer mc o30 w5000,50 n0")
 	if (Found != 1) {
 		FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMission", "rNoxPlayer mc o30")
 	}
@@ -202,7 +203,6 @@ FocusChapter(Chapter)
 		RFindClick("4_3eHeliResupplyAfter", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
 	}
-	sleep 1000
 	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("4_3eEnemy1", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("4_3eEnemy2", "rNoxPlayer mc o15 w30000,50")
@@ -341,6 +341,7 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\5_4\5_4Enemy3", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\5_4Enemy4", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\5_4Enemy5", "rNoxPlayer mc o10 w30000,50")
+	ClickTilGone("\Maps\5_4\5_4Enemy5","rNoxPlayer mc o10 w30000,50 n0")
 	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
 
 	nodes(5)

@@ -26,6 +26,7 @@ Retirement()
 					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
 					SetFilter--
 					ClickTilGone("TdollFodderWait","rNoxPlayer mc o30 w30000,50 n0")
+					sleep 500
 					rti := 0
 					rti2 := 5
 					Loop
