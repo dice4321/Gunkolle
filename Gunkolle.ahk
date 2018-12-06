@@ -31,6 +31,7 @@ TR := 0
 DT := 0
 Nodes := 1
 Sortiecount := 0
+StartTime := A_TickCount
 
 IniRead, NotificationLevel, config.ini, Variables, NotificationLevel, 1
 IniRead, TWinX, config.ini, Variables, LastXS, 0
@@ -1388,6 +1389,12 @@ NBUpdate:
 
 DN:
 {
+	DeltaT := A_TickCount - StartTime
+	ElapsedHours := SubStr(0 Floor(DeltaT / 3600000), -1)
+	ElapsedMinutes := SubStr(0 Floor((DeltaT - ElapsedHours * 3600000) / 60000), -1)
+	ElapsedSeconds := SubStr(0 Floor((DeltaT - ElapsedHours * 3600000 - ElapsedMinutes * 60000) / 1000), -1)
+	SPH := (Sortiecount / (DeltaT/3600000))
+	GuiControl,, NB,% "total time == "ElapsedHours ":" ElapsedMinutes ":" ElapsedSeconds " || SPH == " SPH
 	return
 }
 
