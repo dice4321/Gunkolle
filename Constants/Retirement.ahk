@@ -139,7 +139,6 @@ Retirement()
 			RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o50 w30000,50")
 		}
 		RFindClick("FactoryReturn", "rNoxPlayer mc o50 w30000,50")
-		ExpeditionCheck()
 		Transition("Combat","CombatPage")
 	}
 	return
