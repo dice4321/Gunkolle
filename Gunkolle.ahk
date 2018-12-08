@@ -233,12 +233,12 @@ TFindClick(ClickThis,WaitForThis,v*)
 	Random, Sign, -1.0, 1.0
 	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
 	RandX := RandX + Round((OutX * radius))
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0")
 	GuiControl,, NB, %ClickThis%
 	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w500,50")
 		GuiControl,, NB, Waiting for [%WaitForThis%]
 	}
 }
@@ -253,13 +253,13 @@ Transition(ClickThis,WaitForThis)
 	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
 	RandX := Round((OutX * radius))
 	FormatTime, TimeString,% A_NowUTC, HHmm
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0 w1000,50")
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0")
 	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w1000,50")
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w500,50")
 		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o40 Count1 n0")
 		GuiControl,, NB, Waiting for [%WaitForThis%] | loop counter == %Counter%
 		Counter++
@@ -443,7 +443,7 @@ TimeCheck()
 			Transition("Combat","CombatPage")
 			NoStopFindClick("CombatSims\Data\CombatSims", "rNoxPlayer mc o30 w1000,50")
 			NoStopFindClick("CombatSims\Data\Training1", "rNoxPlayer mc o30 Count1 w30000,50 n0")
-			Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 n0 w6000")
+			Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 n0 w2000")
 			if (Found != True){
 				RFindClick("CombatSims\Data\DataMode", "rNoxPlayer mc o30 w2000,50")
 				}
