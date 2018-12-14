@@ -120,8 +120,8 @@ RFindClick(x,y,v*)
 	local RandX, RandY := v[1], radius := 5, counter := 0
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
-	RandX := RandX + Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
 	while (Found == 0)
@@ -153,8 +153,8 @@ WFindClick(x,y,SearchNumber := 40)
 	local RandX, RandY, radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
 	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
@@ -180,8 +180,8 @@ NoStopFindClick(x,y,v*)
 	local RandX, RandY := v[1], radius := 5, looper := 1
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := RandX + Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY "  n0 Count1")
@@ -210,14 +210,15 @@ ClickTilGone(x,y,v*)
 	local RandX, RandY := v[1], radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
-	RandX := RandX + Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := FindClick(A_ScriptDir "\pics\" x,y " count1 Center x"RandX " y"RandY)
 	While (Found == 1)
 	{
 		FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " w1,1")
 		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1 w1,1")
+		count += 1
 		if(found != 1)
 		{
 			break
@@ -231,8 +232,8 @@ TFindClick(ClickThis,WaitForThis,v*)
 	local RandX, RandY := v[1], radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := RandX + Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0")
 	GuiControl,, NB, %ClickThis%
 	While (Found == 0)
@@ -250,8 +251,8 @@ Transition(ClickThis,WaitForThis)
 	local Counter
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	FormatTime, TimeString,% A_NowUTC, HHmm
 	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0")
 	While (Found == 0)
@@ -1394,7 +1395,7 @@ NBUpdate:
 
 DN:
 {
-	DeltaT := A_TickCount - StartTime
+	DeltaT := A_TickCount - StartTime 
 	ElapsedHours := SubStr(0 Floor(DeltaT / 3600000), -1)
 	ElapsedMinutes := SubStr(0 Floor((DeltaT - ElapsedHours * 3600000) / 60000), -1)
 	ElapsedSeconds := SubStr(0 Floor((DeltaT - ElapsedHours * 3600000 - ElapsedMinutes * 60000) / 1000), -1)
