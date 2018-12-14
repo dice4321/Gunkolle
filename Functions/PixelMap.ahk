@@ -9,6 +9,8 @@ PixelMap()
 	 Role1x := FX - 111
 	 Role2x := Role1x + 180
 	 Role1y := FY - 312
+	 EnhancementSelectx := FX - 50
+	 EnhancementSelecty := FY - 312
 	 Safex := FX + 917
 	 Safey := FY - 45
 	 Expeditionx := FX + 395
