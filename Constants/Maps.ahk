@@ -78,7 +78,7 @@ GoHome()
 				{
 					RetirementLoop++
 				}
-				ClickS(Homex,Homey)
+				ClickS(Homex+52,Homey)
 			}
 			GuiControl,, NB, %found1% %found2% %found3% 
 		}
@@ -92,10 +92,10 @@ FocusChapter(Chapter)
 	if (Found != 1) {
 		FindClick(A_ScriptDir "\pics\CombatSims\Data\CombatMission", "rNoxPlayer mc o30")
 	}
-	Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w3000,50 n0")
+	Found := 0
 	while (Found == 0) {
-		ClickS(CombatMapBasex,CombatMapBasey+100*Chapter)
-		Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w1000,50 n0")
+		NoStopFindClick("Maps\Chapters\" Chapter "NotClicked","rNoxPlayer mc o30")
+		Found := FindClick(A_ScriptDir "\pics\Maps\Chapters\" Chapter "Clicked", "rNoxPlayer mc o30 Count1 w500,50 n0")
 	}
 }
 
@@ -298,7 +298,7 @@ FocusChapter(Chapter)
 		{
 			FocusChapter(5)
 			sleep 250
-			RFindClick("\Maps\5_4\5_4Map", "rNoxPlayer mc o20 w30000,50")
+			Transition("\Maps\5_4\5_4Map", "\Maps\5_4\Battle")
 			RFindClick("\Maps\5_4\Battle", "rNoxPlayer mc o20 w30000,50")
 			Found := FindClick(A_ScriptDir "\pics\CombatTdollEnhancement", "rNoxPlayer mc o30 Count1 n0 w3000,50")
 			if(Found == 1)

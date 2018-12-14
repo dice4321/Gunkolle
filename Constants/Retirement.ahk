@@ -50,7 +50,7 @@ Retirement()
 					}
 					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
 					SetFilter--
-					sleep 2500
+					sleep 1500
 					rti := 0
 					rti2 := 5
 					Loop
