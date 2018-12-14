@@ -39,7 +39,7 @@ Retirement()
 			while(done != 1)
 			{
 				RFindClick("TdollRetirementSelect", "rNoxPlayer mc o75 w30000,50")
-				sleep 1000
+				sleep 500
 				If(SetFilter == 1)
 				{
 					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
@@ -50,8 +50,7 @@ Retirement()
 					}
 					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
 					SetFilter--
-					NoStopFindClick("TdollFodderWait","rNoxPlayer mc o30 w30000,50 n0")
-					sleep 1000
+					sleep 2500
 					rti := 0
 					rti2 := 5
 					Loop
@@ -63,7 +62,7 @@ Retirement()
 
 					}Until (rti > rti2)
 				}
-				RFindClick("SmartSelect", "rNoxPlayer mc o50 Count1")
+				NoStopFindClick("SmartSelect", "rNoxPlayer mc o50 Count1")
 				sleep 500
 				Found := 0
 				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
@@ -106,6 +105,7 @@ Retirement()
 					RFindClick("TwoStar", "rNoxPlayer mc o20 w30000,50")
 					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
 					SetFilter--
+					ClickTilGone("TdollFodderWait","rNoxPlayer mc o30 w30000,50 n0")
 				}
 				; rti := 0
 				; rti2 := 5
@@ -116,17 +116,17 @@ Retirement()
 				; 	rti := rti+1
 				; 	Sleep 10
 				; }Until (rti > rti2)
-				RFindClick("SmartSelect", "rNoxPlayer mc o50 Count1")
+				NoStopFindClick("SmartSelect", "rNoxPlayer mc o50 Count1")
 				Found := 0
-				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
+				Found := FindClick(A_ScriptDir "\pics\TdollRetirementOK", "rNoxPlayer mc o50 Count1 w3000,50 n0")
 				if Found >= 1
 				{
-					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
-					done := 1
+					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
 				}
 				Else
 				{
-					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
+					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
+					done := 1
 				}
 				RFindClick("TdollEnhancement_Enhancement", "rNoxPlayer mc o50 w30000,50")
 				RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o50 w30000,50")
