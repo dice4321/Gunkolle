@@ -1,3 +1,19 @@
+
+#### 0.5.0
+* **_New_** Mini Sortie Per Hour timer when you click the sortie number on the menu bar.
+* **_Update_** Retirement/Enchancement revamp, will do either at max capacity.
+* **_Bugfix_** Stability for all maps.
+* **_Remove_** DismembermentCycle from Config.
+
+#### 0.4.9.4
+* **_Bugfix_** 5-4 should be more stable.
+
+#### 0.4.9.3
+* **_Update_** Better handling to selecting nodes in combat.
+* **_Update_** Added SVD assets. Thanks @CripsyBekon for the assets! 
+* **_Bugfix_** Combat sims should now be functioning as intended also thanks to @CripsyBekon
+* **_Bugfix_** Catch expeditions before and after the combat screen.
+
 #### 0.4.9.2
 * **_Update_** better handling of selecting dolls at switcher.
 * **_Update_** CombatSimsData auto 95% done (please report if something weird
