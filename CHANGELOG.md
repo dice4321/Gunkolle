@@ -1,3 +1,10 @@
+
+#### 0.5.0
+* **_New_** Mini Sortie Per Hour timer when you click the sortie number on the menu bar.
+* **_Update_** Retirement/Enchancement revamp, will do either at max capacity.
+* **_Bugfix_** Stability for all maps.
+* **_Remove_** DismembermentCycle from Config.
+
 #### 0.4.9.4
 * **_Bugfix_** 5-4 should be more stable.
 

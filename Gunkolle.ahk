@@ -31,6 +31,7 @@ TR := 0
 DT := 0
 Nodes := 1
 Sortiecount := 0
+StartTime := A_TickCount
 
 IniRead, NotificationLevel, config.ini, Variables, NotificationLevel, 1
 IniRead, TWinX, config.ini, Variables, LastXS, 0
@@ -45,8 +46,8 @@ IniRead, Doll4, config.ini, Variables, Doll4
 IniRead, WeaponType, config.ini, Variables, WeaponType, AssaultRifle
 IniRead, ProductionTdoll, config.ini, Variables, ProductionTdoll, 0
 IniRead, ProductionEquipment, config.ini, Variables, ProductionEquipment, 0
-IniRead, Enchancement, config.ini, Variables, Enchancement, 0
-IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
+IniRead, Enhancement, config.ini, Variables, Enhancement, 0
+; IniRead, DisassembleCycle, config.ini, Variables, DisassembleCycle, 3
 IniRead, FriendCollector, config.ini, Variables, FriendCollector, 0
 IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
 IniRead, CombatSimsData, config.ini, Variables, CombatSimsData, 0
@@ -116,11 +117,11 @@ return
 ; click img til gone.
 RFindClick(x,y,v*)
 {
-	local RandX, RandY := v[1], radius := 5
+	local RandX, RandY := v[1], radius := 5, counter := 0
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
-	RandX := RandX + Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
 	while (Found == 0)
@@ -134,7 +135,14 @@ RFindClick(x,y,v*)
 		else
 		{
 			FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY)
+			previousImg := x
+			previousParameters := y
 		}
+		if(counter == 1)
+		{
+			FindClick(A_ScriptDir "\pics\" previousImg,previousParameters "Center x"RandX " y"RandY "w5000,50")
+		}
+		counter++
 	}
 	return
 }
@@ -145,24 +153,26 @@ WFindClick(x,y,SearchNumber := 40)
 	local RandX, RandY, radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := 0
 	Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
 	while (found == 0) 
 	{
 		SearchNumber:= SearchNumber + 6
-		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " dtop n0")
+		Found := FindClick(A_ScriptDir "\pics\" x,y " rNoxPlayer mc o"SearchNumber " n0")
 		GuiControl,, NB, pixel shade offset [%SearchNumber%]
 		if (SearchNumber >= 200)
 		{
-			GuiControl,, NB, Wrong doll, exit and redo config.
+			GuiControl,, NB, Could not find %x%, exit and redo config.
 			Pause
+			SearchNumber := 0
 		}
 	}
 	GuiControl,, NB, pixel shade offset [%SearchNumber%]
 	FindClick(A_ScriptDir "\pics\" x, y "Center x" RandX " y"  RandY " o" SearchNumber)
+	previousImg := x
 }
 
 NoStopFindClick(x,y,v*)
@@ -170,8 +180,8 @@ NoStopFindClick(x,y,v*)
 	local RandX, RandY := v[1], radius := 5, looper := 1
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := RandX + Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	GuiControl,, NB, %x%
 	Found := FindClick(A_ScriptDir "\pics\" x,y " Center x"RandX " y"RandY " n0 count1")
 	Found2:= FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY "  n0 Count1")
@@ -195,18 +205,26 @@ NoStopFindClick(x,y,v*)
 	}
 }
 
-ClickTilGone(x,y,v)
+ClickTilGone(x,y,v*)
 {
-	While (Found != 1)
+	local RandX, RandY := v[1], radius := 5
+	Random, OutX, -1.0, 1.0
+	Random, Sign, -1.0, 1.0
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
+	GuiControl,, NB, %x%
+	Found := FindClick(A_ScriptDir "\pics\" x,y " count1 Center x"RandX " y"RandY)
+	While (Found == 1)
 	{
-		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1")
-		if(Found == 1)
+		FindClick(A_ScriptDir "\pics\" x,y "Center x"RandX " y"RandY " w1,1")
+		Found := FindClick(A_ScriptDir "\pics\" x,y " n0 count1 w1,1")
+		count += 1
+		if(found != 1)
 		{
-			RFindClick(x,y,v)
+			break
 		}
 	}
 }
-
 
 
 TFindClick(ClickThis,WaitForThis,v*)
@@ -214,14 +232,14 @@ TFindClick(ClickThis,WaitForThis,v*)
 	local RandX, RandY := v[1], radius := 5
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := RandY + Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := RandX + Round((OutX * radius))
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0 w1000,50")
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o30 Count1 n0")
 	GuiControl,, NB, %ClickThis%
 	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w1000,50")
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o30 Count1 n0 w500,50")
 		GuiControl,, NB, Waiting for [%WaitForThis%]
 	}
 }
@@ -233,16 +251,16 @@ Transition(ClickThis,WaitForThis)
 	local Counter
 	Random, OutX, -1.0, 1.0
 	Random, Sign, -1.0, 1.0
-	RandY := Round((sqrt(1 - OutX ** 2) * radius * Sign))
-	RandX := Round((OutX * radius))
+	RandY += Round((sqrt(1 - OutX ** 2) * radius * Sign)) 
+	RandX += Round((OutX * radius))
 	FormatTime, TimeString,% A_NowUTC, HHmm
-	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0 w1000,50")
+	Found := FindClick(A_ScriptDir "\pics\" WaitForThis, "rNoxPlayer mc o40 Count1 n0")
 	While (Found == 0)
 	{
 		FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o50 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\ExpeditionConfirm", "rNoxPlayer mc o40 Center x"RandX " y"RandY)
 		FindClick(A_ScriptDir "\pics\"ClickThis, "rNoxPlayer mc o30 Center x"RandX " y"RandY)
-		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w1000,50")
+		Found := FindClick(A_ScriptDir "\pics\" WaitForThis, " rNoxPlayer mc o40 Count1 n0 w500,50")
 		Found2:= FindClick(A_ScriptDir "\pics\MissionAccompished", "rNoxPlayer mc o40 Count1 n0")
 		GuiControl,, NB, Waiting for [%WaitForThis%] | loop counter == %Counter%
 		Counter++
@@ -340,6 +358,7 @@ return
 
 UpdateEnergy()
 {
+	global
 	FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 w15000,50 n0")
 	EnergyCount = 0
 	FoundEnergy := FindClick(A_ScriptDir "\pics\CombatSims\Data\Energy0", "rNoxPlayer mc o30 Count1 w1000,50 n0")
@@ -425,7 +444,7 @@ TimeCheck()
 			Transition("Combat","CombatPage")
 			NoStopFindClick("CombatSims\Data\CombatSims", "rNoxPlayer mc o30 w1000,50")
 			NoStopFindClick("CombatSims\Data\Training1", "rNoxPlayer mc o30 Count1 w30000,50 n0")
-			Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 n0 w6000")
+			Found := FindClick(A_ScriptDir "\pics\CombatSims\Data\DataModeClicked", "rNoxPlayer mc o30 Count1 n0 w2000")
 			if (Found != True){
 				RFindClick("CombatSims\Data\DataMode", "rNoxPlayer mc o30 w2000,50")
 				}
@@ -553,6 +572,7 @@ Repair()
 		Transition("Repair","RepairSlot")
 		RFindClick("RepairSlot", "rNoxPlayer mc o50 w30000,50 a50,100,-1050,-100")
 		RFindClick("RepairSlotWait", "rNoxPlayer mc o30 w30000,50 n0 a0,100,-1000,-300")
+		sleep 250
 		WFindClick("Damage", "rNoxPlayer mc")
 		RFindClick("OK", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairQuick", "rNoxPlayer mc o50 w30000,50")
@@ -591,12 +611,8 @@ ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 	}
 	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")	
 	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-	sleep 200
-	tpc := 0
-	pc := []
-	pc := [FormationProfile]
-	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
-	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc",120)
+	ClickTilGone("ProfileWait","rNoxPlayer mc o50 w30000,50 n0")
+	WFindClick("DollList\"%loadedDoll% "Profile","rNoxPlayer mc a,130,-200,",120)
 	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") 
 }
 
@@ -604,14 +620,19 @@ AddToSecondEchelon(doll, slot)
 {
 	Global
 	RFindClick("WaitForFormation", "rNoxPlayer mc o50 w30000,50 n0") ;wait for formation
-	if (slot == 1)
+	Found := 0
+	while(Found == 0)
 	{
-		ClickS(Role1x,Role1y)
-	}
-	else if (slot == 2)
-	{
-		ClickS(Role2x,Role1y)
-	}		
+		if (slot == 1)
+		{
+			ClickS(Role1x,Role1y)
+		}
+		else if (slot == 2)
+		{
+			ClickS(Role2x,Role1y)
+		}	
+		Found = FindClick(A_ScriptDir "\pics\FilterYellow", "rNoxPlayer mc o20 w30000,50 n0 count1")
+	}	
 	RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
 	RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
@@ -625,11 +646,7 @@ AddToSecondEchelon(doll, slot)
 	}
 	RFindClick("Filter"WeaponType, "rNoxPlayer mc o50 w30000,50")
 	RFindClick("Confirm", "rNoxPlayer mc o50 w30000,50")
-	sleep 200
-	tpc := 0
-	pc := []
-	pc := [FormationProfile]
-	tpc := WaitForPixelColor(FormationProfilex,FormationProfiley,pc)
+	ClickTilGone("ProfileWait","rNoxPlayer mc o50 w30000,50 n0")
 	WFindClick("DollList\"%doll% "Profile", "rNoxPlayer mc",120)  ; select Dollportrait1
 }
 
@@ -770,7 +787,6 @@ Sortie2:
 			ReplaceDPS(exhaustedDoll2, loadedDoll2, True)
 		}
 		TFindClick("Echelon2","Echelon2Clicked")		
-		sleep 500
 		AddToSecondEchelon(exhaustedDoll1, 1)
 		if (dualDPS)
 		{
@@ -808,150 +824,9 @@ Sortie2:
 	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
 
 	Sortiecount++
-	RetirementCounter++
 	ti := BC+1
 	Menu, Main, Rename, %BC%, %ti%
 	BC += 1
-
-	; Repair
-
-	; Dismantle
-
-	Retirement := Mod(RetirementCounter, DisassembleCycle + 1)
-	if(Retirement == DisassembleCycle)
-	{
-		Transition("Factory","Production\WaitForTdollProduction")
-		if (Enchancement == 0 || Enchancement == 1)
-		{
-			RFindClick("Retirement", "rNoxPlayer mc o50 w30000,50")
-			SetFilter := 1
-			loop, 1
-			{
-				sleep 500
-				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-				If(SetFilter == 1)
-				{
-					if(Enchancement == 0)
-					{
-						RFindClick("SmartSelect", "rNoxPlayer mc o20 w30000,50")
-					}
-					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("ThreeStar", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
-					SetFilter--
-				}
-				sleep 500
-				rti := 0
-				rti2 := 5
-				Loop
-				{
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
-					rti := rti+1
-					Sleep 10
-
-				}Until (rti > rti2)
-				Found := 0
-				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
-				if Found >= 1
-				{
-					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
-				}
-				Else
-				{
-					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
-				}
-			}
-			RFindClick("TdollRetirementDismantle", "rNoxPlayer mc o50 w30000,50")
-			Found := 0
-			Found := FindClick(A_ScriptDir "\pics\TdollRetirementDismantleConfirm", "rNoxPlayer mc o50 Count1 n0 w2000,50")
-			if Found >= 1
-			{
-				RFindClick("TdollRetirementDismantleConfirm", "rNoxPlayer mc o50 w30000,50")
-			}
-			sleep 2000
-		}
-		if(Enchancement == 1)
-		{
-			RFindClick("TdollEnhancement", "rNoxPlayer mc o40 w10000,50")
-			RFindClick("TdollEnhancement_SelectDoll", "rNoxPlayer mc o40 w10000,50")
-			RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
-			RFindClick("FilterReset", "rNoxPlayer mc o20 w30000,50")
-			sleep 2000 ;need a transition here
-			y:=0
-			loop,2
-			{
-				rti := 0
-				rti2 := 5
-				tpc := 0
-				loop
-				{
-					tpc := PixelGetColorS(TdollEnhancement_Lockx+179*rti,TdollEnhancement_Locky+304*y,3)
-					if (tpc == TdollEnhancement_Lock)
-					{
-						ClickS(TdollEnhancement_Lockx+180*rti,TdollEnhancement_Locky+304*y)
-						break
-					}
-					rti := rti+1
-				}until (rti > rti2)
-				if (tpc == TdollEnhancement_Lock)
-				{
-					break
-				}
-				y++
-			}
-			SetFilter := 1
-			loop, 2
-			{
-				sleep 500
-				RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-				If(SetFilter == 1)
-				{
-					RFindClick("Filter", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("TwoStar", "rNoxPlayer mc o20 w30000,50")
-					RFindClick("Confirm", "rNoxPlayer mc o20 w30000,50")
-					SetFilter--
-				}
-				sleep 2000
-				rti := 0
-				rti2 := 5
-				Loop
-				{
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y)
-					ClickS(TdollRetirementSlot1x+180*rti,TdollRetirementSlot1y+318)
-					rti := rti+1
-					Sleep 10
-				}Until (rti > rti2)
-				Found := 0
-				Found := FindClick(A_ScriptDir "\pics\SmartSelect", "rNoxPlayer mc o50 Count1 n0")
-				if Found >= 1
-				{
-					RFindClick("Cancel", "rNoxPlayer mc o50 w30000,50")
-				}
-				Else
-				{
-					RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
-				}
-			; SetFilter := 1
-			; loop, 1
-			; {
-			; 	sleep 500
-			; 	RFindClick("TdollRetirementSelect", "rNoxPlayer mc oTransN,40 w30000,50")
-			; 	If(SetFilter == 1)
-			; 	{
-			; 		RFindClick("SmartSelect", "rNoxPlayer mc o10 w30000,50")
-			; 		SetFilter--
-			; 	}
-			; 	sleep 500
-			; 	RFindClick("TdollRetirementOK", "rNoxPlayer mc o50 w30000,50")
-			; }
-			}
-			RFindClick("TdollEnhancement_Enhancement", "rNoxPlayer mc o50 w30000,50")
-			RFindClick("TdollEnhancement_EnhancementOK", "rNoxPlayer mc o50 w30000,50")
-		}
-		RFindClick("FactoryReturn", "rNoxPlayer mc o50 w30000,50")
-	}
-
 
 	; check productions
 	Production()
@@ -964,8 +839,7 @@ Sortie2:
 		BP := 0
 		SetTimer, NBUpdate, 2000
 	}
-	return
-	
+	return	
 }
 
 ; Sortie:
@@ -1521,6 +1395,12 @@ NBUpdate:
 
 DN:
 {
+	DeltaT := A_TickCount - StartTime 
+	ElapsedHours := SubStr(0 Floor(DeltaT / 3600000), -1)
+	ElapsedMinutes := SubStr(0 Floor((DeltaT - ElapsedHours * 3600000) / 60000), -1)
+	ElapsedSeconds := SubStr(0 Floor((DeltaT - ElapsedHours * 3600000 - ElapsedMinutes * 60000) / 1000), -1)
+	SPH := (Sortiecount / (DeltaT/3600000))
+	GuiControl,, NB,% "total time == "ElapsedHours ":" ElapsedMinutes ":" ElapsedSeconds " || SPH == " SPH
 	return
 }
 
@@ -1562,6 +1442,7 @@ CombatSimsDataFlag:
 #Include %A_ScriptDir%/Functions/Notify.ahk
 #Include %A_ScriptDir%/Functions/FindClick.ahk
 #Include %A_ScriptDir%/Constants/Maps.ahk
+#Include %A_ScriptDir%/Constants/Retirement.ahk
 
 
 Initialize()
