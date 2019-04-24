@@ -1,0 +1,56 @@
+;Pixel Color Constants v1.61124
+
+
+ HPC := 0xDE9E00 ;Home
+ ECHELONCLICK := 0xFFB600
+ ChapterScreen := 0x21304A
+ EmergencyClick := 0x311810
+ ExpeditionReceived1 := 0x211800
+ ExpeditionReceived2 := 0x100C00
+
+ Androidpopup0 := 0xFFFFFF
+ Androidpopup1 := 0xF7F7F7
+ LoginCollect := 0x081008
+ LoginCollectNotice := 0x182018
+ FormationProfile := 0x424542
+ TdollEnhancement_Lock := 0xFFBA00
+ DormVisitButton := 0xFFB200
+; HEPC := 0x1c8f92 ;Home + Exped
+; ;0x49afb1 = fleet selection
+; ;0x41413c = " "
+; RPC := 0x404041 ;Resupply
+; SPC := 0x626D6F ;Sortie
+; S2PC := 0xEFE6D8 ;Sortie 2
+; EPC := 0xEFE8DB ;Expeditions
+; NRPC := 0x444444 ;Needs Resupply
+; ;RRPC := 0xd1c1b2 ;Resupplied (Legacy)
+; ECPC := 0xffffff ;Error Cat
+; EHPC := 0xee8b28 ;Cancel expedition button hovered
+; ENPC := 0xcd3547 ;Cancel expedition button
+; ESUPC := 0x540907 ;Expedition sent unhovered button
+; ESHPC := 0x760607 ;Expedition sent hovered button
+; BPC1 := 0xe9eac7 ;Bucket1
+; BPC2 := 0xb0b76e ;Bucket2
+; BEPC1 := 0xeae2cc ;BucketExped1
+; BEPC2 := 0xece3cf ;BucketExped2
+; REPC := 0xCFC1B1 ;Repair
+; CPC := 0xd0d5d3 ;Compass
+; FPC := 0xdedfdc ;Formation
+; SRPC := 0x169396 ;Sortie Results
+; NBPC := 0x408 ;Night Battle
+; CSPC := 0x0D2229 ;Continue Screen
+; CCPC := 0xcc5852 ;Critical
+; IBPC := 0x3a87b3 ;In Battle
+; EX2PC := 0x23A0A1 ; Expedition 2 highlighted 
+; EX3PC := 0x53ADAD ; Expedition 3 highlighted 
+; EX4PC := 0x77B9B9 ; Expedition 4 highlighted 
+; PG2SPC := 0xFF9696 ; page 2 sortie
+; HealthScreenPC := 0xFFF6F2
+; RedHealthPC := 0x6A2C28
+; ResourceSortiePC := 0x203E4B
+RPN := 0xde9e00 ;Reference pixel normal
+RPNL := 0x423010 ;Reference pixel left
+RPNR := 0x313021 ;Reference pixel right
+RPD := 0x9e7a72 ;Reference pixel dimmed
+RPDL := 0x5d6242 ;Reference pixel dimmed left
+RPDR := 0x97785b ;Reference pixel dimmed right
