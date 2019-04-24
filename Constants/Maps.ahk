@@ -396,7 +396,7 @@ FocusChapter(Chapter)
 	nodes(3)
 
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
-	sleep 4000 ;need it
+	sleep 20000 ;need it
 	TFindClick("\Maps\0_2\DragSquad","\Maps\0_2\DragSquadClicked")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy5", "rNoxPlayer mc o10 w30000,50 ")

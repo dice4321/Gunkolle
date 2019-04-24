@@ -14,7 +14,7 @@
  LoginCollectNotice := 0x182018
  FormationProfile := 0x424542
  TdollEnhancement_Lock := 0xFFBA00
- DormVisitButton := 0xEF9A00
+ DormVisitButton := 0xFFB200
 ; HEPC := 0x1c8f92 ;Home + Exped
 ; ;0x49afb1 = fleet selection
 ; ;0x41413c = " "
