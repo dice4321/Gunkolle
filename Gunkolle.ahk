@@ -1070,6 +1070,8 @@ CombatSimsDataFlag:
 #Include %A_ScriptDir%/Functions/FindClick.ahk
 #Include %A_ScriptDir%/Constants/Maps.ahk
 #Include %A_ScriptDir%/Constants/Retirement.ahk
+#Include %A_ScriptDir%/Functions/Mouse.ahk
+
 
 
 Initialize()
@@ -1091,6 +1093,7 @@ Initialize()
 	CombatSimsDataChecker := 1
 	5Star = TYPE97,OTS14,HK416,G41,TYPE95,G11,FAL,WA2000
 	4Star = 
+	init_mouse()
 }
 
 GuiClose:
