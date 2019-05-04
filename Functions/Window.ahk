@@ -52,7 +52,15 @@ SetWindow()
 			}
 		}
 	}
+	if (AMDV == 1)
+	{
+		GuiControl,, NB, AMD selected, press Start
+	}
+	else
+	{
 	RPixelSearch()
+	}
+
 }
 
 WinActivateRestore(force := 0)

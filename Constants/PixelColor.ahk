@@ -1,12 +1,12 @@
 ;Pixel Color Constants v1.61124
 
 
- HPC := 0xDE9E00 ;Home
+ HPC := 0xDA9C09 ;Home
  ECHELONCLICK := 0xFFB600
  ChapterScreen := 0x21304A
  EmergencyClick := 0x311810
- ExpeditionReceived1 := 0x211800
- ExpeditionReceived2 := 0x100C00
+ ExpeditionReceived1 := 0xc6cb39
+ ExpeditionReceived2 := 0x94a229
 
  Androidpopup0 := 0xFFFFFF
  Androidpopup1 := 0xF7F7F7
