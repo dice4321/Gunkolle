@@ -13,7 +13,8 @@
 Running from source
 * AHK (http://ahkscript.org/ or https://autohotkey.com/)
 * Gdip_All library by tic (included)
-* findclick libaray by berban (also included)
+* findclick library by berban (also included)
+* Mouse library by fnzr (included)
 * playing at 1280 x 720 res
 * Requires a NVIDIA graphics card becuase of how NOX renders. [#16](https://github.com/dice4321/Gunkolle/issues/16)
 * NOX version 6.1.0.0 recommended (6.0.8.0 version tends to crash with new NVIDIA drivers, 6.1.0.0 seems stable so far) 
