@@ -473,8 +473,8 @@ FocusChapter(Chapter)
 	TFindClick("\Maps\5_4\CommandCenterAfter", "\Maps\5_4\CommandCenterAfterClicked")
 	TFindClick("\Maps\5_4\CommandCenterAfterClicked", "\Maps\5_4\Resupply")
 	RFindClick("\Maps\5_4\Resupply", "rNoxPlayer mc o10 w30000,50")
-	sleep 500
-	RFindClick("\Maps\5_4\TopLeftHeliPort", "rNoxPlayer mc o10 w30000,50")
+	sleep 1000
+	TFindClick("\Maps\5_4\TopLeftHeliPort", "\Maps\5_4\TopLeftHeliPortClicked")
 	RFindClick("\Maps\5_4\PlanningMode", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\5_4Enemy1", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\5_4Enemy2", "rNoxPlayer mc o10 w30000,50")
