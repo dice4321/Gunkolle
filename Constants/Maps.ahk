@@ -1,3 +1,5 @@
+#Include %A_ScriptDir%/Functions/Mouse.ahk
+
 RunMap(x)
 {
 	if (x == "4_3E")
@@ -528,7 +530,8 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy1", "rNoxPlayer mc o30 w30000,50 ")
 	sleep 200
-	ControlSend, , a, Nox
+	DragUpToDown(718, 182, 698)
+	DragUpToDown(718, 182, 698)
 	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50 n0")
 	sleep 50
 	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50 ")
