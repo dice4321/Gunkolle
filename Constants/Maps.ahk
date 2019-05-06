@@ -525,8 +525,8 @@ FocusChapter(Chapter)
 	TFindClick("\Maps\0_2\HeliPortResupply","\Maps\0_2\HeliPortResupply2")
 	TFindClick("\Maps\0_2\HeliPortResupply2","\Maps\0_2\Resupply")
 	ClickTilGone("\Maps\0_2\Resupply", " rNoxPlayer mc o10 w30000,50")
-	sleep 500
-	RFindClick("\Maps\0_2\CommandCenterResupply", "rNoxPlayer mc o10 a550,300,-550,-300 w1000,50 ")
+	sleep 1500
+	TFindClick("\Maps\0_2\CommandCenterResupply", "\Maps\0_2\CommandCenterResupplyClicked")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy1", "rNoxPlayer mc o30 w30000,50 ")
 	sleep 200
@@ -542,7 +542,7 @@ FocusChapter(Chapter)
 	nodes(3)
 
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
-	sleep 20000 ;need it
+	sleep 15000 ;need it
 	TFindClick("\Maps\0_2\DragSquad","\Maps\0_2\DragSquadClicked")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy5", "rNoxPlayer mc o10 w30000,50 ")
