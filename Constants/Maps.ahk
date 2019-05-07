@@ -550,7 +550,7 @@ FocusChapter(Chapter)
 	RFindClick("Execute", "rNoxPlayer mc o10 w30000,50")
 
 	nodes(2)
-
+	sleep 3000
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
 	
 	if (AMDV == 1) {
