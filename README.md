@@ -33,7 +33,7 @@ THIS SCRIPT IS ONLY TESTED AND MAINTAINED ON WIN8.1 AND WIN10. I may be unable t
 * can run for 24 hours, even skipping the daily login messages! [Not]
 
 ## What works at current state:
-* 0-2 map
+* 0-2, 5-4 map
 * AutoRepair 
 * Logistics
 * Retirement of 2* T-Dolls only
