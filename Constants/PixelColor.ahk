@@ -5,8 +5,8 @@
  ECHELONCLICK := 0xFFB600
  ChapterScreen := 0x21304A
  EmergencyClick := 0x311810
- ExpeditionReceived1 := 0xc6cb39
- ExpeditionReceived2 := 0x94a229
+ ExpeditionReceived1 := 0x211800
+ ExpeditionReceived2 := 0x100C00
 
  Androidpopup0 := 0xFFFFFF
  Androidpopup1 := 0xF7F7F7
