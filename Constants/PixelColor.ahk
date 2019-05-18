@@ -1,7 +1,7 @@
 ;Pixel Color Constants v1.61124
 
 
- HPC := 0xDA9C09 ;Home
+ HPC := 0xDE9E00 ;Home
  ECHELONCLICK := 0xFFB600
  ChapterScreen := 0x21304A
  EmergencyClick := 0x311810
@@ -14,7 +14,7 @@
  LoginCollectNotice := 0x182018
  FormationProfile := 0x424542
  TdollEnhancement_Lock := 0xFFBA00
- DormVisitButton := 0xFFB200
+ DormVisitButton := 0xEF9A00
 ; HEPC := 0x1c8f92 ;Home + Exped
 ; ;0x49afb1 = fleet selection
 ; ;0x41413c = " "
