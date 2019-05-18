@@ -62,7 +62,7 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 ym-3 vWorldV, |0_2|4_3E|3_2N|5_4|5_4_friendly|5_2E|
+Gui, Add, DDL, x40 w60 ym-3 vWorldV, |0_2
 GuiControl, ChooseString, WorldV, %WorldV%
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
@@ -342,10 +342,10 @@ ExpeditionCheck(State := "")
 			Else
 			{	
 				GuiControl,, NB, Initial Event notice Found
-				ClickS(Dailypopx,Dailypopy)
-				; Solution by @EliteProofer
-				; RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
-				; RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
+				;ClickS(Dailypopx,Dailypopy)
+				;Solution by @EliteProofer
+				RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
 				loopcount++
 			}
 			loopcount--
