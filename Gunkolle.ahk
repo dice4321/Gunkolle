@@ -343,9 +343,9 @@ ExpeditionCheck(State := "")
 			{	
 				GuiControl,, NB, Initial Event notice Found
 				ClickS(Dailypopx,Dailypopy)
-				Solution by @EliteProofer
-				RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
-				RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
+				; Solution by @EliteProofer
+				; RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
+				; RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
 				loopcount++
 			}
 			loopcount--
