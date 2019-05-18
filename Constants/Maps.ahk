@@ -532,6 +532,7 @@ FocusChapter(Chapter)
 	sleep 200
 	DragUpToDown(718, 182, 698)
 	DragUpToDown(718, 182, 698)
+	sleep 850
 	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50 n0")
 	sleep 50
 	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50 ")
@@ -540,9 +541,9 @@ FocusChapter(Chapter)
 	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
 
 	nodes(3)
-
+	sleep 3000 ;need it, otherwise 'illegal action' window will pop
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
-	sleep 15000 ;need it
+	sleep 12000 ;need to find proper num
 	TFindClick("\Maps\0_2\DragSquad","\Maps\0_2\DragSquadClicked")
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy5", "rNoxPlayer mc o10 w30000,50 ")
@@ -550,7 +551,7 @@ FocusChapter(Chapter)
 	RFindClick("Execute", "rNoxPlayer mc o10 w30000,50")
 
 	nodes(2)
-	sleep 3000
+	sleep 3000 ;need it, otherwise 'illegal action' window will pop
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
 	
 	if (AMDV == 1) {
