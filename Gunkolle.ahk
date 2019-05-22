@@ -53,7 +53,9 @@ IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
 IniRead, CombatSimsData, config.ini, Variables, CombatSimsData, 0
 IniRead, SortieInterval, config.ini, Variables, SortieInterval, -1 ;900000 for full morale
 IniRead, WorldV, config.ini, Variables, WorldSwitcher 
+IniRead, AutoBattleResendV, config.ini, Variables, AutoBattleResend
 IniRead, AMDV, config.ini, GPU, AMD
+
 
 Gui, 1: New
 Gui, 1: Default
@@ -269,7 +271,7 @@ Transition(ClickThis,WaitForThis)
 		if ((Counter >= 20) && (Found == 0))
 		{
 			Counter = 0
-			ExpeditionCheck("daily")
+;			ExpeditionCheck("daily")
 		}
 		if (Found2 == true)
 		{
@@ -285,81 +287,7 @@ Transition(ClickThis,WaitForThis)
 	}
 }
 
-ExpeditionCheck(State := "")
-{			
-	global
-	loop,1
-	{
-		if (State == "Daily")
-		{
-			FormatTime, TimeString,% A_NowUTC, HHmm
-			GuiControl,, NB, %TimeString%
-			if ((TimeString <= 0755) || (TimeString >= 0810)){
-				break
-			}	
-		}
-		GuiControl,, NB, ExpeditionCheck running
-		loopcount := 1
-		while (loopcount != 0)
-		{
-			pc := [HPC]
-			tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-			tpc := 0
-			sleep 3000
-			pc := []
-			pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
-			tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-			if tpc = 1
-			{
-				GuiControl,, NB,At home
-			}
-			else if or tpc = 2 or tpc = 3
-			{
-				GuiControl,, NB, Expedition Found
-				pc := []
-				pc := [HPC]
-				WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,30)
-				loopcount++
-			}
-			else if tpc = 4 or tpc = 5
-			{
-				GuiControl,, NB, Android popup Found
-				ClickS(AndroidpopupExitx,AndroidpopupExity)
-				loopcount++
-			}
-			else if tpc = 6
-			{
-				GuiControl,, NB, Login Collect Found
-				ClickS(LoginCollectExitx,LoginCollectExity)
-				loopcount++
-			}
-			else if tpc = 7
-			{	
-				GuiControl,, NB, Login Collect Notice
-				ClickS(LoginCollectNoticey,LoginCollectNoticey)
-				loopcount++
-			}
-			Else
-			{	
-				GuiControl,, NB, Initial Event notice Found
-				;ClickS(Dailypopx,Dailypopy)
-				;Solution by @EliteProofer
-				RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
-				RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
-				loopcount++
-			}
-			loopcount--
 
-		}
-	}
-	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
-	; while( Found == 0 )
-	; {
-	; 		ExpeditionCheck()
-	; 		Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
-	; }
-return
-}
 
 UpdateEnergy()
 {
@@ -420,7 +348,7 @@ TimeCheck()
 			}
 			RFindClick("Dorm\Return", "rNoxPlayer mc o30 w30000,50")
 			RFindClick("Dorm\Exit", "rNoxPlayer mc o30 w30000,50")
-			ExpeditionCheck()
+			;ExpeditionCheck()
 		}
 	}
 	if ((BatteryCollector == 1) && (BatteryChecker == 1))
@@ -584,7 +512,7 @@ Repair()
 		RFindClick("RepairOK", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairReturnFaded", "rNoxPlayer mc o50 w30000,50 ")
 		RFindClick("RepairReturn", "rNoxPlayer mc o50 w30000,50")
-		ExpeditionCheck("Daily")
+		; ExpeditionCheck("Daily")
 	}
 }
 
@@ -727,26 +655,67 @@ Sortie2:
 	While (ExpeditionV == 1)
 	{
 		GuiControlGet, ExpeditionV
-		GuiControl,, NB, %ExpeditionV%
-		GuiControl,, NB, At home [Expedition only]
-		ExpeditionCheck()
-		if ( FactoryChecker == 1)
+		GuiControl,, NB, ExpOnlyCheck %ExpeditionV%
+		loopcount := 1
+		while (loopcount != 0)
 		{
-			Random, Factorytime, 250000, 300000
-			SetTimer, FactoryFlag, %Factorytime%
-			FactoryChecker--
+			FoundHome := FindClick(A_ScriptDir "\pics\FoundHome", "rNoxPlayer mc o40 Count1 n0 w500")
+			FoundExpedition := FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1 n0 w500")
+			FoundAutoBattle := FindClick(A_ScriptDir "\pics\AutoBattle", "rNoxPlayer mc o40 Count1 n0 w500")
+			FoundAndroidPop := FindClick(A_ScriptDir "\pics\AndroidPop", "rNoxPlayer mc o30 w3000,50 Count1 n0 a1200,,,-600")
+			FoundLoginCollectExit := FindClick(A_ScriptDir "\pics\LoginCollectExit", "rNoxPlayer mc o40 Count1 n0")
+			FoundLoginCollectNotice := FindClick(A_ScriptDir "\pics\LoginCollectNotice", "rNoxPlayer mc o40 Count1 n0")
+			FoundDailyPop := FindClick(A_ScriptDir "\pics\DailyPop", "rNoxPlayer mc o40 Count1 n0")
+			if (FoundHome == true)
+			{
+				GuiControl,, NB,At home
+			}
+			else if (FoundExpedition == true)
+			{
+				GuiControl,, NB, Expedition Found
+				RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			}
+			else if (FoundAutoBattle == true)
+			{
+				if (AutoBattleResendV == 1)
+				{
+				GuiControl,, NB, AutoBattle Found
+				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("AutoBattleResend", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+				}
+				else if (AutoBattleResendV == 0)
+				{
+				GuiControl,, NB, AutoBattle Found
+				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("AutoBattleCancel", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+				}
+			}
+			else if (FoundAndroidPop == true)
+			{
+				GuiControl,, NB, Android popup Found
+				RFindClick("ExitAndroid", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			}
+			else if (FoundLoginCollectExit == true)
+			{
+				GuiControl,, NB, Login Collect Found
+				RFindClick("LoginCollectExit", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			
+			}
+			else if (FoundDailyPop == true)
+			{	
+				GuiControl,, NB, Initial Event notice Found
+				RFindClick("ExitNoticeFound", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			}
+			loopcount--
+
 		}
-		GuiControl,, NB, FactoryFlag %FactoryFlag% 
-		sleep 1000
-		if ( FactoryFlag == 1)
-		{
-			clickS(Factoryx,Factoryy)
-			sleep 5000
-			pc := [HPC]
-			tpc := WaitForPixelColor(Homex,Homey,pc,FactoryReturnx,FactoryReturny,10)
-			FactoryFlag--
-		}
-		Production()
 	}
 
 	Repair()
@@ -808,7 +777,7 @@ Sortie2:
 		; Check expedition
 	}	
 
-	ExpeditionCheck("Daily")
+	; ExpeditionCheck("Daily")
 
 	Transition("Combat","CombatPage")
 
@@ -831,7 +800,7 @@ Sortie2:
 	GuiControl,, NB, At home
 
 	; Check expedition
-	ExpeditionCheck("Daily")
+	; ExpeditionCheck("Daily")
 	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
 
 	Sortiecount++
