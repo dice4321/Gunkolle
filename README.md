@@ -36,6 +36,8 @@ THIS SCRIPT IS ONLY TESTED AND MAINTAINED ON WIN8.1 AND WIN10. I may be unable t
 * 0-2, 5-4 map
 * AutoRepair 
 * Logistics
+* Likes and friends batts
+* Exp Only
 * Retirement of 2* T-Dolls only
 * Unstable AMD version can do everything written above
 
