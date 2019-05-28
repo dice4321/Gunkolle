@@ -18,6 +18,7 @@ Running from source
 * playing at 1280 x 720 res
 * Requires a NVIDIA graphics card becuase of how NOX renders. [#16](https://github.com/dice4321/Gunkolle/issues/16)
 * NOX version 6.1.0.0 recommended (6.0.8.0 version tends to crash with new NVIDIA drivers, 6.1.0.0 seems stable so far) 
+* Default background in main menu
 
 Running from releases (v1.60803 or above)
 * None
