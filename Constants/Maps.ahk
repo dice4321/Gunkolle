@@ -335,7 +335,7 @@ FocusChapter(Chapter)
 	while (RetirementLoop != 0)
 	{
 		FocusChapter(5)
-		RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
+		TFindClick("Emergency", "EmergencyClicked")
 		sleep 250
 		RFindClick("\Maps\5_2E\5_2E", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("battle", "rNoxPlayer mc o5 w30000,50")	
@@ -347,34 +347,23 @@ FocusChapter(Chapter)
 		}
 		RetirementLoop--
 	}
-	Found := FindClick(A_ScriptDir "\pics\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o5 Count1 n0 w5000,50")
-	if Found >= 1
-	{
-
-	}
-	Else
-	{
-		GuiControl,, NB, Paused
-		Pause
-	}
-	RFindClick("\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\5_2E\HeliportBottomLeft", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("\Maps\5_2E\CommandPost", "rNoxPlayer mc o5 w30000,50")
+	RFindClick("\Maps\5_2E\CommandPost", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
 	RFindClick("StartCombat", "rNoxPlayer mc o25 w3000,10 a1000,620 n3 sleep200")
 	sleep 2000
-	RFindClick("\Maps\5_2E\CommandPost", "rNoxPlayer mc o5 w30000,50 n2 sleep1000")
-	RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
+	TFindClick("\Maps\5_2E\CommandCentreResupply","\Maps\5_2E\CommandCentreResupply2")
+	TFindClick("\Maps\5_2E\CommandCentreResupply2","\Maps\5_2E\Resupply")
 	sleep 500
-	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("\Maps\5_2E\HeliportBottomLeftPlanning", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("\Maps\5_2E\Enemy1", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("\Maps\5_2E\Enemy2", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("\Maps\5_2E\Enemy3", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("\Maps\5_2E\Enemy4", "rNoxPlayer mc o30 w30000,50")
-	RFindClick("\Maps\5_2E\Enemy5", "rNoxPlayer mc o30 w30000,50")
+	ClickTilGone("\Maps\5_2E\Resupply", " rNoxPlayer mc o30 w30000,50")
+	sleep 1000
+	TFindClick("\Maps\5_2E\HeliportBottomLeftResupply", "\Maps\5_2E\HeliportBottomLeftClicked")
+	RFindClick("\Maps\5_2E\PlanningMode", "rNoxPlayer mc o30 w30000,50 ")
+	RFindClick("\Maps\5_2E\Node1", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\5_2E\NodeEnd", "rNoxPlayer mc o30 w30000,50")
 	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
-	nodes(5)
+	nodes(4)
 	sleep 1000
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
 	GoHome()
@@ -389,9 +378,9 @@ FocusChapter(Chapter)
 	while (RetirementLoop != 0)
 	{
 		FocusChapter(4)
-		RFindClick("Emergency", "rNoxPlayer mc o5 w30000,50")
+		TFindClick("Emergency", "EmergencyClicked")
 		sleep 250
-		RFindClick("4_3e", "rNoxPlayer mc o5 w30000,50")
+		RFindClick("\Maps\4_3E\4_3eMap", "rNoxPlayer mc o5 w30000,50")
 		RFindClick("battle", "rNoxPlayer mc o5 w30000,50")
 		Found := FindClick(A_ScriptDir "\pics\CombatTdollEnhancement", "rNoxPlayer mc o30 Count1 n0 w3000,50")
 		if(Found == 1)
@@ -401,47 +390,28 @@ FocusChapter(Chapter)
 		}
 		RetirementLoop--
 	}
-	Found := FindClick(A_ScriptDir "\pics\Heliport", "rNoxPlayer mc o5 Count1 n0 w5000,50")
-	if Found >= 1
-	{
-
-	}
-	Else
-	{
-		GuiControl,, NB, Paused
-		Pause
-	}
-	RFindClick("Heliport", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("CommandPost", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("Battleok", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("StartCombat", "rNoxPlayer mc o25 w3000,10 a1000,620 n3 sleep200")
-	if (corpsedragoffV != 1)
-	{
-		TFindClick("4_3eCommandPostResupply", "4_3eCommandPostResupply2")
-		TFindClick("4_3eCommandPostResupply2","ResupplyButton")
-		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
-		sleep 500
-		RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
-	}
-	if (corpsedragoffV == 1)
-	{
-		RFindClick("4_3eHeliResupply", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("4_3eHeliResupplyAfter", "rNoxPlayer mc o5 w30000,50")
-		RFindClick("ResupplyButton", "rNoxPlayer mc o5 w30000,50")
-	}
-	RFindClick("Planning", "rNoxPlayer mc o5 w30000,50")
-	RFindClick("4_3eEnemy1", "rNoxPlayer mc o30 w30000,50",-50)
-	RFindClick("4_3eEnemy2", "rNoxPlayer mc o15 w30000,50",-50)
+	RFindClick("\Maps\4_3E\Heliport", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\4_3E\Battleok", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\4_3E\CommandPost", "rNoxPlayer mc o30 w30000,50")
+	RFindClick("\Maps\4_3E\Battleok", "rNoxPlayer mc o30 w30000,50")
+	sleep 500
+	RFindClick("StartOperation", "rNoxPlayer mc o5 w30000,50")
+	sleep 3000
+	TFindClick("\Maps\4_3E\CommandCentreResupply","\Maps\4_3E\CommandCentreResupply2")
+	TFindClick("\Maps\4_3E\CommandCentreResupply2","\Maps\4_3E\Resupply")
+	sleep 500
+	ClickTilGone("\Maps\4_3E\Resupply", " rNoxPlayer mc o30 w30000,50")
+	sleep 1500
+	TFindClick("\Maps\4_3E\HeliportResupply", "\Maps\4_3E\HeliportResupplyClicked")
+	RFindClick("\Maps\4_3E\PlanningMode", "rNoxPlayer mc o30 w30000,50 ")
 	sleep 200
-	ControlSend, , a, Nox
-	RFindClick("4_3eEnemy3", "rNoxPlayer mc o10 w30000,50",-50)
-	RFindClick("4_3eEnemy4", "rNoxPlayer mc o25 w30000,50",-50)
-	RFindClick("Execute", "rNoxPlayer mc o10 w30000,50")
-
+	DragUpToDown(680, 67, 720)
+	sleep 2000
+	RFindClick("\Maps\4_3E\EndNode", "rNoxPlayer mc o30 w30000,50 ")
+	RFindClick("Execute", "rNoxPlayer mc o30 w30000,50")
 	nodes(4)
+	sleep 3000 ;need it, otherwise 'illegal action' window will pop
 	RFindClick("EndTurn", "rNoxPlayer mc o30 w30000,50 a1100,620 n3 sleep250")
-
 	; go home
 	GoHome()
 }
@@ -559,10 +529,6 @@ FocusChapter(Chapter)
 	sleep 1000
 	TFindClick("\Maps\5_4\TopLeftHeliPort", "\Maps\5_4\TopLeftHeliPortClicked")
 	RFindClick("\Maps\5_4\PlanningMode", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("\Maps\5_4\5_4Enemy1", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("\Maps\5_4\5_4Enemy2", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("\Maps\5_4\5_4Enemy3", "rNoxPlayer mc o10 w30000,50")
-	RFindClick("\Maps\5_4\5_4Enemy4", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("\Maps\5_4\5_4Enemy5", "rNoxPlayer mc o10 w30000,50")
 	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
 
@@ -613,13 +579,8 @@ FocusChapter(Chapter)
 	RFindClick("\Maps\0_2\PlanningMode", "rNoxPlayer mc o10 w30000,50 ")
 	RFindClick("\Maps\0_2\0_2Enemy1", "rNoxPlayer mc o30 w30000,50 ")
 	sleep 200
-	DragUpToDown(718, 182, 698)
-	DragUpToDown(718, 182, 698)
-	sleep 850
-	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50 n0")
-	sleep 50
-	RFindClick("\Maps\0_2\0_2Enemy2", "rNoxPlayer mc o30 w30000,50 ")
-	RFindClick("\Maps\0_2\0_2Enemy3", "rNoxPlayer mc o30 w30000,50 ")
+	DragUpToDown(680, 67, 720)
+	sleep 2000
 	RFindClick("\Maps\0_2\0_2Enemy4", "rNoxPlayer mc o30 w30000,50 ")
 	RFindClick("Execute", "rNoxPlayer mc o5 w30000,50")
 

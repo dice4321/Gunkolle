@@ -1,4 +1,4 @@
-;Gunkolle v0.5.0
+;Gunkolle v0.6.0
 #Persistent
 #SingleInstance
 #Include %A_ScriptDir%/Functions/Gdip_All.ahk ;Thanks to tic (Tariq Porter) for his GDI+ Library => ahkscript.org/boards/viewtopic.php?t=6517
@@ -64,7 +64,7 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 ym-3 vWorldV, |0_2|3_6|5_4
+Gui, Add, DDL, x40 w60 ym-3 vWorldV, |0_2|3_6|5_4|5_4_friendly|5_2E|4_3E
 GuiControl, ChooseString, WorldV, %WorldV%
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
@@ -92,7 +92,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.5.0
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.6.0
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
