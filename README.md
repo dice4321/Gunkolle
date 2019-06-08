@@ -33,14 +33,9 @@ THIS SCRIPT IS ONLY TESTED AND MAINTAINED ON WIN8.1 AND WIN10. I may be unable t
 * All clicks have randomness to avoid click tracking
 * can run for 24 hours, even skipping the daily login messages! [Not]
 
-## What works at current state:
-* 0-2, 5-4 map
-* AutoRepair 
-* Logistics
-* Likes and friends batts
-* Exp Only
-* Retirement of 2* T-Dolls only
-* Unstable AMD version can do everything written above
+## What does not work at current state:
+1. Auto-Factory
+2. New day login
 
 ## How to use: Gunkolle(Expeditions)
 When starting Gunkolle make sure your android emulator is the active window when starting the script. (else you'll get an invald screen reading)
