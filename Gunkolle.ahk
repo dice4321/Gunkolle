@@ -684,6 +684,20 @@ Sortie2:
 				{
 				GuiControl,, NB, AutoBattle Found
 				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
+				sleep 5000
+				loop
+				{		
+					Found := FindClick(A_ScriptDir "\pics\AutoBattle", "rNoxPlayer mc o40 Count1 n0 w500")
+					if Found >= 1
+					{
+						break
+					}
+					else
+					{
+						RFindClick("TdollObtain", "rNoxPlayer mc o50 w30000,50")
+					}		
+				}
+				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
 				RFindClick("AutoBattleResend", "rNoxPlayer mc o50 w30000,50")
 				loopcount++
 				}
