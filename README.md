@@ -13,9 +13,12 @@
 Running from source
 * AHK (http://ahkscript.org/ or https://autohotkey.com/)
 * Gdip_All library by tic (included)
-* findclick libaray by berban (also included)
+* findclick library by berban (also included)
+* Mouse library by fnzr (included)
 * playing at 1280 x 720 res
 * Requires a NVIDIA graphics card becuase of how NOX renders. [#16](https://github.com/dice4321/Gunkolle/issues/16)
+* NOX version 6.1.0.0 recommended (6.0.8.0 version tends to crash with new NVIDIA drivers, 6.1.0.0 seems stable so far) 
+* Default background in main menu
 
 Running from releases (v1.60803 or above)
 * None
@@ -28,7 +31,11 @@ THIS SCRIPT IS ONLY TESTED AND MAINTAINED ON WIN8.1 AND WIN10. I may be unable t
 * Dynamic pixel checking to prevent user error
 * Can be set up to pause/resume at a certain time
 * All clicks have randomness to avoid click tracking
-* can run for 24 hours, even skipping the daily login messages!
+* can run for 24 hours, even skipping the daily login messages! [Not]
+
+## What does not work at current state:
+1. Auto-Factory
+2. New day login
 
 ## How to use: Gunkolle(Expeditions)
 When starting Gunkolle make sure your android emulator is the active window when starting the script. (else you'll get an invald screen reading)

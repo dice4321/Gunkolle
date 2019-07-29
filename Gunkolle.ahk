@@ -1,4 +1,4 @@
-;Gunkolle v0.5.0
+;Gunkolle v0.6.0
 #Persistent
 #SingleInstance
 #Include %A_ScriptDir%/Functions/Gdip_All.ahk ;Thanks to tic (Tariq Porter) for his GDI+ Library => ahkscript.org/boards/viewtopic.php?t=6517
@@ -53,6 +53,10 @@ IniRead, BatteryCollector, config.ini, Variables, BatteryCollector, 0
 IniRead, CombatSimsData, config.ini, Variables, CombatSimsData, 0
 IniRead, SortieInterval, config.ini, Variables, SortieInterval, -1 ;900000 for full morale
 IniRead, WorldV, config.ini, Variables, WorldSwitcher 
+IniRead, AutoBattleResendV, config.ini, Variables, AutoBattleResend
+IniRead, AMDV, config.ini, GPU, AMD
+
+
 Gui, 1: New
 Gui, 1: Default
 Gui, Add, Text,, Map:
@@ -60,7 +64,7 @@ Gui, Add, Text,, MinWait:
 Gui, Add, Text,, MaxWait:
 Gui, Add, Edit, r1 w20 vNB ReadOnly
 GuiControl, Move, NB, x10 w300 y80
-Gui, Add, DDL, x40 w60 ym-3 vWorldV, |4_3E||5_4|5_4_friendly|5_2E|0_2 
+Gui, Add, DDL, x40 w60 ym-3 vWorldV, |0_2|3_6|5_4|5_4_friendly|5_2E|4_3E
 GuiControl, ChooseString, WorldV, %WorldV%
 ; Gui, Add, Edit, gWorldF r2 limit3 w10 vWorldV -VScroll ym, %World%
 ; GuiControl, Move, WorldV, x37 h17 w15
@@ -88,7 +92,7 @@ GuiControl, Move, mad, h20 x60 y55 w80
 Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
-Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.5.0
+Gui, Show, X%TWinX% Y%TWinY% Autosize, Gunkolle v0.6.0
 Gui -AlwaysOnTop
 Gui +AlwaysOnTop
 SetWindow()
@@ -97,6 +101,7 @@ if DisableCriticalCheck = 1
 	GuiControl,, NB, Ready - WARNING: CRITICAL CHECK IS OFF
 }
 return
+
 
 
 ;TODO
@@ -267,7 +272,7 @@ Transition(ClickThis,WaitForThis)
 		if ((Counter >= 20) && (Found == 0))
 		{
 			Counter = 0
-			ExpeditionCheck("daily")
+;			ExpeditionCheck("daily")
 		}
 		if (Found2 == true)
 		{
@@ -283,78 +288,7 @@ Transition(ClickThis,WaitForThis)
 	}
 }
 
-ExpeditionCheck(State := "")
-{			
-	global
-	loop,1
-	{
-		if (State == "Daily")
-		{
-			FormatTime, TimeString,% A_NowUTC, HHmm
-			GuiControl,, NB, %TimeString%
-			if ((TimeString <= 0755) || (TimeString >= 0810)){
-				break
-			}	
-		}
-		GuiControl,, NB, ExpeditionCheck running
-		loopcount := 1
-		while (loopcount != 0)
-		{
-			pc := [HPC]
-			tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-			tpc := 0
-			sleep 3000
-			pc := []
-			pc := [HPC,ExpeditionReceived1,ExpeditionReceived2,Androidpopup0,Androidpopup1,LoginCollect,LoginCollectNotice]
-			tpc := WaitForPixelColor(Homex,Homey,pc,,,5)
-			if tpc = 1
-			{
-				GuiControl,, NB,At home
-			}
-			else if or tpc = 2 or tpc = 3
-			{
-				GuiControl,, NB, Expedition Found
-				pc := []
-				pc := [HPC]
-				WaitForPixelColor(Homex,Homey,pc,Expeditionx,Expeditiony,30)
-				loopcount++
-			}
-			else if tpc = 4 or tpc = 5
-			{
-				GuiControl,, NB, Android popup Found
-				ClickS(AndroidpopupExitx,AndroidpopupExity)
-				loopcount++
-			}
-			else if tpc = 6
-			{
-				GuiControl,, NB, Login Collect Found
-				ClickS(LoginCollectExitx,LoginCollectExity)
-				loopcount++
-			}
-			else if tpc = 7
-			{	
-				GuiControl,, NB, Login Collect Notice
-				ClickS(LoginCollectNoticey,LoginCollectNoticey)
-				loopcount++
-			}
-			Else
-			{	
-				GuiControl,, NB, Initial Event notice Found
-				ClickS(Dailypopx,Dailypopy)
-				loopcount++
-			}
-			loopcount--
 
-		}
-	}
-	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
-	; while( Found == 0 )
-	; {
-	; 		ExpeditionCheck()
-	; 		Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0")
-	; }
-return
-}
 
 UpdateEnergy()
 {
@@ -415,7 +349,7 @@ TimeCheck()
 			}
 			RFindClick("Dorm\Return", "rNoxPlayer mc o30 w30000,50")
 			RFindClick("Dorm\Exit", "rNoxPlayer mc o30 w30000,50")
-			ExpeditionCheck()
+			;ExpeditionCheck()
 		}
 	}
 	if ((BatteryCollector == 1) && (BatteryChecker == 1))
@@ -579,7 +513,7 @@ Repair()
 		RFindClick("RepairOK", "rNoxPlayer mc o50 w30000,50")
 		RFindClick("RepairReturnFaded", "rNoxPlayer mc o50 w30000,50 ")
 		RFindClick("RepairReturn", "rNoxPlayer mc o50 w30000,50")
-		ExpeditionCheck("Daily")
+		; ExpeditionCheck("Daily")
 	}
 }
 
@@ -594,7 +528,7 @@ RSleep(min,max)
 ReplaceDPS(exhaustedDoll, loadedDoll, resetFilter:=False)
 {
 	Global
-	WFindClick("DollList\"%exhaustedDoll%, "rNoxPlayer mc a125,125,-590,-220",120) ; select Doll1
+	WFindClick("DollList\"%exhaustedDoll% , "rNoxPlayer mc a125,125,-590,-220", 120) ;select Doll1
 	if resetFilter
 	{
 		RFindClick("FilterYellow", "rNoxPlayer mc o20 w30000,50")
@@ -625,6 +559,11 @@ AddToSecondEchelon(doll, slot)
 	{
 		if (slot == 1)
 		{
+			if (AMDV == 1) {
+			random xee, 170, 250
+			random yee, 280, 630
+			ClickS(xee, yee)
+			}
 			ClickS(Role1x,Role1y)
 		}
 		else if (slot == 2)
@@ -717,26 +656,81 @@ Sortie2:
 	While (ExpeditionV == 1)
 	{
 		GuiControlGet, ExpeditionV
-		GuiControl,, NB, %ExpeditionV%
-		GuiControl,, NB, At home [Expedition only]
-		ExpeditionCheck()
-		if ( FactoryChecker == 1)
+		GuiControl,, NB, ExpOnlyCheck %ExpeditionV%
+		loopcount := 1
+		while (loopcount != 0)
 		{
-			Random, Factorytime, 250000, 300000
-			SetTimer, FactoryFlag, %Factorytime%
-			FactoryChecker--
+			FoundHome := FindClick(A_ScriptDir "\pics\FoundHome", "rNoxPlayer mc o40 Count1 n0 w500")
+			FoundExpedition := FindClick(A_ScriptDir "\pics\ExpeditionArrive", "rNoxPlayer mc o40 Count1 n0 w500")
+			FoundAutoBattle := FindClick(A_ScriptDir "\pics\AutoBattle", "rNoxPlayer mc o40 Count1 n0 w500")
+			FoundAndroidPop := FindClick(A_ScriptDir "\pics\AndroidPop", "rNoxPlayer mc o30 w3000,50 Count1 n0 a1200,,,-600")
+			FoundLoginCollectExit := FindClick(A_ScriptDir "\pics\LoginCollectExit", "rNoxPlayer mc o40 Count1 n0")
+			FoundLoginCollectNotice := FindClick(A_ScriptDir "\pics\LoginCollectNotice", "rNoxPlayer mc o40 Count1 n0")
+			FoundDailyPop := FindClick(A_ScriptDir "\pics\DailyPop", "rNoxPlayer mc o40 Count1 n0")
+			if (FoundHome == true)
+			{
+				GuiControl,, NB,At home
+			}
+			else if (FoundExpedition == true)
+			{
+				GuiControl,, NB, Expedition Found
+				RFindClick("ExpeditionArrive", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("ExpeditionConfirm", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			}
+			else if (FoundAutoBattle == true)
+			{
+				if (AutoBattleResendV == 1)
+				{
+				GuiControl,, NB, AutoBattle Found
+				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
+				sleep 5000
+				loop
+				{		
+					Found := FindClick(A_ScriptDir "\pics\AutoBattle", "rNoxPlayer mc o40 Count1 n0 w500")
+					if Found >= 1
+					{
+						break
+					}
+					else
+					{
+						RFindClick("TdollObtain", "rNoxPlayer mc o50 w30000,50")
+					}		
+				}
+				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("AutoBattleResend", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+				}
+				else if (AutoBattleResendV == 0)
+				{
+				GuiControl,, NB, AutoBattle Found
+				RFindClick("AutoBattle", "rNoxPlayer mc o50 w30000,50")
+				RFindClick("AutoBattleCancel", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+				}
+			}
+			else if (FoundAndroidPop == true)
+			{
+				GuiControl,, NB, Android popup Found
+				RFindClick("ExitAndroid", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			}
+			else if (FoundLoginCollectExit == true)
+			{
+				GuiControl,, NB, Login Collect Found
+				RFindClick("LoginCollectExit", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			
+			}
+			else if (FoundDailyPop == true)
+			{	
+				GuiControl,, NB, Initial Event notice Found
+				RFindClick("ExitNoticeFound", "rNoxPlayer mc o50 w30000,50")
+				loopcount++
+			}
+			loopcount--
+
 		}
-		GuiControl,, NB, FactoryFlag %FactoryFlag% 
-		sleep 1000
-		if ( FactoryFlag == 1)
-		{
-			clickS(Factoryx,Factoryy)
-			sleep 5000
-			pc := [HPC]
-			tpc := WaitForPixelColor(Homex,Homey,pc,FactoryReturnx,FactoryReturny,10)
-			FactoryFlag--
-		}
-		Production()
 	}
 
 	Repair()
@@ -786,7 +780,8 @@ Sortie2:
 			sleep 500
 			ReplaceDPS(exhaustedDoll2, loadedDoll2, True)
 		}
-		TFindClick("Echelon2","Echelon2Clicked")		
+		TFindClick("Echelon2","Echelon2Clicked")	
+		sleep 1000
 		AddToSecondEchelon(exhaustedDoll1, 1)
 		if (dualDPS)
 		{
@@ -797,7 +792,7 @@ Sortie2:
 		; Check expedition
 	}	
 
-	ExpeditionCheck("Daily")
+	; ExpeditionCheck("Daily")
 
 	Transition("Combat","CombatPage")
 
@@ -820,7 +815,7 @@ Sortie2:
 	GuiControl,, NB, At home
 
 	; Check expedition
-	ExpeditionCheck("Daily")
+	; ExpeditionCheck("Daily")
 	; Found := FindClick(A_ScriptDir "\pics\Home", "rNoxPlayer mc o50 Count1 n0 w5000,50")
 
 	Sortiecount++
@@ -842,392 +837,7 @@ Sortie2:
 	return	
 }
 
-; Sortie:
-; {
-; 	SetTimer, NBUpdate, Off
-; 	SetTimer, Delay, Off
-; 	BusyS := 1
-; 	DT := 0
-; 	TR := 0
-; 	GuiControl, Hide, SSB
-; 	CheckWindow()
-; 	Notify("AHKCSortie", "Preparing to send sortie",1)
 
-; 	; tpc := PixelGetColorS(FX,FY,3)
-; 	; GuiControl,, NB, Color is %tpc%
-; 	; sleep 2000
-; 	; GuiControl,, NB, HPC is %HPC%
-; 	; sleep 2000
-; 	; if (tpc = HPC)
-; 	; {
-; 	; 	GuiControl,, NB, Color is tpc = HPC
-; 	; 	sleep 2000
-; 	; }
-
-; 	; loop, 6
-; 	; {
-; 	; 	GuiControl,, NB, Checking HP %A_Index%
-; 	; 	tpc := PixelGetColorS(ShipHealthx,ShipHealthy[A_Index],3)
-; 	; 	GuiControl,, NB, Color is %tpc%
-; 	; 	if (tpc = RedHealthPC)
-; 	; 	{
-; 	; 		GuiControl,, NB, RED detected
-; 	; 		if (world !=1 and map != 1)
-; 	; 		{
-; 	; 			NC := Nodes
-; 	; 		}
-; 	; 	}
-; 	; }
-
-; 	if not (BP = 1 and DisableCriticalCheck = 1)
-; 	{
-; 		if not (world = 1 and map = 1)
-; 		{
-; 			Repair()
-; 		}
-; 	}
-; 	if not (BP = 1 and DisableResupply = 1)
-; 	{
-; 		Resupply(1)
-; 	}
-; 	tpc2 := PixelGetColorS(Gx,Gy,3)
-; 	if (tpc2 != HPC)
-; 	{
-; 		ClickS(Hx,Hy)
-; 		GuiControl,, NB, Waiting for home screen
-; 		pc := []
-; 		pc := [HPC]
-; 		WaitForPixelColor(Gx,Gy,pc)
-; 	}
-
-; 	ClickS(Sx,Sy)
-; 	GuiControl,, NB, Waiting for sortie screen
-; 	pc := []
-; 	pc := [SPC]
-;     WaitForPixelColor(Gx,Gy,pc)
-; 	ClickS(S2x,S2y)
-; 	GuiControl,, NB, Waiting for sortie selection screen
-; 	pc := []
-; 	pc := [S2PC]
-; 	WaitForPixelColor(Gx,Gy,pc)
-; 	tf := SPGx[World]
-; 	Sleep MiscDelay
-; 	ClickS(tf,PGy)
-; 	GuiControl,, NB, Starting sortie
-; 	Sleep MiscDelay
-; 	if(Map > 4)
-; 	{
-; 		pc := []
-; 		pc := [PG2SPC]
-; 		tpc := WaitForPixelColor(PGExtrax,PGExtray,pc,Extrax,Extray)
-; 	}
-; 	tfx := MAPx[Map]
-; 	tfy := MAPy[Map]
-; 	ClickS(tfx,tfy)
-; 	Sleep MiscDelay
-; 	ClickS(ESx,ESy)
-; 	Sleep MiscDelay
-; 	ClickS(ESx,ESy)
-; 	Notify("AHKCSortie", "Sortie started",1)
-; 	if SortieInterval != -1
-; 	{
-; 		SetTimer, Delay, %SortieInterval%
-; 		TR := 1
-; 		TCS := A_TickCount
-; 	}
-; 	NC := 1
-; 	Loop
-; 	{
-; 		GuiControl,, NB, Waiting for compass/formation
-; 		pc := []
-; 		pc := [CPC,FPC,IBPC]
-; 		tpc := WaitForPixelColor(LAx,LAy,pc,,,30)
-; 		Sleep MiscDelay
-; 		if tpc = 1
-; 		{
-; 			ClickS(ESx,ESy)
-; 			sleep 1000
-; 			GuiControl,, NB, Waiting for formation
-; 			pc := []
-; 			pc := [FPC,CPC,ResourceSortiePC,IBPC]
-; 			tpc2 := WaitForPixelColor(LAx,LAy,pc,,,30)
-; 			if tpc2 = 1
-; 			{
-; 				Sleep MiscDelay
-; 				if(World = 1 and Map = 5)
-; 				{
-; 					ClickS(LAbreastx,LAbreasty)
-; 				}
-; 				else if(world = 3 and map = 2)
-; 				{
-; 					ClickS(L_doublex,L_doubley)
-; 				}
-; 				else
-; 				{
-; 					ClickS(LAx,LAy)
-; 				}
-; 			}
-; 			else if tpc2 = 2
-; 			{
-; 				ClickS(ESx,ESy)
-; 				GuiControl,, NB, FIRST COMPASS PASSED Waiting for formation
-; 				pc := []
-; 				pc := [FPC,CPC,ResourceSortiePC,IBPC]
-; 				tpc3 := WaitForPixelColor(LAx,LAy,pc,,,30)
-; 				if tpc3 = 1
-; 				{
-; 					Sleep MiscDelay
-; 					if(World = 1 and Map = 5)
-; 					{
-; 						ClickS(LAbreastx,LAbreasty)
-; 					}
-; 					else
-; 					{
-; 						ClickS(LAx,LAy)
-; 					}
-; 				}
-; 				else if tpc3 = 2
-; 				{
-; 					pc := []
-; 					pc := [HPC,HEPC]
-; 					WaitForPixelColor(Gx,Gy,pc,ESBx,ESBy)
-; 					break
-; 				}
-; 				else if tpc3 = 3
-; 				{
-; 					pc := []
-; 					pc := [HPC,HEPC]
-; 					WaitForPixelColor(Gx,Gy,pc,ESBx,ESBy)
-; 					break
-; 				}
-
-; 			}
-; 			else if tpc2 = 3
-; 			{
-; 				pc := []
-; 				pc := [HPC,HEPC]
-; 				WaitForPixelColor(Gx,Gy,pc,ESBx,ESBy)
-; 				break
-; 			}
-; 		}
-; 		else if tpc = 2
-; 		{
-; 			if(World = 1 and Map = 5)
-; 			{
-; 				ClickS(LAbreastx,LAbreasty)
-; 			}
-; 			else
-; 			{
-; 				ClickS(LAx,LAy)
-; 			}
-; 		}
-; 		GuiControl,, NB, Waiting for results
-; 		pc := []
-; 		pc := [SRPC,NBPC,HPC,HEPC]
-; 		WaitForPixelColor(Gx,Gy,pc,,,250)
-; 		tpc := WaitForPixelColor(Gx,Gy,pc)
-; 		if tpc = 2
-; 		{
-; 			GuiControl,, NB, Cancelling night battle
-; 			Sleep 3000
-; 			ClickS(CNBx,CNBy)
-; 			GuiControl,, NB, Waiting for score1
-; 			pc := []
-; 			pc := [HealthScreenPC]
-; 			WaitForPixelColor(HealthScreenx,HealthScreeny,pc,HealthScreenx,HealthScreeny,250)
-; 			GuiControl,, NB, Checking HP
-; 			sleep 1000
-; 			loop, 6
-; 			{
-; 				GuiControl,, NB, Checking HP %A_Index%
-; 				tpc := PixelGetColorS(ShipHealthx,ShipHealthy[A_Index],3)
-; 				GuiControl,, NB, Color is %tpc%
-; 				if (tpc = RedHealthPC)
-; 				{
-; 					GuiControl,, NB, RED detected
-; 					sleep 1000
-; 					if(world = 1 and map = 1)
-; 					{
-
-; 					}
-; 					Else
-; 					{
-; 						NC := Nodes
-; 					}
-; 				}
-; 			}
-; 		}
-; 		else if (tpc = 3 or tpc = 4)
-; 		{
-; 			Break
-; 		}
-; 		else if (tpc != 2 or tpc != 3 or tpc != 4)
-; 		{
-; 			GuiControl,, NB, Waiting for score2
-; 			pc := []
-; 			pc := [HealthScreenPC]
-; 			WaitForPixelColor(HealthScreenx,HealthScreeny,pc,HealthScreenx,HealthScreeny,250)
-; 			GuiControl,, NB, Checking HP
-; 			sleep 1000
-; 			loop, 6
-; 			{
-; 				GuiControl,, NB, Checking HP %A_Index%
-; 				tpc := PixelGetColorS(ShipHealthx,ShipHealthy[A_Index],3)
-; 				GuiControl,, NB, Color is %tpc%
-; 				if (tpc = RedHealthPC)
-; 				{
-; 					GuiControl,, NB, RED detected
-; 					sleep 1000
-; 					if(world = 1 and map = 1)
-; 					{
-
-; 					}
-; 					Else
-; 					{
-; 						NC := Nodes
-; 					}
-; 				}
-; 			}
-; 		}
-; 		GuiControl,, NB, Waiting...
-; 		ClickS(FX,FY)
-; 		GuiControl,, NB, Checking next screen...
-; 		if(NC >= Nodes)
-; 		{
-; 			GuiControl,, NB, Sortie ending
-; 			sleep 1000
-; 		}
-; 		pc := []
-; 		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC]
-; 		tpc := WaitForPixelColor(Gx,Gy,pc,ESBx,ESBy)
-; 		if tpc != 8
-; 		{
-; 			Break
-; 		}
-; 		else if tpc = 8
-; 		{
-; 			GuiControl,, NB, Continue screen
-; 			Sleep 2000
-; 			if (NC >= Nodes)
-; 			{
-; 				GuiControl,, NB, Ending sortie
-; 				ClickS(ESBx,ESBy)
-; 			}
-; 			else
-; 			{
-; 				Notify("AHKCSortie", "Proceeding to next node",2)
-; 				GuiControl,, NB, Continuing Sortie
-; 				ClickS(CSBx,CSBy)
-; 			}
-; 		}
-; 		else
-; 		{
-; 			break
-; 		}
-; 		NC += 1
-; 	}Until NC > Nodes
-; 	; tpc6 := PixelGetColorS(ShipHealthx,ShipHealthy%A_Index%,3)
-; 	; if (tpc6 = ResourceSortiePC)
-; 	; {
-; 	; 	GuiControl,, NB, Resource screen
-; 	; 	ClickS(ESBx,ESBy)
-; 	; 	Sleep 3000
-
-; 	; }
-; 	;after selecting compass goes to resource screen
-; 	GuiControl,, NB, Waiting for home screen
-; 	pc := []
-; 	pc := [HPC,HEPC]
-; 	WaitForPixelColor(Gx,Gy,pc,ESBx,ESBy)
-; 	Notify("AHKCSortie", "Sortie completed",1)
-; 	GuiControl,, NB, Idle
-; 	BusyS := 0
-; 	GuiControl, Show, SSB
-; 	if SortieInterval != -1
-; 	{
-; 		BP := 0
-; 		SetTimer, NBUpdate, 2000
-; 	}
-; 	return
-; }
-
-; Resupply(r)
-; {
-;     global
-; 	GuiControl,, NB, Resupplying...
-; 	tpc := 0
-; 	tpc := PixelGetColorS(Gx,Gy,3)
-; 	if (tpc = HPC)
-; 	{
-;         loop
-; 		{
-;         Random, random_screen , 1, 5
-;         Goto, %random_screen%
-; 		1:
-; 		GuiControl,, NB, 1
-; 		ClickS(Rx,Ry)
-; 		break
-; 		2:
-; 		GuiControl,, NB, 2
-; 		ClickS(Refitx,Refity)
-; 		pc := []
-; 		pc := [RPC]
-; 		WaitForPixelColor(Gx,Gy,pc,SResupplyx,SResupplyy)
-; 		break
-; 		3:
-; 		GuiControl,, NB, 3
-; 		ClickS(Factoryx,Factoryy)
-; 		pc := []
-; 		pc := [RPC]
-; 		WaitForPixelColor(Gx,Gy,pc,SResupplyx,SResupplyy)
-; 		break
-; 		4:
-; 		GuiControl,, NB, 4
-; 		ClickS(Repairx,Repairy)
-; 		pc := []
-; 		pc := [RPC]
-; 		WaitForPixelColor(Gx,Gy,pc,SResupplyx,SResupplyy)
-; 		break
-; 		5:
-; 		GuiControl,, NB, 5
-; 		ClickS(Fleetx,Fleety)
-; 		pc := []
-; 		pc := [RPC]
-; 		WaitForPixelColor(Gx,Gy,pc,SResupplyx,SResupplyy)
-; 		break
-; 		}
-; 	}
-; 	else if (tpc != RPC)
-;     {
-;         ClickS(Hx,Hy)
-; 		pc := []
-; 		pc := [HPC]
-;         WaitForPixelColor(Gx,Gy,pc)
-;         ClickS(Rx,Ry)
-;     }
-; 	pc := []
-; 	pc := [RPC]
-; 	WaitForPixelColor(Gx,Gy,pc)
-; 	GuiControl,, NB, Resupplying fleet %r%
-;     Sleep MiscDelay
-; 	rti := 0
-; 	rti2 := 5
-; 	if (world = 1 and map = 1)
-; 	{
-; 		rti2 := 0
-; 	}
-; 	Loop
-; 	{
-; 		ClickS(SAx,SAy+50*rti)
-; 		rti := rti+1
-; 		Sleep 1
-; 	}Until (rti > rti2)
-; 	ClickS(ESx,ESy)
-; 	pc := []
-; 	pc := [RPC]
-; 	WaitForPixelColor(Gx,Gy,pc)
-; 	return
-; }
 
 WorldF:
 {
@@ -1432,6 +1042,7 @@ CombatSimsDataFlag:
 	return
 }
 
+
 #Include %A_ScriptDir%/Functions/Click.ahk
 #Include %A_ScriptDir%/Functions/TimerUtils.ahk
 #Include %A_ScriptDir%/Functions/PixelCheck.ahk
@@ -1443,6 +1054,8 @@ CombatSimsDataFlag:
 #Include %A_ScriptDir%/Functions/FindClick.ahk
 #Include %A_ScriptDir%/Constants/Maps.ahk
 #Include %A_ScriptDir%/Constants/Retirement.ahk
+#Include %A_ScriptDir%/Functions/Mouse.ahk
+
 
 
 Initialize()
@@ -1464,6 +1077,7 @@ Initialize()
 	CombatSimsDataChecker := 1
 	5Star = TYPE97,OTS14,HK416,G41,TYPE95,G11,FAL,WA2000
 	4Star = 
+	init_mouse()
 }
 
 GuiClose:
